@@ -23,7 +23,7 @@
     </script>
 </head>
 <body>
-<div id="app"></div>
+<div id="app">Loading...</div>
 <script>
     var gitalkConfig = {
         clientID: '4a657aa4ae6c0f1862a1',
@@ -60,7 +60,7 @@
                     var label, domObj, main, divEle, gitalk;
                     label = md5(decodeURI(vm.route.path.split("/").pop()));
                     domObj = Docsify.dom;
-                    main = domObj.getNode("#main");
+                    main = domloadSidebarObj.getNode("#main");
 
                     Array.apply(
                         null,
