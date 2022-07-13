@@ -12,8 +12,6 @@
     <!--    设置目录折叠-->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar.min.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar-folder.min.css"/>
-
-    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
     <script>
         var _hmt = _hmt || [];
         (function () {
@@ -85,7 +83,18 @@
         // ]
     }
 </script>
-<script type="text/javascript" src="static/miduo/work/PC/admin/js/jquery.goup.min.js"></script>
+<!--统计字数-->
+<script>
+    window.$docsify = {
+        count: {
+            countable: true,
+            fontsize: '0.9em',
+            color: 'rgb(90,90,90)',
+            language: 'chinese'
+        }
+    }
+</script>
+<script type="text/javascript" src="/assets/js/jquery.goup.min.js"></script>
 <!--返回顶部插件-->
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript">
@@ -114,17 +123,7 @@
 <script src="/assets/js/prism-java.min.js"></script>
 <!--图片收缩-->
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
-<!--统计字数-->
-<script>window.$docsify = {
-    count: {
-        countable: true,
-        fontsize: '0.9em',
-        color: 'rgb(90,90,90)',
-        language: 'chinese'
-    }
-}</script>
 <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
-<!--返回顶部-->
 
 </body>
 </html>
