@@ -21,18 +21,56 @@
             s.parentNode.insertBefore(hm, s);
         })();
     </script>
+    <style>
+        /*侧边栏*/
+        .sidebar {
+            padding-top: 6px;
+        }
+
+        aside.sidebar ul li {
+            margin: 0;
+            position: relative;
+        }
+
+        aside.sidebar ul li ul {
+            margin: 6px 0;
+        }
+
+        aside.sidebar ul li p {
+            padding-left: 22px;
+            font-size: 18px;
+            font-weight: normal;
+        }
+
+        aside.sidebar ul li a {
+            line-height: 35px;
+            font-size: 14px;
+            padding: 3px 0 3px 22px;
+        }
+
+        aside.sidebar ul li.active > a {
+            font-size: 16px !important;
+        }
+
+        aside.sidebar ul li.active > a:before {
+            content: '' !important;
+            position: absolute !important;
+            margin: 0 !important;
+            width: 10px !important;
+            height: 10px !important;
+            top: 15px !important;
+            left: 0px !important;
+            border-radius: 50% !important;
+            background-color: #fed24a !important;
+            box-shadow: 0 0 0 3px rgba(254, 210, 74, 0.4) !important;
+        }
+
+        /*以上调侧边栏*/
+    </style>
 </head>
 <body>
-<div id="app"></div>
+<div id="app">✈✈✈加载中...</div>
 <script>
-    // var gitalkConfig = {
-    //     clientID: '4a657aa4ae6c0f1862a1',
-    //     clientSecret: '94793d5bac0c884a8798ea941f7c5bc9fb004720',
-    //     repo: 'fuzhengwei.github.io',
-    //     owner: 'fuzhengwei',
-    //     admin: ["fuzhengwei"],
-    //     distractionFreeMode: false
-    // };
     window.$docsify = {
         name: '😎Memory',
         repo: 'https://gitee.com/LastedMemory/Memory',
@@ -43,6 +81,8 @@
         subMaxLevel: 2,
         //设置默认折叠的层级
         sidebarDisplayLevel: 1,
+        //外链打开方式：_blank表示在新标签页中打开
+        externalLinkTarget: '_blank',
         search: {
             paths: 'auto',
             placeholder: '🔍 搜索 ',
@@ -84,11 +124,12 @@
         footer: {
             copy: '<span id="sitetime"></span><br/><span>Copyright &copy; 2022.7起始</span>',
             pre: '<hr/>',
-            style: 'text-align: center;',
+            style: 'text-align: left;',
         },//添加页脚
     }
 </script>
-<!--&lt;!&ndash;统计字数&ndash;&gt;-->
+
+<!--统计字数-->
 <!--<script>-->
 <!--    window.$docsify = {-->
 <!--        count: {-->
@@ -101,15 +142,17 @@
 <!--</script>-->
 
 <!-- 回到顶部功能 -->
-<script src="https://notebook.js.org/plugin/jquery.js"></script>
-<script src="https://notebook.js.org/plugin/jquery.goup.js"></script>
+<!--<script src="https://notebook.js.org/plugin/jquery.js"></script>-->
+<!--<script src="https://notebook.js.org/plugin/jquery.goup.js"></script>-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.goup.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $.goup({
             trigger: 100,
             bottomOffset: 52,
             locationOffset: 25,
-            //title: 'TOP',
+            title: '返回顶部',
             titleAsText: true
         });
     });
@@ -134,27 +177,9 @@
 <!-- 访问量统计 -->
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<!-- 代码块样式优化-->
-<script src="https://notebook.js.org/plugin/prism-c.js"></script>
-<script src="https://notebook.js.org/plugin/prism-cpp.js"></script>
-<script src="https://notebook.js.org/plugin/prism-css.js"></script>
-<script src="https://notebook.js.org/plugin/prism-docker.js"></script>
-<script src="https://notebook.js.org/plugin/prism-java.js"></script>
-<script src="https://notebook.js.org/plugin/prism-javascript.js"></script>
-<script src="https://notebook.js.org/plugin/prism-json.js"></script>
-<script src="https://notebook.js.org/plugin/prism-latex.js"></script>
-<script src="https://notebook.js.org/plugin/prism-sql.js"></script>
-<script src="https://notebook.js.org/plugin/prism-markdown.js"></script>
-<script src="https://notebook.js.org/plugin/prism-bash.min.js"></script>
-<script src="https://notebook.js.org/plugin/prism-php.min.js"></script>
-<script src="https://notebook.js.org/plugin/prism-scala.min.js"></script>
-<script src="https://notebook.js.org/plugin/prism-nginx.min.js"></script>
-<script src="https://notebook.js.org/plugin/prism-json.min.js"></script>
-<script src="https://notebook.js.org/plugin/prism-markdown.min.js"></script>
-<script src="https://notebook.js.org/plugin/prism-python.js"></script>
-<script src="https://notebook.js.org/plugin/js/prism-yaml.js"></script>
-<script src="https://notebook.js.org/plugin/js/prism-go.js"></script>
-<script src="https://notebook.js.org/plugin/js/prism-matlab.js"></script>
+<!-- 添加页脚 -->
+<!--<script src="https://notebook.js.org/plugin/docsify-footer-enh.min.js"></script>-->
+<script src="/assets/js/docsify-footer-enh.min.js"></script>
 
 <!-- 添加网站运行时间统计 -->
 <script language=javascript>
@@ -180,7 +205,7 @@
         minutes - 0-59之间的整数，做为date对象的分钟数
         seconds - 0-59之间的整数，做为date对象的秒数
         microseconds - 0-999之间的整数，做为date对象的毫秒数 */
-        var t1 = Date.UTC(2019, 06, 21, 22, 22, 22); //北京时间2019-06-21 22:22:22 //计划考研的日子，6月20日毕业典礼结束后，人生需要继续努力，加油，看到这句话的朋友们！
+        var t1 = Date.UTC(2022, 07, 13, 17, 30, 00); //北京时间2022-07-13 17:30:00
         var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
         var diff = t2 - t1;
         var diffYears = Math.floor(diff / years);
@@ -190,6 +215,7 @@
         var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
         document.getElementById("sitetime").innerHTML = " 本站已安全运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分 " + diffSeconds + " 秒 ";
     }
+
     siteTime();
 </script>
 
