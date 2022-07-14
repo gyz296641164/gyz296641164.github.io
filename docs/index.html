@@ -175,8 +175,7 @@
 <script src="/assets/js/zoom-image.js"></script>
 <script src="/assets/js/prism-bash.js"></script>
 <script src="/assets/js/prism-java.min.js"></script>
-<!--图片收缩-->
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+
 <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
 <!-- 访问量统计 -->
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -184,6 +183,13 @@
 <!-- 添加页脚 -->
 <!--<script src="https://notebook.js.org/plugin/docsify-footer-enh.min.js"></script>-->
 <script src="/assets/js/docsify-footer-enh.min.js"></script>
+
+<!-- 实现离线化 -->
+<script>
+    if (typeof navigator.serviceWorker !== 'undefined') {
+        navigator.serviceWorker.register('pwa.js')
+    }
+</script>
 
 <!-- 添加网站运行时间统计 -->
 <script language=javascript>
