@@ -79,9 +79,9 @@
 
  - Spring Cloud
 
-   - [Spring Cloud(上)](/md/SpringCloud/Spring Cloud-Hoxton.SR1(上)/README.md) 
-   - [Spring Cloud(下)](/md/SpringCloud/Spring Cloud-Hoxton.SR1(下)/README.md)
-   - [Spring Cloud Alibaba](/md/SpringCloud/Spring Cloud Alibaba-2.1.0.RELEASE/README.md)
+   - [Spring Cloud(上)](/md/SpringCloud/SpringCloud上/README.md) 
+   - [Spring Cloud(下)](/md/SpringCloud/SpringCloud下/README.md)
+   - [Spring Cloud Alibaba](/md/SpringCloud/SpringCloudAlibaba/README.md)
 
  - MySQL
 
