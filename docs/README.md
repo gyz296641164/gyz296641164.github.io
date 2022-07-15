@@ -82,3 +82,15 @@ GitHub Pages 完整阅读：[进入](https://gyz296641164.github.io/#/)
 [参考资源1：尚硅mysql教程](https://www.bilibili.com/video/BV12b411K7Zu)
 
 [参考资源2：黑马Mysql教程](https://www.baidu.com)
+
+---
+
+# 并发编程
+
+- 01_并发编程基础
+- 02_共享模型之管程
+- 03_共享模型之内存
+- 04_共享模型之无锁
+- 05_共享模型之工具
+- 线程池ThreadPoolExecutor使用
+- 线程池ThreadPoolExecutor原理探究

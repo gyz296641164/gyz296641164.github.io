@@ -19,5 +19,5 @@
 
 <br>
 
-[Gitee](<https://gitee.com/LastedMemory/Memory>)
+[GitHub](<https://github.com/gyz296641164/gyz296641164.github.io>)
 [开始阅读](README.md)
