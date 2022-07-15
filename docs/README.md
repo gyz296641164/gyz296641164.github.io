@@ -1,10 +1,11 @@
-# 学习之路 🔥
 
-## docsify博客搭建
+# docsify博客搭建
 
-详细搭建博客文档：[详见](https://mp.weixin.qq.com/s/aK9Z9RkqWMUpcNzUREEx4Q)
+搭建博客文档：[详见](https://mp.weixin.qq.com/s/aK9Z9RkqWMUpcNzUREEx4Q)
 
-## 在线阅读地址
+docsify文档详细构建：[详见](https://notebook.js.org/#/Project/Docsify/docsifyNotes)
+
+# 在线阅读地址
 GitHub Pages 完整阅读：[进入](https://gyz296641164.github.io/#/)
 
 ---
@@ -57,5 +58,27 @@ GitHub Pages 完整阅读：[进入](https://gyz296641164.github.io/#/)
 - [Docker安装](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/%E5%9F%BA%E7%A1%80%E7%AF%87/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80.md#docker%E5%AE%89%E8%A3%85)
 - [Docker常用命令](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/基础篇/基础篇一.md#帮助启动类命令)
 
+---
 
+# SpringCloud
 
+## 相关工具及脑图
+
+- 链接: https://pan.baidu.com/s/1CLA_IM0z3_vrOP5mU_qMlg?pwd=wnw1
+- 提取码: wnw1 
+
+---
+
+# MySQL
+
+## 散记MySQL
+
+- MySQL架构介绍
+- 索引优化分析
+- MySQL中的锁
+- 常用SQL技巧
+- Sharding-JDBC分库分表
+
+[参考资源1：尚硅mysql教程](https://www.bilibili.com/video/BV12b411K7Zu)
+
+[参考资源2：黑马Mysql教程](https://www.baidu.com)
