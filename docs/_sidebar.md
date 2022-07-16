@@ -91,6 +91,23 @@
    - [常用SQL技巧](/md/mysql/散记MySQL/常用SQL技巧/README.md) 
    - [Sharding-JDBC分库分表](/md/mysql/散记MySQL/Sharding-JDBC分库分表/README.md) 
 
+ - Redis
+
+   - [初识Redis](/md/Redis/初识Redis/README.md) 
+   - [持久化](/md/Redis/持久化/README.md) 
+   - [Redis事务](/md/Redis/Redis事务/README.md) 
+   - [复制](/md/Redis/复制/README.md) 
+   - [哨兵](/md/Redis/哨兵/README.md) 
+   - [缓存设计](/md/Redis/缓存设计/README.md) 
+   - [JAVA操作Redis](/md/Redis/JAVA操作Redis/README.md) 
+   - [Redis常见面试题](/md/Redis/Redis常见面试题/README.md) 
+
  - 并发编程
      
-   - [高级篇三](/md/Docker/高级篇/高级篇三.md) 
+   - [并发编程基础](/md/并发编程/并发编程基础/README.md) 
+   - [共享模型之管程](/md/并发编程/共享模型之管程/README.md) 
+   - [共享模型之内存](/md/并发编程/共享模型之内存/README.md) 
+   - [共享模型之无锁](/md/并发编程/共享模型之无锁/README.md) 
+   - [共享模型之工具](/md/并发编程/共享模型之工具/README.md) 
+   - [线程池ThreadPoolExecutor使用](/md/并发编程/线程池ThreadPoolExecutor使用/README.md) 
+   - [线程池ThreadPoolExecutor原理探究](/md/并发编程/线程池ThreadPoolExecutor原理探究/README.md) 

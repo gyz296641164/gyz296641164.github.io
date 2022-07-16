@@ -23,20 +23,20 @@ GitHub Pages 完整阅读：[进入](https://gyz296641164.github.io/#/)
 
 ### 基础篇一
 
-- [Docker简介](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/%E5%9F%BA%E7%A1%80%E7%AF%87/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80.md#docker%E7%AE%80%E4%BB%8B)
-- [Docker安装](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/%E5%9F%BA%E7%A1%80%E7%AF%87/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80.md#docker%E5%AE%89%E8%A3%85)
-- [Docker常用命令](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/基础篇/基础篇一.md#帮助启动类命令)
+- Docker简介
+- Docker安装
+- Docker常用命令
 
 ### 基础篇二
 
-- [Docker镜像](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/%E5%9F%BA%E7%A1%80%E7%AF%87/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%BA%8C.md#docker%E9%95%9C%E5%83%8F)
+- Docker镜像
 
 ### 基础篇三
 
-- [本地镜像发布到阿里云](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/%E5%9F%BA%E7%A1%80%E7%AF%87/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89.md#%E6%9C%AC%E5%9C%B0%E9%95%9C%E5%83%8F%E5%8F%91%E5%B8%83%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91)
-- [本地镜像发布到私有库](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/%E5%9F%BA%E7%A1%80%E7%AF%87/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89.md#%E6%9C%AC%E5%9C%B0%E9%95%9C%E5%83%8F%E5%8F%91%E5%B8%83%E5%88%B0%E7%A7%81%E6%9C%89%E5%BA%93)
-- [Docker容器数据卷](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/%E5%9F%BA%E7%A1%80%E7%AF%87/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89.md#docker%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7)
-- [Docker常规安装简介](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/%E5%9F%BA%E7%A1%80%E7%AF%87/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%89.md#docker%E5%B8%B8%E8%A7%84%E5%AE%89%E8%A3%85%E7%AE%80%E4%BB%8B)
+- 本地镜像发布到阿里云
+- 本地镜像发布到私有库
+- Docker容器数据卷
+- Docker常规安装简介
 
 ### 高级篇一
 
@@ -51,12 +51,12 @@ GitHub Pages 完整阅读：[进入](https://gyz296641164.github.io/#/)
 
 ### 高级篇三
 
-- [Docker-compose容器编排](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/高级篇/高级篇三.md#docker-compose容器编排)
-- [Docker轻量级可视化工具Portainer](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/高级篇/高级篇三.md#docker轻量级可视化工具portainer)
-- [Docker容器监控之 CAdvisor+InfluxDB+Granfana](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/高级篇/高级篇三.md#docker容器监控之-cadvisorinfluxdbgranfana)
-- [进阶篇：K8S](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/高级篇/高级篇三.md#进阶篇k8s)
-- [Docker安装](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/%E5%9F%BA%E7%A1%80%E7%AF%87/%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B8%80.md#docker%E5%AE%89%E8%A3%85)
-- [Docker常用命令](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/基础篇/基础篇一.md#帮助启动类命令)
+- Docker-compose容器编排
+- Docker轻量级可视化工具Portainer
+- Docker容器监控之 CAdvisor+InfluxDB+Granfana
+- 进阶篇：K8S
+- Docker安装
+- Docker常用命令
 
 ---
 
@@ -85,7 +85,29 @@ GitHub Pages 完整阅读：[进入](https://gyz296641164.github.io/#/)
 
 ---
 
+# Redis
+
+## 介绍
+   
+我的Redis学习主要是参考《Redis设计与实现》、《Redis深度历险》、《Redis开发与运维》这三本书籍，Redis设计与实现讲解内容非常详细，而且文中有大量的代码案例与流程图示，对Redis初级体系架构的养成是非常不错的一本书籍。深度历险书中介绍了非常深刻的知识点，可作为知识的补充。而开发与运维广度非常全面，可以结合设计与实现来看。
+
+## 面试资源
+
+- 链接：https://pan.baidu.com/s/1beqHpYz4F0d2eHM5cnDxMw 
+- 提取码：6zt1 
+
+[参考仓库](https://gitee.com/LastedMemory/LearningNotes/tree/master)
+
+---
+
 # 并发编程
+
+## 思维导图
+
+- 链接：https://pan.baidu.com/s/1dOQPsg_k9iK_b0wu6cmcxA?pwd=ev0c 
+- 提取码：ev0c
+
+## 目录
 
 - 01_并发编程基础
 - 02_共享模型之管程
