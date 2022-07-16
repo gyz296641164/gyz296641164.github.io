@@ -86,6 +86,8 @@
         sidebarDisplayLevel: 1,
         //外链打开方式：_blank表示在新标签页中打开
         externalLinkTarget: '_blank',
+        //disqus评论
+        disqus: 'shortname',
         search: {
             paths: 'auto',
             placeholder: '🔍 搜索 ',
@@ -175,7 +177,8 @@
 <script src="/assets/js/zoom-image.min.js"></script>
 <script src="/assets/js/prism-bash.js"></script>
 <script src="/assets/js/prism-java.min.js"></script>
-
+<!--Disqus 评论-->
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/disqus.min.js"></script>
 <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
 
 <!-- 访问量统计 -->
@@ -191,14 +194,6 @@
         navigator.serviceWorker.register('pwa.js')
     }
 </script>
-
-<!--Disqus 评论-->
-<script>
-    window.$docsify = {
-        disqus: 'shortname'
-    }
-</script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/disqus.min.js"></script>
 
 <!-- 添加网站运行时间统计 -->
 <script language=javascript>
