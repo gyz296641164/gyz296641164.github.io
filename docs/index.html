@@ -160,11 +160,11 @@
         });
     });
 </script>
-
 </script>
 <!--目录折叠-->
 <!--<script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>-->
 <script src="/assets/js/docsify-sidebar-collapse.min.js"></script>
+
 <!--复制代码-->
 <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
 <script src="/assets/js/md5.js"></script>
@@ -177,6 +177,7 @@
 <script src="/assets/js/prism-java.min.js"></script>
 
 <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
+
 <!-- 访问量统计 -->
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
@@ -190,6 +191,14 @@
         navigator.serviceWorker.register('pwa.js')
     }
 </script>
+
+<!--Disqus 评论-->
+<script>
+    window.$docsify = {
+        disqus: 'shortname'
+    }
+</script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/disqus.min.js"></script>
 
 <!-- 添加网站运行时间统计 -->
 <script language=javascript>
