@@ -43,7 +43,7 @@ div#app {
 }
 
 div#app:empty:before {
-    content: "✈✈✈加载中..."
+    content: "Loading..."
 }
 
 .emoji {
@@ -76,7 +76,7 @@ body, html {
     height: 100%
 }
 
-body {
+/*body {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     color: var(--textColor);
@@ -85,11 +85,11 @@ body {
     letter-spacing: 0;
     margin: 0;
     overflow-x: hidden
-}
+}*/
 
-/*.markdown-section h2 {*/
-/*    color: #fff*/
-/*}*/
+.markdown-section h2 {
+    color: #fff
+}
 
 img {
     max-width: 100%
@@ -373,17 +373,17 @@ body.sticky .sidebar, body.sticky .sidebar-toggle {
     transition: left .25s ease
 }
 
-/*.markdown-section {
+.markdown-section {
     margin: 0 auto;
     max-width: 90%;
     padding: 30px 15px 40px;
     position: relative
 }
 
-.markdown-section > * {
+/*.markdown-section > * {
     box-sizing: border-box;
     font-size: inherit
-}
+}*/
 
 .markdown-section > :first-child {
     margin-top: 0 !important
@@ -436,7 +436,7 @@ body.sticky .sidebar, body.sticky .sidebar-toggle {
     position: relative
 }
 
-.markdown-section p.tip:before {
+/*.markdown-section p.tip:before {
     background-color: #f66;
     border-radius: 100%;
     color: #fff;
@@ -451,7 +451,7 @@ body.sticky .sidebar, body.sticky .sidebar-toggle {
     width: 20px;
     text-align: center;
     top: 14px
-}
+}*/
 
 .markdown-section p.tip code {
     background-color: #efefef
@@ -469,7 +469,7 @@ body.sticky .sidebar, body.sticky .sidebar-toggle {
 
 .markdown-section ul.task-list > li {
     list-style-type: none
-}*/
+}
 
 body.close .sidebar {
     transform: translateX(-300px)
@@ -561,7 +561,7 @@ body.close .content {
     #docsify-darklight-theme {
         position: absolute;
         left: 10px;
-        top: 5px;
+        top: 15px;
         width: 25px;
         height: 25px;
         background-repeat: no-repeat;
@@ -712,7 +712,7 @@ section.cover blockquote > p > a:hover {
     color: var(--accent)
 }
 
-/*.sidebar, body {
+.sidebar, body {
     background-color: var(--background);
     transition: background-image .15s ease-in-out .15s
 }
@@ -747,9 +747,9 @@ section.cover blockquote > p > a:hover {
     border-right: 2px solid;
     color: var(--accent);
     font-weight: 600
-}*/
+}
 
-/*.app-sub-sidebar li:before {
+.app-sub-sidebar li:before {
     content: "-";
     padding-right: 4px;
     float: left
@@ -814,10 +814,10 @@ section.cover blockquote > p > a:hover {
     padding-left: 20px
 }
 
-.markdown-section blockquote p {
+/*.markdown-section blockquote p {
     font-weight: 600;
     margin-left: 0
-}
+}*/
 
 .markdown-section iframe {
     margin: 1em 0
@@ -827,7 +827,7 @@ section.cover blockquote > p > a:hover {
     color: #7f8c8d
 }
 
-.markdown-section code {
+/*.markdown-section code {
     border-radius: 2px;
     color: var(--highlightColor);
     font-size: .9rem;
@@ -835,7 +835,7 @@ section.cover blockquote > p > a:hover {
     padding: 3px 5px;
     white-space: pre-wrap;
     font-weight: 700
-}
+}*/
 
 .markdown-section code, .markdown-section pre {
     background-color: var(--codeBackgroundColor);
@@ -851,7 +851,7 @@ section.cover blockquote > p > a:hover {
     padding: 0 1.4rem;
     position: relative;
     word-wrap: normal
-}*/
+}
 
 .token.cdata, .token.comment, .token.doctype, .token.prolog {
     color: #8e908c
@@ -934,7 +934,7 @@ section.cover blockquote > p > a:hover {
     cursor: help
 }
 
-.markdown-section pre > code {
+/*.markdown-section pre > code {
     -moz-osx-font-smoothing: initial;
     -webkit-font-smoothing: initial;
     background-color: var(--codeBackgroundColor);
@@ -949,11 +949,11 @@ section.cover blockquote > p > a:hover {
     overflow: inherit;
     padding: 2.2em 5px;
     white-space: inherit
-}
+}*/
 
-/*.markdown-section code:after, .markdown-section code:before {*/
-/*    letter-spacing: .05rem*/
-/*}*/
+.markdown-section code:after, .markdown-section code:before {
+    letter-spacing: .05rem
+}
 
 code .token {
     -moz-osx-font-smoothing: initial;
@@ -980,7 +980,7 @@ pre:after {
 #docsify-darklight-theme {
     position: absolute;
     right: 10px;
-    top: 5px;
+    top: 15px;
     width: 25px;
     height: 25px;
     background-repeat: no-repeat;
