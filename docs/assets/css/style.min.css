@@ -561,7 +561,7 @@ body.close .content {
     #docsify-darklight-theme {
         position: absolute;
         left: 10px;
-        top: 15px;
+        top: 5px;
         width: 25px;
         height: 25px;
         background-repeat: no-repeat;
@@ -750,7 +750,7 @@ section.cover blockquote > p > a:hover {
 }
 
 .app-sub-sidebar li:before {
-    content: "-";
+    /*content: "-";*/
     padding-right: 4px;
     float: left
 }
@@ -837,10 +837,10 @@ section.cover blockquote > p > a:hover {
     font-weight: 700
 }*/
 
-.markdown-section code, .markdown-section pre {
+/*.markdown-section code, .markdown-section pre {
     background-color: var(--codeBackgroundColor);
     font-family: var(--codeFontFamily)
-}
+}*/
 
 .markdown-section pre {
     -moz-osx-font-smoothing: initial;
@@ -951,9 +951,9 @@ section.cover blockquote > p > a:hover {
     white-space: inherit
 }*/
 
-.markdown-section code:after, .markdown-section code:before {
+/*.markdown-section code:after, .markdown-section code:before {
     letter-spacing: .05rem
-}
+}*/
 
 code .token {
     -moz-osx-font-smoothing: initial;
@@ -980,7 +980,7 @@ pre:after {
 #docsify-darklight-theme {
     position: absolute;
     right: 10px;
-    top: 15px;
+    top: 5px;
     width: 25px;
     height: 25px;
     background-repeat: no-repeat;
