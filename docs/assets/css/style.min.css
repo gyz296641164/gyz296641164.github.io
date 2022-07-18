@@ -749,11 +749,7 @@ section.cover blockquote > p > a:hover {
     font-weight: 600
 }
 
-.app-sub-sidebar li:before {
-    /*content: "-";*/
-    padding-right: 4px;
-    float: left
-}
+
 
 .markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section strong {
     color: var(--textColor);
@@ -814,10 +810,6 @@ section.cover blockquote > p > a:hover {
     padding-left: 20px
 }
 
-/*.markdown-section blockquote p {
-    font-weight: 600;
-    margin-left: 0
-}*/
 
 .markdown-section iframe {
     margin: 1em 0
@@ -826,21 +818,6 @@ section.cover blockquote > p > a:hover {
 .markdown-section em {
     color: #7f8c8d
 }
-
-/*.markdown-section code {
-    border-radius: 2px;
-    color: var(--highlightColor);
-    font-size: .9rem;
-    margin: 0 2px;
-    padding: 3px 5px;
-    white-space: pre-wrap;
-    font-weight: 700
-}*/
-
-/*.markdown-section code, .markdown-section pre {
-    background-color: var(--codeBackgroundColor);
-    font-family: var(--codeFontFamily)
-}*/
 
 .markdown-section pre {
     -moz-osx-font-smoothing: initial;
@@ -933,27 +910,6 @@ section.cover blockquote > p > a:hover {
 .token.entity {
     cursor: help
 }
-
-/*.markdown-section pre > code {
-    -moz-osx-font-smoothing: initial;
-    -webkit-font-smoothing: initial;
-    background-color: var(--codeBackgroundColor);
-    border-radius: 2px;
-    color: var(--codeTextColor);
-    display: block;
-    font-family: Roboto Mono, Monaco, courier, monospace;
-    font-size: .8rem;
-    line-height: inherit;
-    margin: 0 2px;
-    max-width: inherit;
-    overflow: inherit;
-    padding: 2.2em 5px;
-    white-space: inherit
-}*/
-
-/*.markdown-section code:after, .markdown-section code:before {
-    letter-spacing: .05rem
-}*/
 
 code .token {
     -moz-osx-font-smoothing: initial;
