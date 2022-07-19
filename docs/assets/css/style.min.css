@@ -739,51 +739,6 @@ section.cover blockquote > p > a:hover {
     font-weight: 600
 }
 
-.app-sub-sidebar li:before {
-    /*content: "-";*/
-    padding-right: 4px;
-    float: left
-}
-
-.markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section strong {
-    color: var(--textColor);
-    font-weight: 600
-}
-
-.markdown-section a {
-    color: var(--accent);
-    font-weight: 600;
-    text-decoration: none
-}
-
-.markdown-section h1 {
-    font-size: 2rem;
-    margin: 0 0 1rem
-}
-
-.markdown-section h2 {
-    font-size: 1.75rem;
-    margin: 45px 0 .8rem
-}
-
-.markdown-section h3 {
-    font-size: 1.5rem;
-    margin: 40px 0 .6rem
-}
-
-.markdown-section h4 {
-    font-size: 1.25rem
-}
-
-.markdown-section h5 {
-    font-size: 1rem
-}
-
-.markdown-section h6 {
-    color: #777;
-    font-size: 1rem
-}
-
 .markdown-section figure, .markdown-section p {
     margin: 1.2em 0
 }
