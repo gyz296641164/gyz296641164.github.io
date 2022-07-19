@@ -76,16 +76,6 @@ body, html {
     height: 100%
 }
 
-/*body {
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
-    color: var(--textColor);
-    font-family: var(--siteFont), Helvetica Neue, Arial, sans-serif;
-    font-size: var(--bodyFontSize);
-    letter-spacing: 0;
-    margin: 0;
-    overflow-x: hidden
-}*/
 
 .markdown-section h2 {
     color: #fff
@@ -827,15 +817,7 @@ section.cover blockquote > p > a:hover {
     color: #7f8c8d
 }
 
-/*.markdown-section code {
-    border-radius: 2px;
-    color: var(--highlightColor);
-    font-size: .9rem;
-    margin: 0 2px;
-    padding: 3px 5px;
-    white-space: pre-wrap;
-    font-weight: 700
-}*/
+
 
 /*.markdown-section code, .markdown-section pre {
     background-color: var(--codeBackgroundColor);
