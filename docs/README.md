@@ -1,12 +1,24 @@
+# 前言
+
+### 介绍
+
+记录学习过程中的点点滴滴！内容持续完善中。本人能力有限，文中有误之处还希望帮忙予以纠正。
+
+### 在线阅读地址
+
+GitHub Pages 完整阅读：[进入](https://yznotes.cn/)
+
+### 联系QQ
+
+![](https://studyimages.oss-cn-beijing.aliyuncs.com/img/qqImage.png)
+
+---
 
 # docsify博客搭建
 
-搭建博客文档：[详见](https://mp.weixin.qq.com/s/aK9Z9RkqWMUpcNzUREEx4Q)
+本文基于docsify搭建：[教程详见](https://mp.weixin.qq.com/s/aK9Z9RkqWMUpcNzUREEx4Q)
 
 docsify文档详细构建：[详见](https://notebook.js.org/#/Project/Docsify/docsifyNotes)
-
-# 在线阅读地址
-GitHub Pages 完整阅读：[进入](https://gyz296641164.github.io/#/)
 
 ---
 
@@ -40,14 +52,14 @@ GitHub Pages 完整阅读：[进入](https://gyz296641164.github.io/#/)
 
 ### 高级篇一
 
-- [Docker复杂安装详说](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/%E9%AB%98%E7%BA%A7%E7%AF%87/%E9%AB%98%E7%BA%A7%E7%AF%87%E4%B8%80.md)
+- Docker复杂安装详说
 
 ### 高级篇二
 
-- [DockerFile解析](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/%E9%AB%98%E7%BA%A7%E7%AF%87/%E9%AB%98%E7%BA%A7%E7%AF%87%E4%BA%8C.md#dockerfile%E8%A7%A3%E6%9E%90)
-- [DockerFile常用保留字指令](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/%E9%AB%98%E7%BA%A7%E7%AF%87/%E9%AB%98%E7%BA%A7%E7%AF%87%E4%BA%8C.md#dockerfile%E5%B8%B8%E7%94%A8%E4%BF%9D%E7%95%99%E5%AD%97%E6%8C%87%E4%BB%A4)
-- [Docker微服务实战](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/%E9%AB%98%E7%BA%A7%E7%AF%87/%E9%AB%98%E7%BA%A7%E7%AF%87%E4%BA%8C.md#docker%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E6%88%98)
-- [Docker网络](https://gitee.com/LastedMemory/study-notes/blob/master/Docker/%E9%AB%98%E7%BA%A7%E7%AF%87/%E9%AB%98%E7%BA%A7%E7%AF%87%E4%BA%8C.md#docker%E7%BD%91%E7%BB%9C)
+- DockerFile解析
+- DockerFile常用保留字指令
+- Docker微服务实战
+- Docker网络
 
 ### 高级篇三
 

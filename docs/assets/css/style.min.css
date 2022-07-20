@@ -551,7 +551,7 @@ body.close .content {
     #docsify-darklight-theme {
         position: absolute;
         left: 10px;
-        top: 5px;
+        top: -20px !important;
         width: 25px;
         height: 25px;
         background-repeat: no-repeat;
