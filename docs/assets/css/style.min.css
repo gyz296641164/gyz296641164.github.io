@@ -359,7 +359,7 @@ body.sticky .sidebar, body.sticky .sidebar-toggle {
     top: 0;
     right: 0;
     bottom: 0;
-    left: 300px;
+    left: 400px;
     transition: left .25s ease
 }
 
@@ -917,7 +917,7 @@ pre:after {
 #docsify-darklight-theme {
     position: absolute;
     right: 10px;
-    top: 5px;
+    top: -20px !important;
     width: 25px;
     height: 25px;
     background-repeat: no-repeat;
