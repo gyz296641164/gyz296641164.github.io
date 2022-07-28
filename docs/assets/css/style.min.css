@@ -42,9 +42,6 @@ div#app {
     text-align: center
 }
 
-div#app:empty:before {
-    content: "Loading..."
-}
 
 .emoji {
     height: 1.2rem;
@@ -76,6 +73,16 @@ body, html {
     height: 100%
 }
 
+body {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    color: var(--textColor);
+    font-family: var(--siteFont), Helvetica Neue, Arial, sans-serif;
+    font-size: var(--bodyFontSize);
+    letter-spacing: 0;
+    margin: 0;
+    overflow-x: hidden
+}
 
 .markdown-section h2 {
     color: #fff
@@ -359,7 +366,7 @@ body.sticky .sidebar, body.sticky .sidebar-toggle {
     top: 0;
     right: 0;
     bottom: 0;
-    left: 400px;
+    left: 300px;
     transition: left .25s ease
 }
 
@@ -370,10 +377,10 @@ body.sticky .sidebar, body.sticky .sidebar-toggle {
     position: relative
 }
 
-/*.markdown-section > * {
+.markdown-section > * {
     box-sizing: border-box;
     font-size: inherit
-}*/
+}
 
 .markdown-section > :first-child {
     margin-top: 0 !important
@@ -426,7 +433,7 @@ body.sticky .sidebar, body.sticky .sidebar-toggle {
     position: relative
 }
 
-/*.markdown-section p.tip:before {
+.markdown-section p.tip:before {
     background-color: #f66;
     border-radius: 100%;
     color: #fff;
@@ -441,7 +448,7 @@ body.sticky .sidebar, body.sticky .sidebar-toggle {
     width: 20px;
     text-align: center;
     top: 14px
-}*/
+}
 
 .markdown-section p.tip code {
     background-color: #efefef
@@ -551,7 +558,7 @@ body.close .content {
     #docsify-darklight-theme {
         position: absolute;
         left: 10px;
-        top: -20px !important;
+        top: -20px;
         width: 25px;
         height: 25px;
         background-repeat: no-repeat;
@@ -739,6 +746,46 @@ section.cover blockquote > p > a:hover {
     font-weight: 600
 }
 
+
+.markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section strong {
+    color: var(--textColor);
+    font-weight: 600
+}
+
+.markdown-section a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none
+}
+
+.markdown-section h1 {
+    font-size: 2rem;
+    margin: 0 0 1rem
+}
+
+.markdown-section h2 {
+    font-size: 1.75rem;
+    margin: 45px 0 .8rem
+}
+
+.markdown-section h3 {
+    font-size: 1.5rem;
+    margin: 40px 0 .6rem
+}
+
+.markdown-section h4 {
+    font-size: 1.25rem
+}
+
+.markdown-section h5 {
+    font-size: 1rem
+}
+
+.markdown-section h6 {
+    color: #777;
+    font-size: 1rem
+}
+
 .markdown-section figure, .markdown-section p {
     margin: 1.2em 0
 }
@@ -759,10 +806,10 @@ section.cover blockquote > p > a:hover {
     padding-left: 20px
 }
 
-/*.markdown-section blockquote p {
+.markdown-section blockquote p {
     font-weight: 600;
     margin-left: 0
-}*/
+}
 
 .markdown-section iframe {
     margin: 1em 0
@@ -772,12 +819,20 @@ section.cover blockquote > p > a:hover {
     color: #7f8c8d
 }
 
+.markdown-section code {
+    border-radius: 2px;
+    color: var(--highlightColor);
+    font-size: .9rem;
+    margin: 0 2px;
+    padding: 3px 5px;
+    white-space: pre-wrap;
+    font-weight: 700
+}
 
-
-/*.markdown-section code, .markdown-section pre {
+.markdown-section code, .markdown-section pre {
     background-color: var(--codeBackgroundColor);
     font-family: var(--codeFontFamily)
-}*/
+}
 
 .markdown-section pre {
     -moz-osx-font-smoothing: initial;
@@ -871,7 +926,7 @@ section.cover blockquote > p > a:hover {
     cursor: help
 }
 
-/*.markdown-section pre > code {
+.markdown-section pre > code {
     -moz-osx-font-smoothing: initial;
     -webkit-font-smoothing: initial;
     background-color: var(--codeBackgroundColor);
@@ -886,11 +941,11 @@ section.cover blockquote > p > a:hover {
     overflow: inherit;
     padding: 2.2em 5px;
     white-space: inherit
-}*/
+}
 
-/*.markdown-section code:after, .markdown-section code:before {
+.markdown-section code:after, .markdown-section code:before {
     letter-spacing: .05rem
-}*/
+}
 
 code .token {
     -moz-osx-font-smoothing: initial;
