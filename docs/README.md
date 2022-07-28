@@ -8,9 +8,11 @@
 
 GitHub Pages 完整阅读：[进入](https://yznotes.cn/)
 
-### 联系QQ
+### 联系方式
 
-![](https://studyimages.oss-cn-beijing.aliyuncs.com/img/qqImage.png)
+[//]: # (![]&#40;https://studyimages.oss-cn-beijing.aliyuncs.com/img/qqImage.png&#41; )
+QQ: 3355327159
+
 
 ---
 

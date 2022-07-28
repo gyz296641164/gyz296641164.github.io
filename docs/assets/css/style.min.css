@@ -243,7 +243,7 @@ main.hidden {
 }
 
 .anchor span {
-    color: var(--textColor)
+    color: #a2aebf;
 }
 
 .anchor:hover {
@@ -865,7 +865,7 @@ section.cover blockquote > p > a:hover {
 }
 
 .token.tag {
-    color: #2973b7
+    color: #7ee787
 }
 
 .token.string {
