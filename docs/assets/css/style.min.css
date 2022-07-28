@@ -42,9 +42,6 @@ div#app {
     text-align: center
 }
 
-div#app:empty:before {
-    content: "Loading..."
-}
 
 .emoji {
     height: 1.2rem;
@@ -243,116 +240,6 @@ main.hidden {
     text-decoration: underline
 }
 
-.sidebar {
-    border-right: 1px solid var(--borderColor);
-    overflow-y: auto;
-    padding: 40px 0 0;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    transition: transform .25s ease-out;
-    width: 300px;
-    z-index: 20
-}
-
-.sidebar > h1 {
-    margin: 0 auto 1rem;
-    font-size: 1.5rem;
-    font-weight: 300;
-    text-align: center
-}
-
-.sidebar > h1 a {
-    color: inherit;
-    text-decoration: none
-}
-
-.sidebar > h1 .app-nav {
-    display: block;
-    position: static
-}
-
-.sidebar .sidebar-nav {
-    line-height: 2em;
-    padding-bottom: 40px
-}
-
-.sidebar li.collapse .app-sub-sidebar {
-    display: none
-}
-
-.sidebar ul {
-    margin: 0 0 0 15px;
-    padding: 0
-}
-
-.sidebar li > p {
-    font-weight: 700;
-    margin: 0
-}
-
-.sidebar ul, .sidebar ul li {
-    list-style: none
-}
-
-.sidebar ul li a {
-    border-bottom: none;
-    display: block
-}
-
-.sidebar ul li ul {
-    padding-left: 20px
-}
-
-.sidebar::-webkit-scrollbar {
-    width: 4px
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-    background: transparent;
-    border-radius: 4px
-}
-
-.sidebar:hover::-webkit-scrollbar-thumb {
-    background: hsla(0, 0%, 53.3%, .4)
-}
-
-.sidebar:hover::-webkit-scrollbar-track {
-    background: hsla(0, 0%, 53.3%, .1)
-}
-
-.sidebar-toggle {
-    background-color: transparent;
-    border: 0;
-    outline: none;
-    padding: 10px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    text-align: center;
-    transition: opacity .3s;
-    width: 284px;
-    z-index: 30;
-    cursor: pointer
-}
-
-.sidebar-toggle:hover .sidebar-toggle-button {
-    opacity: .4
-}
-
-.sidebar-toggle span {
-    background-color: var(--accent);
-    display: block;
-    margin-bottom: 4px;
-    width: 16px;
-    height: 2px
-}
-
-body.sticky .sidebar, body.sticky .sidebar-toggle {
-    position: fixed
-}
-
 .content {
     padding-top: 60px;
     position: absolute;
@@ -363,111 +250,6 @@ body.sticky .sidebar, body.sticky .sidebar-toggle {
     transition: left .25s ease
 }
 
-.markdown-section {
-    margin: 0 auto;
-    max-width: 90%;
-    padding: 30px 15px 40px;
-    position: relative
-}
-
-/*.markdown-section > * {
-    box-sizing: border-box;
-    font-size: inherit
-}*/
-
-.markdown-section > :first-child {
-    margin-top: 0 !important
-}
-
-.markdown-section hr {
-    border: none;
-    border-bottom: 1px solid #eee;
-    margin: 2em 0
-}
-
-.markdown-section iframe {
-    border: 1px solid #eee;
-    width: 1px;
-    min-width: 100%
-}
-
-.markdown-section table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    display: block;
-    margin-bottom: 1rem;
-    overflow: auto;
-    width: 100%
-}
-
-.markdown-section th {
-    font-weight: 700
-}
-
-.markdown-section td, .markdown-section th {
-    border: 1px solid #ddd;
-    padding: 6px 13px
-}
-
-.markdown-section tr {
-    border-top: 1px solid #ccc
-}
-
-.markdown-section p.tip, .markdown-section tr:nth-child(2n) {
-    background-color: var(--codeBackgroundColor)
-}
-
-.markdown-section p.tip {
-    border-bottom-right-radius: 2px;
-    border-left: 4px solid #f66;
-    border-top-right-radius: 2px;
-    margin: 2em 0;
-    padding: 12px 24px 12px 30px;
-    position: relative
-}
-
-/*.markdown-section p.tip:before {
-    background-color: #f66;
-    border-radius: 100%;
-    color: #fff;
-    content: "!";
-    font-family: Dosis, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    left: -12px;
-    line-height: 20px;
-    position: absolute;
-    height: 20px;
-    width: 20px;
-    text-align: center;
-    top: 14px
-}*/
-
-.markdown-section p.tip code {
-    background-color: #efefef
-}
-
-.markdown-section p.tip em {
-    color: #34495e
-}
-
-.markdown-section p.warn {
-    background: rgba(66, 185, 131, .1);
-    border-radius: 2px;
-    padding: 1rem
-}
-
-.markdown-section ul.task-list > li {
-    list-style-type: none
-}
-
-body.close .sidebar {
-    transform: translateX(-300px)
-}
-
-body.close .sidebar-toggle {
-    width: auto
-}
 
 body.close .content {
     left: 0
@@ -497,11 +279,6 @@ body.close .content {
         overflow-x: hidden
     }
 
-    .sidebar {
-        left: -300px;
-        transition: transform .25s ease-out
-    }
-
     .content {
         left: 0;
         max-width: 100vw;
@@ -514,21 +291,6 @@ body.close .content {
         transition: transform .25s ease-out
     }
 
-    .sidebar-toggle {
-        background-color: transparent;
-        width: auto;
-        padding: 30px 30px 10px 10px
-    }
-
-    body.close .sidebar {
-        transform: translateX(300px)
-    }
-
-    body.close .sidebar-toggle {
-        transition: background-color 1s;
-        width: 284px;
-        padding: 10px
-    }
 
     body.close .content {
         transform: translateX(300px)
@@ -707,38 +469,6 @@ section.cover blockquote > p > a:hover {
     transition: background-image .15s ease-in-out .15s
 }
 
-.sidebar {
-    color: var(--textColor)
-}
-
-.sidebar li {
-    margin: 6px 0
-}
-
-.sidebar ul li a {
-    color: var(--sidebarSublink);
-    font-size: 14px;
-    font-weight: 400;
-    overflow: hidden;
-    text-decoration: none;
-    text-overflow: ellipsis;
-    white-space: nowrap
-}
-
-.sidebar ul li a:hover {
-    text-decoration: underline
-}
-
-.sidebar ul li ul {
-    padding: 0
-}
-
-.sidebar ul li.active > a {
-    border-right: 2px solid;
-    color: var(--accent);
-    font-weight: 600
-}
-
 .markdown-section figure, .markdown-section p {
     margin: 1.2em 0
 }
@@ -759,11 +489,6 @@ section.cover blockquote > p > a:hover {
     padding-left: 20px
 }
 
-/*.markdown-section blockquote p {
-    font-weight: 600;
-    margin-left: 0
-}*/
-
 .markdown-section iframe {
     margin: 1em 0
 }
@@ -771,13 +496,6 @@ section.cover blockquote > p > a:hover {
 .markdown-section em {
     color: #7f8c8d
 }
-
-
-
-/*.markdown-section code, .markdown-section pre {
-    background-color: var(--codeBackgroundColor);
-    font-family: var(--codeFontFamily)
-}*/
 
 .markdown-section pre {
     -moz-osx-font-smoothing: initial;
@@ -871,26 +589,6 @@ section.cover blockquote > p > a:hover {
     cursor: help
 }
 
-/*.markdown-section pre > code {
-    -moz-osx-font-smoothing: initial;
-    -webkit-font-smoothing: initial;
-    background-color: var(--codeBackgroundColor);
-    border-radius: 2px;
-    color: var(--codeTextColor);
-    display: block;
-    font-family: Roboto Mono, Monaco, courier, monospace;
-    font-size: .8rem;
-    line-height: inherit;
-    margin: 0 2px;
-    max-width: inherit;
-    overflow: inherit;
-    padding: 2.2em 5px;
-    white-space: inherit
-}*/
-
-/*.markdown-section code:after, .markdown-section code:before {
-    letter-spacing: .05rem
-}*/
 
 code .token {
     -moz-osx-font-smoothing: initial;
