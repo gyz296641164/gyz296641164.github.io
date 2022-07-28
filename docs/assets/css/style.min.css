@@ -372,7 +372,7 @@ body.sticky .sidebar, body.sticky .sidebar-toggle {
 
 .markdown-section {
     margin: 0 auto;
-    max-width: 90%;
+    max-width: 80%;
     padding: 30px 15px 40px;
     position: relative
 }
@@ -826,7 +826,6 @@ section.cover blockquote > p > a:hover {
     margin: 0 2px;
     padding: 3px 5px;
     white-space: pre-wrap;
-    font-weight: 700
 }
 
 .markdown-section code, .markdown-section pre {
@@ -858,7 +857,7 @@ section.cover blockquote > p > a:hover {
 }
 
 .token.punctuation {
-    color: #525252
+    color: #d4d710
 }
 
 .token.property {
