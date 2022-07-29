@@ -243,7 +243,7 @@ main.hidden {
 }
 
 .anchor span {
-    color: #a2aebf;
+    color: #b4b4b4;
 }
 
 .anchor:hover {
@@ -821,7 +821,7 @@ section.cover blockquote > p > a:hover {
 
 .markdown-section code {
     border-radius: 2px;
-    color: var(--highlightColor);
+    color: #e96900;
     font-size: .9rem;
     margin: 0 2px;
     padding: 3px 5px;
