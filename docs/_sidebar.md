@@ -1,6 +1,4 @@
-- [:octocat: 首页](/README)
-
-- JAVA基础
+- JAVA篇
 
    - Java工程师成神之路
    
