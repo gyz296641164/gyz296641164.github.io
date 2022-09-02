@@ -7,7 +7,7 @@
   - [MySQL](README?id=MySQL)
   - [Redis](README?id=Redis)
   - [并发编程](README?id=并发编程)
-- [<span class="iconfont icon-wodeguanzhu"></span> 关于本站](关于/)
+- [<span class="iconfont icon-wodeguanzhu"></span> 关于本站](md/关于/)
 
 
 
