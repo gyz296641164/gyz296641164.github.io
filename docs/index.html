@@ -134,7 +134,8 @@
         coverpage: true,
         // loadSidebar: true,//_sidebar.md如果为真，则从_sidebar.md文件加载边栏，否则从指定的路径加载
         loadNavbar: true,//_navbar.md如果为真，则从_navbar.md文件加载navbar ，否则从指定的路径加载
-        // mergeNavbar: true,//Navbar将在小屏幕上与侧边栏合并
+        mergeNavbar: true,//Navbar将在小屏幕上与侧边栏合并
+        formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}:{ss}', // 显示文档更新日期
         executeScript: true,//执行页面上的脚本。只解析第一个脚本标记（演示）。如果存在Vue，则默认开
         maxLevel: 4,
         subMaxLevel: 2,
@@ -166,6 +167,11 @@
             buttonText: '复制',
             errorText: '错误',
             successText: '复制成功'
+        },
+        vueComponents: {
+            'last-update-time': {
+                template: `<div style="text-align: right;">最近更新时间：<slot></slot></div>`
+            },
         },
         // plugins: [
         //     function (hook, vm) {
@@ -257,6 +263,9 @@
 
 <!-- 黑白主题风格切换 -->
 <script src="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/index.min.js" type="text/javascript"></script>
+
+<!-- 气泡动效 -->
+<script src="./assets/js/bubbles.min.js"></script>
 
 <!-- 实现离线化 -->
 <script>
