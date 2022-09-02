@@ -1,14 +1,14 @@
 # 前言
 
-### 介绍
+> 介绍
 
 记录学习过程中的点点滴滴！内容持续完善中。本人能力有限，文中有误之处还希望帮忙予以纠正。
 
-### 在线阅读地址
+> 在线阅读地址
 
 GitHub Pages 完整阅读：[进入](https://yznotes.cn/)
 
-### 联系方式
+> 联系方式
 
 [//]: # (![]&#40;https://studyimages.oss-cn-beijing.aliyuncs.com/img/qqImage.png&#41; )
 QQ: 3355327159
@@ -18,18 +18,18 @@ QQ: 3355327159
 
 # docsify博客搭建
 
-本文基于docsify搭建：[教程详见](https://mp.weixin.qq.com/s/aK9Z9RkqWMUpcNzUREEx4Q)
+- 本文基于docsify搭建：[教程详见](https://mp.weixin.qq.com/s/aK9Z9RkqWMUpcNzUREEx4Q)
 
-docsify文档详细构建：[详见](https://notebook.js.org/#/Project/Docsify/docsifyNotes)
+- docsify文档详细构建：[详见](https://notebook.js.org/#/Project/Docsify/docsifyNotes)
 
 ---
 # JAVA基础
 
-### JAVA基础
+> JAVA基础
 
 [Java工程师成神之路](https://hollischuang.gitee.io/tobetopjavaer/#/)
 
-### JAVA8
+> JAVA8
 
 《Java8实战》
 - 链接：https://pan.baidu.com/s/1W2SPqMvmnTu29hU01uiLgg?pwd=ed6a 
@@ -37,16 +37,16 @@ docsify文档详细构建：[详见](https://notebook.js.org/#/Project/Docsify/d
   
 ---
 
-# Docker_Study
+# Docker
 
-### 资料下载
+> 资料下载
 
 - 始于2022/4/1 !
 - word笔记、脑图资料：
     - 链接：https://pan.baidu.com/s/1wbnYrURPC5oV8cZsaoGjxA?pwd=vtkr
     - 提取码：vtkr
     
-### 目录
+> 目录
 
    - [Docker简介、Docker安装、Docker常用命令](/md/Docker/基础篇/基础篇一.md)
    - [Docker镜像](/md/Docker/基础篇/基础篇二.md)
@@ -60,57 +60,76 @@ docsify文档详细构建：[详见](https://notebook.js.org/#/Project/Docsify/d
 
 # SpringCloud
 
-### 相关工具及脑图
+> 资料下
 
 - 链接: https://pan.baidu.com/s/1CLA_IM0z3_vrOP5mU_qMlg?pwd=wnw1
 - 提取码: wnw1 
+
+> 目录
+
+   - [Spring Cloud - Hoxton.SR1(上)](/md/SpringCloud/SpringCloud上/README.md)
+   - [Spring Cloud - Hoxton.SR1(下)](/md/SpringCloud/SpringCloud下/README.md)
+   - [Spring Cloud Alibaba - 2.1.0.RELEASE](/md/SpringCloud/SpringCloudAlibaba/README.md)
 
 ---
 
 # MySQL
 
-### 散记MySQL
-
-- MySQL架构介绍
-- 索引优化分析
-- MySQL中的锁
-- 常用SQL技巧
-- Sharding-JDBC分库分表
+> 参考资源
 
 [参考资源1：尚硅mysql教程](https://www.bilibili.com/video/BV12b411K7Zu)
 
 [参考资源2：黑马Mysql教程](https://www.baidu.com)
 
+> 散记MySQL
+
+   - [MySQL架构介绍](/md/mysql/散记MySQL/MySQL架构介绍/README.md)
+   - [索引优化分析](/md/mysql/散记MySQL/索引优化分析/README.md)
+   - [MySQL中的锁](/md/mysql/散记MySQL/MySQL中的锁/README.md)
+   - [常用SQL技巧](/md/mysql/散记MySQL/常用SQL技巧/README.md)
+   - [Sharding-JDBC分库分表](/md/mysql/散记MySQL/Sharding-JDBC分库分表/README.md)
+   
 ---
 
 # Redis
 
-### 介绍
+> 介绍
    
 我的Redis学习主要是参考《Redis设计与实现》、《Redis深度历险》、《Redis开发与运维》这三本书籍，Redis设计与实现讲解内容非常详细，而且文中有大量的代码案例与流程图示，对Redis初级体系架构的养成是非常不错的一本书籍。深度历险书中介绍了非常深刻的知识点，可作为知识的补充。而开发与运维广度非常全面，可以结合设计与实现来看。
 
-### 面试资源
+[参考仓库](https://gitee.com/LastedMemory/LearningNotes/tree/master)
+
+> 面试资源
 
 - 链接：https://pan.baidu.com/s/1beqHpYz4F0d2eHM5cnDxMw 
 - 提取码：6zt1 
 
-[参考仓库](https://gitee.com/LastedMemory/LearningNotes/tree/master)
+> 目录
+
+   - [初识Redis](/md/Redis/初识Redis/README.md)
+   - [持久化](/md/Redis/持久化/README.md)
+   - [Redis事务](/md/Redis/Redis事务/README.md)
+   - [复制](/md/Redis/复制/README.md)
+   - [哨兵](/md/Redis/哨兵/README.md)
+   - [缓存设计](/md/Redis/缓存设计/README.md)
+   - [JAVA操作Redis](/md/Redis/JAVA操作Redis/README.md)
+   - [Redis常见面试题](/md/Redis/Redis常见面试题/README.md)
 
 ---
 
 # 并发编程
 
-### 思维导图
+> 资料下载
 
 - 链接：https://pan.baidu.com/s/1dOQPsg_k9iK_b0wu6cmcxA?pwd=ev0c 
 - 提取码：ev0c
 
-### 目录
+> 目录
 
-- 01_并发编程基础
-- 02_共享模型之管程
-- 03_共享模型之内存
-- 04_共享模型之无锁
-- 05_共享模型之工具
-- 线程池ThreadPoolExecutor使用
-- 线程池ThreadPoolExecutor原理探究
+   - [并发编程基础](/md/并发编程/并发编程基础/README.md)
+   - [共享模型之管程](/md/并发编程/共享模型之管程/README.md)
+   - [共享模型之内存](/md/并发编程/共享模型之内存/README.md)
+   - [共享模型之无锁](/md/并发编程/共享模型之无锁/README.md)
+   - [共享模型之工具](/md/并发编程/共享模型之工具/README.md)
+   - [线程池ThreadPoolExecutor使用](/md/并发编程/线程池ThreadPoolExecutor使用/README.md)
+   - [线程池ThreadPoolExecutor原理探究](/md/并发编程/线程池ThreadPoolExecutor原理探究/README.md)
