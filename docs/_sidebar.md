@@ -21,7 +21,7 @@
             - [第10章：用Optional取代null](/md/JAVA/Java8/第三部分-高效Java8编程/第10章-用Optional取代null.md)    
 
        - 总结
-            - [总结](docs/md/JAVA/Java8/总结/README.md)    
+            - [总结](/md/JAVA/Java8/总结/README.md)    
        
  - Linux
 

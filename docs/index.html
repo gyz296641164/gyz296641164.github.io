@@ -15,7 +15,7 @@
     <!--    <link rel="stylesheet" href="/assets/css/sidebar.min.css"/>-->
     <link rel="stylesheet" href="/assets/css/sidebar-folder.min.css"/>
     <!-- 黑白主题切换 -->
-<!--    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/style.min.css" title="docsify-darklight-theme" type="text/css"/>-->
+    <!--    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/style.min.css" title="docsify-darklight-theme" type="text/css"/>-->
     <link rel="stylesheet" href="/assets/css/style.min.css" title="docsify-darklight-theme" type="text/css"/>
     <script>
         var _hmt = _hmt || [];
@@ -27,6 +27,35 @@
         })();
     </script>
     <style>
+        .app-nav {
+            position: fixed;
+            margin: 0;
+            /*padding: 10px 50px 10px 0;*/
+            padding: 10px 0 10px 0; /*上、右、下、左*/
+            width: calc(100% - 325px);
+            background-color: #fff;
+            height: 55px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .markdown-section code {
+            border-radius: 2px;
+            font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+            font-size: 16px !important;
+            margin: 0 2px;
+            padding: 3px 5px;
+            white-space: nowrap;
+            border: 1px solid #282c34;
+            color: rgb(184, 101, 208);
+        }
+
+        .markdown-section > div > img, .markdown-section pre {
+            box-shadow: 2px 2px 20px 6px rgb(255, 255, 255) !important;
+        }
+
+        .markdown-section a:not(:hover) {
+            text-decoration: none;
+        }
 
 
         /*侧边栏*/
@@ -102,9 +131,12 @@
 
         /*滚动条样式 start*/
         /* 滚动条宽度 */
-        ::-webkit-scrollbar{width:5px;}
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
         /* 滚动条颜色 */
-        ::-webkit-scrollbar-thumb{
+        ::-webkit-scrollbar-thumb {
             background: #33a9dc;
             background-image: linear-gradient(#6ecd56, #33a9dc, #cb6196, #c16290);
             border-radius: 2em;
@@ -233,7 +265,9 @@
 </script>
 </script>
 <!--目录折叠-->
-<!--<script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>-->
+<
+!-- < script
+src = "//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js" ></script>-->
 <script src="/assets/js/docsify-sidebar-collapse.min.js"></script>
 
 <!--复制代码-->
