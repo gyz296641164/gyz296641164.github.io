@@ -20,4 +20,4 @@
 <br>
 
 [GitHub](<https://github.com/gyz296641164/gyz296641164.github.io>)
-[开始阅读](catalogs.md)
+[开始阅读](catalogs)
