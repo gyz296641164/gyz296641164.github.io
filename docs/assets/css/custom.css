@@ -1,0 +1,122 @@
+/*  */
+body {
+  cursor: url(../_img/arrow.cur), auto !important;
+}
+
+/* sidebar */
+.sidebar .search {
+  margin-bottom: 10px;
+}
+.sidebar .app-name {
+  margin-bottom: 0;
+  font-size: 0;
+}
+.sidebar .app-name .app-name-link, .sidebar .app-name .app-name-link .img {
+  display: block;
+}
+.sidebar .sidebar-nav {
+  line-height: 1.8em;
+}
+.sidebar .sidebar-nav > ul > li > a.section-link {
+  font-size: 15px;
+}
+
+/* 自定义 markdown-color-red 红色区域 */
+.markdown-color-red ul li {
+  color: red;
+}
+.markdown-color-red ul li a{
+  color: red;
+}
+
+.app-nav {
+  position: fixed;
+  margin: 0;
+  /*padding: 10px 50px 10px 0;*/
+  padding: 10px 0 10px 0; /*上、右、下、左*/
+  width: calc(100% - 325px);
+  background-color: #fff;
+  height: 55px;
+  border-bottom: 1px solid #eee;
+}
+
+/* app-nav */
+.app-nav > ul > li {
+  margin: 0 0.5rem;
+}
+/* cover */
+section.cover {
+  background: linear-gradient(to left bottom, hsl(17, 100%, 85%) 0%,hsl(194, 100%, 85%) 100%) !important;
+}
+section.cover .cover-main {
+  position: absolute;
+  margin: 0;
+  width: 100%;
+  z-index: 9;
+}
+section.cover .cover-main>p:last-child a:last-child:hover {
+  color: #fff;
+}
+/* canvas-effect */
+#app2 {
+  display: none;
+}
+body[data-page="README.md"] #app2 {
+  display: block;
+}
+/* 置顶组件 */
+.scroll-to-top {
+  font-size: 20px !important;
+  border: none !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  line-height: 2.5rem !important;
+  right: 1rem !important;
+  bottom: 2rem !important;
+  box-shadow: none !important;
+  transform: rotate(-45deg);
+  text-align: center !important;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1) !important;
+  /* chrome 浏览器不可选中  */
+  user-select: none;
+  /* safari 浏览器不可选中   */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+ /* firefox 浏览器不可选中  */
+  -moz-user-select: none;
+  /* microsoft IE浏览器不可选中 */
+  -ms-user-select: none;
+}
+.scroll-to-top:hover {
+  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.2) !important;
+}
+/* 鼠标点击效果 */
+.text-popup {
+  animation: textPopup 1s;
+  color: red;
+  user-select: none;
+  white-space: nowrap;
+  position: absolute;
+  z-index: 99;
+}
+@keyframes textPopup {
+  0%, 100% {
+    opacity: 0;
+  }
+  61.8% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px);    
+  }
+}
+/* 重置滚动条样式 */
+::-webkit-scrollbar {
+	width: 5px;
+}
+::-webkit-scrollbar-thumb {
+    background: #33a9dc;
+    background-image: linear-gradient(#6ecd56, #33a9dc, #cb6196, #c16290);
+    border-radius: 2em;
+}
