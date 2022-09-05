@@ -125,11 +125,71 @@ body[data-page="README.md"] #app2 {
     border-radius: 2em;
 }
 
+.markdown-section code {
+    border-radius: 2px;
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+    font-size: 16px !important;
+    margin: 0 2px;
+    padding: 3px 5px;
+    white-space: nowrap;
+    border: 1px solid #282c34;
+    color: rgb(184, 101, 208);
+}
+
+.markdown-section > div > img, .markdown-section pre {
+    box-shadow: 2px 2px 20px 6px rgb(255, 255, 255) !important;
+}
+
+.markdown-section a:not(:hover) {
+    text-decoration: none;
+}
+
+h1 span {
+    display: inline-block;
+    background: rgb(66, 185, 131);
+    color: #ffffff;
+    padding: 10px 16px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px black;
+}
+
+/*代码块背景*/
+p code {
+    background-color: rgb(255, 255, 255) !important;
+}
+
+.markdown-section p.tip,
+.markdown-section tr:nth-child(1n) {
+    font-size: 16px !important;
+}
+
+.markdown-section h1 {
+    margin: 3rem 0 2rem 0;
+}
+
+.markdown-section h2 {
+    margin: 2rem 0 1rem;
+}
+
+img,
+pre {
+    border-radius: 5px;
+}
+
+::after {
+    color: #9da2fd !important;
+    font-size: 13px !important;
+}
+
+.markdown-section > p {
+    font-size: 16px !important;
+}
+
 /* 代码块头部图标 start */
 .markdown-section pre:before {
     content: '';
     display: block;
-    background: url(/docs/images/topimage.png);
+    background: url(https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202209051811338.png);
     height: 30px;
     background-size: 40px;
     background-repeat: no-repeat;
@@ -288,10 +348,5 @@ h4 {
     padding: 0;
 }
 
-.advertisement .Tencent_code h4 {
-    font-size: 15px;
-    color: #25a46a;
-    margin-bottom: 10px;
-}
 
 
