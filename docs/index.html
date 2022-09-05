@@ -113,20 +113,40 @@
 <!--图片收缩-->
 <script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script>
 <!--语法高亮插件-->
-<script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
-<!--<script src="/assets/js/prism-java.min.js"></script>-->
+<!--<script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>-->
 <!--Disqus 评论-->
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/disqus.min.js"></script>
 <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
 <!-- 访问量统计 -->
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <!-- 添加页脚 -->
-<!--<script src="https://notebook.js.org/plugin/docsify-footer-enh.min.js"></script>-->
+<!--<script src="./assets/js/codestyle/docsify-footer-enh.min.js"></script>-->
 <script src="/assets/js/docsify-footer-enh.min.js"></script>
 <!-- 黑白主题风格切换 -->
 <!--<script src="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/index.min.js" type="text/javascript"></script>-->
 <!-- 气泡动效 -->
 <script src="./assets/js/bubbles.min.js"></script>
+<!-- 代码块样式优化-->
+<script src="./assets/js/codestyle/prism-c.js"></script>
+<script src="./assets/js/codestyle/prism-cpp.js"></script>
+<script src="./assets/js/codestyle/prism-css.js"></script>
+<script src="./assets/js/codestyle/prism-docker.js"></script>
+<script src="./assets/js/codestyle/prism-java.js"></script>
+<script src="./assets/js/codestyle/prism-javascript.js"></script>
+<script src="./assets/js/codestyle/prism-json.js"></script>
+<script src="./assets/js/codestyle/prism-latex.js"></script>
+<script src="./assets/js/codestyle/prism-sql.js"></script>
+<script src="./assets/js/codestyle/prism-markdown.js"></script>
+<script src="./assets/js/codestyle/prism-bash.min.js"></script>
+<script src="./assets/js/codestyle/prism-php.min.js"></script>
+<script src="./assets/js/codestyle/prism-scala.min.js"></script>
+<script src="./assets/js/codestyle/prism-nginx.min.js"></script>
+<script src="./assets/js/codestyle/prism-json.min.js"></script>
+<script src="./assets/js/codestyle/prism-markdown.min.js"></script>
+<script src="./assets/js/codestyle/prism-python.js"></script>
+<script src="./assets/js/codestyle/js/prism-yaml.js"></script>
+<script src="./assets/js/codestyle/js/prism-go.js"></script>
+<script src="./assets/js/codestyle/js/prism-matlab.js"></script>
 <!-- 回到顶部功能-->
 <script src="/assets/js/jquery.js"></script>
 <script src="/assets/js/jquery.goup.js"></script>
@@ -141,12 +161,6 @@
             titleAsText: true
         });
     });
-</script>
-<!-- 实现离线化 -->
-<script>
-    if (typeof navigator.serviceWorker !== 'undefined') {
-        navigator.serviceWorker.register('pwa.js')
-    }
 </script>
 <!--气泡-->
 <script>
@@ -202,6 +216,11 @@
 
     siteTime();
 </script>
-
+<!-- 实现离线化 -->
+<script>
+    if (typeof navigator.serviceWorker !== 'undefined') {
+        navigator.serviceWorker.register('pwa.js')
+    }
+</script>
 </body>
 </html>
