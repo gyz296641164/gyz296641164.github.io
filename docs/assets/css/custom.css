@@ -149,8 +149,8 @@ body[data-page="README.md"] #app2 {
     -moz-tab-size: 4 !important;
     -o-tab-size: 4 !important;
     tab-size: 4 !important;
-    /*border-radius: .3em;*/
 }
+
 
 ol, ul, li {
     line-height: 27px !important;
@@ -177,10 +177,48 @@ ol, ul, li {
     }
 }
 
+section.cover h1 {
+    margin: 0;
+}
+
+pre {
+    background-color: #212121 !important;
+}
+
 @media (min-width: 600px) {
     pre code {
         padding-left: 20px !important;
     }
+
+}
+
+@media (max-width: 600px) {
+    pre {
+        padding-left: 3px !important;
+        padding-right: 3px !important;
+        margin-left: -20px !important;
+        margin-right: -20px !important;
+        box-shadow: 0px 0px 20px 0px #f7f7f7 !important;
+    }
+
+    /*代码块复制按钮默认隐藏*/
+    .docsify-copy-code-button {
+        display: none;
+    }
+
+    .advertisement {
+        display: none;
+    }
+
+}
+
+.markdown-section pre {
+    padding-left: 0 !important;
+    padding-right: 0px !important;
+}
+
+.markdown-section {
+    margin: 0 3.2% !important;
 }
 
 /*修改代码块代码颜色显示*/
@@ -226,6 +264,34 @@ ol, ul, li {
 
 .token.number {
     color: #c0c3c1 !important;
+}
+
+a.section-link {
+    font-size: .9rem !important;
+}
+
+.advertisement {
+    position: fixed;
+    right: 20px;
+    top: 100px;
+    width: 110px;
+    box-shadow: -1px 0 2px 0px #c5ebda;
+    padding: 10px;
+    z-index: 99;
+    background-color: #fff;
+    text-align: center;
+}
+
+.advertisement p,
+h4 {
+    margin: 0;
+    padding: 0;
+}
+
+.advertisement .Tencent_code h4 {
+    font-size: 15px;
+    color: #25a46a;
+    margin-bottom: 10px;
 }
 
 
