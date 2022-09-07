@@ -7,7 +7,6 @@
     <meta name="description" content="Description">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <!--    <link rel="stylesheet" href="/assets/css/vue.css">-->
     <!--    设置目录折叠-->
     <!--    <link rel="stylesheet" href="/assets/css/sidebar-folder.min.css"/>-->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
@@ -22,7 +21,9 @@
     </style>
 </head>
 <body>
-<div id="app">✈✈✈加载中...</div>
+<div id="app">
+    <img width="32px" src="./images/Hotdance.gif" alt="loading"/>
+</div>
 <div id="app2">
     <bubbles-effect :options="options"></bubbles-effect>
 </div>
@@ -36,6 +37,7 @@
         auto2top: true, //当路线改变时,滚动到屏幕的顶部
         coverpage: true,
         // loadSidebar: true,//_sidebar.md如果为真，则从_sidebar.md文件加载边栏，否则从指定的路径加载
+        // autoHeader: true, // 同时设置 loadSidebar 和 autoHeader 后，可以根据 _sidebar.md 的内容自动为每个页面增加标题。
         loadNavbar: true,//_navbar.md如果为真，则从_navbar.md文件加载navbar ，否则从指定的路径加载
         mergeNavbar: true,//Navbar将在小屏幕上与侧边栏合并
         formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}:{ss}', // 显示文档更新日期
@@ -53,6 +55,7 @@
         //disqus评论
         disqus: 'shortname',
         search: {
+            maxAge: 86400000, // 过期时间，单位毫秒，默认一天
             paths: 'auto',
             placeholder: '🔍 搜索 ',
             noData: '😞 找不到结果! ',
@@ -108,8 +111,8 @@
 <!--<script src="/assets/js/docsify-sidebar-collapse.min.js"></script>-->
 <!--复制代码-->
 <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
-<!--搜索-->
-<script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
+<!-- 全文搜索-->
+<script src="//cdn.bootcss.com/docsify/4.5.9/plugins/search.min.js"></script>
 <!--分页-->
 <script src="/assets/js/docsify-pagination.min.js"></script>
 <!--图片收缩-->
@@ -122,33 +125,33 @@
 <!-- 访问量统计 -->
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <!-- 添加页脚 -->
-<!--<script src="./assets/js/codestyle/docsify-footer-enh.min.js"></script>-->
+<!--<script src=".https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/docsify-footer-enh.min.js"></script>-->
 <script src="/assets/js/docsify-footer-enh.min.js"></script>
 <!-- 黑白主题风格切换 -->
 <!--<script src="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/index.min.js" type="text/javascript"></script>-->
 <!-- 气泡动效 -->
 <script src="./assets/js/bubbles.min.js"></script>
 <!-- 代码块样式优化-->
-<script src="/assets/js/codestyle/prism-c.js"></script>
-<script src="/assets/js/codestyle/prism-cpp.js"></script>
-<script src="/assets/js/codestyle/prism-css.js"></script>
-<script src="/assets/js/codestyle/prism-docker.js"></script>
-<script src="/assets/js/codestyle/prism-java.js"></script>
-<script src="/assets/js/codestyle/prism-javascript.js"></script>
-<script src="/assets/js/codestyle/prism-json.js"></script>
-<script src="/assets/js/codestyle/prism-latex.js"></script>
-<script src="/assets/js/codestyle/prism-sql.js"></script>
-<script src="/assets/js/codestyle/prism-markdown.js"></script>
-<script src="/assets/js/codestyle/prism-bash.min.js"></script>
-<script src="/assets/js/codestyle/prism-php.min.js"></script>
-<script src="/assets/js/codestyle/prism-scala.min.js"></script>
-<script src="/assets/js/codestyle/prism-nginx.min.js"></script>
-<script src="/assets/js/codestyle/prism-json.min.js"></script>
-<script src="/assets/js/codestyle/prism-markdown.min.js"></script>
-<script src="/assets/js/codestyle/prism-python.js"></script>
-<script src="/assets/js/codestyle/js/prism-yaml.js"></script>
-<script src="/assets/js/codestyle/js/prism-go.js"></script>
-<script src="/assets/js/codestyle/js/prism-matlab.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-c.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-cpp.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-css.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-docker.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-java.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-javascript.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-json.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-latex.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-sql.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-markdown.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-bash.min.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-php.min.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-scala.min.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-nginx.min.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-json.min.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-markdown.min.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-python.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/js/prism-yaml.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/js/prism-go.js"></script>
+<script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/js/prism-matlab.js"></script>
 <!-- 回到顶部功能-->
 <script src="/assets/js/jquery.js"></script>
 <script src="/assets/js/jquery.goup.js"></script>

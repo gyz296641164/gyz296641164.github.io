@@ -18,11 +18,11 @@
 
 ### **JAVA8**
 
-《Java8实战》
+**《Java8实战》**
 - 链接：https://pan.baidu.com/s/1W2SPqMvmnTu29hU01uiLgg?pwd=ed6a 
 - 提取码：ed6a
 
-目录
+**目录**
 
 - [第1章-为什么要关心Java8](/md/JAVA/Java8/第一部分-基础知识/第1章-为什么要关心Java8.md)
 - [第2章-通过行为参数化传递代码](/md/JAVA/Java8/第一部分-基础知识/第2章-通过行为参数化传递代码.md)
