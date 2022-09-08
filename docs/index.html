@@ -24,7 +24,7 @@
 </head>
 <body>
 <div id="app">
-    <img width="32px" src="./images/Hotdance.gif" alt="loading"/>
+    <img width="32px" src="./images/mofang.gif" alt="loading"/>
 </div>
 <div id="app2">
     <bubbles-effect :options="options"></bubbles-effect>
@@ -77,6 +77,13 @@
             previousText: 'PREVIOUS',
             nextText: 'NEXT',
             crossChapter: true
+        },
+        scrollToTop: {      //返回顶部
+            auto: true,
+            text: '🚀',
+            right: 15,
+            bottom: 15,
+            offset: 500
         },
         //添加页脚
         footer: {
@@ -157,20 +164,20 @@
 <script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-go.js"></script>
 <script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-matlab.js"></script>
 <!-- 回到顶部功能-->
-<script src="/assets/js/jquery.js"></script>
-<script src="/assets/js/jquery.goup.js"></script>
+<!--<script src="/assets/js/jquery.js"></script>-->
+<!--<script src="/assets/js/jquery.goup.js"></script>-->
 <!--返回顶部-->
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.goup({
-            trigger: 100,
-            bottomOffset: 52,
-            locationOffset: 25,
-            // title: 'TOP',
-            titleAsText: true
-        });
-    });
-</script>
+<!--<script type="text/javascript">-->
+<!--    $(document).ready(function () {-->
+<!--        $.goup({-->
+<!--            trigger: 100,-->
+<!--            bottomOffset: 52,-->
+<!--            locationOffset: 25,-->
+<!--            // title: 'TOP',-->
+<!--            titleAsText: true-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 <!--气泡-->
 <script>
     // vue

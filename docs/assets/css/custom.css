@@ -10,6 +10,7 @@ body {
 .sidebar .app-name {
     margin-bottom: 0;
     font-size: 0;
+    margin-left: 15px;
 }
 
 .sidebar .app-name .app-name-link, .sidebar .app-name .app-name-link .img {
@@ -173,6 +174,10 @@ p code {
 img,
 pre {
     border-radius: 5px;
+}
+
+img {
+    max-width: 130%;
 }
 
 ::after {
