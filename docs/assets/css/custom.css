@@ -39,6 +39,13 @@ body {
     margin: 0 0.5rem;
 }
 
+.app-nav {
+    position: fixed;
+    margin: 0 4.5rem;
+    padding: 20px 0 10px 0;
+    width: calc(100% - 325px);
+}
+
 /* cover */
 section.cover {
     background: linear-gradient(to left bottom, hsl(17, 100%, 85%) 0%, hsl(194, 100%, 85%) 100%) !important;
@@ -177,7 +184,8 @@ pre {
 }
 
 img {
-    max-width: 130%;
+    margin-left: -10px;
+    max-inline-size: 550px;
 }
 
 ::after {

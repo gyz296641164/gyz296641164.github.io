@@ -78,13 +78,6 @@
             nextText: 'NEXT',
             crossChapter: true
         },
-        scrollToTop: {      //返回顶部
-            auto: true,
-            text: '🚀',
-            right: 15,
-            bottom: 15,
-            offset: 500
-        },
         //添加页脚
         footer: {
             copy: '<span id="sitetime"></span><br/><span>Copyright &copy; 2022.7.13 - 至今 &nbsp;</span>',
@@ -164,20 +157,20 @@
 <script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-go.js"></script>
 <script src="https://studyimages.oss-cn-beijing.aliyuncs.com/js/codestyle/prism-matlab.js"></script>
 <!-- 回到顶部功能-->
-<!--<script src="/assets/js/jquery.js"></script>-->
-<!--<script src="/assets/js/jquery.goup.js"></script>-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.goup.js"></script>
 <!--返回顶部-->
-<!--<script type="text/javascript">-->
-<!--    $(document).ready(function () {-->
-<!--        $.goup({-->
-<!--            trigger: 100,-->
-<!--            bottomOffset: 52,-->
-<!--            locationOffset: 25,-->
-<!--            // title: 'TOP',-->
-<!--            titleAsText: true-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.goup({
+            trigger: 100,
+            bottomOffset: 52,
+            locationOffset: 25,
+            // title: 'TOP',
+            titleAsText: true
+        });
+    });
+</script>
 <!--气泡-->
 <script>
     // vue
@@ -229,7 +222,6 @@
         var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
         document.getElementById("sitetime").innerHTML = " 本站已安全运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分 " + diffSeconds + " 秒 ";
     }
-
     siteTime();
 </script>
 <!-- 实现离线化 -->
