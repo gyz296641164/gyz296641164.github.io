@@ -107,6 +107,10 @@
 
 ---
 <!-- tabs:start -->
+### **MySQL从入门到精通**  
+
+- 见64-90部分
+
 ### **散记MySQL**
 
 - [MySQL架构介绍](/md/mysql/散记MySQL/MySQL架构介绍/README.md)
@@ -115,8 +119,18 @@
 - [常用SQL技巧](/md/mysql/散记MySQL/常用SQL技巧/README.md)
 - [Sharding-JDBC分库分表](/md/mysql/散记MySQL/Sharding-JDBC分库分表/README.md)
    
-### **MySQL从入门到精通**   
-   
+### **参考资源**
+
+- [参考资源1：尚硅mysql教程](https://www.bilibili.com/video/BV12b411K7Zu)
+
+- [参考资源2：黑马Mysql教程](https://www.baidu.com)
+
+- [儒猿技术窝](https://apppukyptrl1086.pc.xiaoe-tech.com/detail/p_5e0c2a35dbbc9_MNDGDYba/6?product_id=p_5e0c2a35dbbc9_MNDGDYba)
+
+<!-- tabs:end -->
+---
+<!-- panels:start -->
+<!-- div:left-panel -->
 - [64 深入研究索引之前，先来看看磁盘数据页的存储结构](/md/mysql/从零开始带你成为MySQL实战优化高手/64-108/64.md)   
 - [65 假设没有任何索引，数据库是如何根据查询语句搜索数据的？](/md/mysql/从零开始带你成为MySQL实战优化高手/64-108/65.md)   
 - [66 不断在表中插入数据时，物理存储是如何进行页分裂的？](/md/mysql/从零开始带你成为MySQL实战优化高手/64-108/66.md)   
@@ -130,6 +144,7 @@
 - [74 再来看看几个最常见和最基本的索引使用规则](/md/mysql/从零开始带你成为MySQL实战优化高手/64-108/74.md)   
 - [75 当我们在SQL里进行排序的时候，如何才能使用索引？](/md/mysql/从零开始带你成为MySQL实战优化高手/64-108/75.md)   
 - [76 当我们在SQL里进行分组的时候，如何才能使用索引？](/md/mysql/从零开始带你成为MySQL实战优化高手/64-108/76.md)   
+<!-- div:right-panel -->
 - [77 回表查询对性能的损害以及覆盖索引是什么？](/md/mysql/从零开始带你成为MySQL实战优化高手/64-108/77.md)   
 - [78 设计索引的时候，我们一般要考虑哪些因素呢？（上）](/md/mysql/从零开始带你成为MySQL实战优化高手/64-108/78.md)   
 - [79 设计索引的时候，我们一般要考虑哪些因素呢？（中）](/md/mysql/从零开始带你成为MySQL实战优化高手/64-108/79.md)   
@@ -144,16 +159,7 @@
 - [88 再次重温写出各种SQL语句的时候，会用什么执行计划？（1）](/md/mysql/从零开始带你成为MySQL实战优化高手/64-108/88.md)   
 - [89 再次重温写出各种SQL语句的时候，会用什么执行计划（2）](/md/mysql/从零开始带你成为MySQL实战优化高手/64-108/89.md)   
 - [90 再次重温写出各种SQL语句的时候，会用什么执行计划（3）](/md/mysql/从零开始带你成为MySQL实战优化高手/64-108/90.md)   
-   
-### **参考资源**
-
-- [参考资源1：尚硅mysql教程](https://www.bilibili.com/video/BV12b411K7Zu)
-
-- [参考资源2：黑马Mysql教程](https://www.baidu.com)
-
-- [儒猿技术窝](https://apppukyptrl1086.pc.xiaoe-tech.com/detail/p_5e0c2a35dbbc9_MNDGDYba/6?product_id=p_5e0c2a35dbbc9_MNDGDYba)
-
-<!-- tabs:end -->
+<!-- panels:end -->
 ---
 
 ## Redis :id=c06
