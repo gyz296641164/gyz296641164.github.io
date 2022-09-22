@@ -1,34 +1,5 @@
 <h1 align="center">共享模型之内存</h1>
 
-# 全文目录
-
-- [全文目录](#全文目录)
-- [1、Java内存模型](#1java内存模型)
-- [2、可见性](#2可见性)
-  - [2.1 退不出的循环](#21-退不出的循环)
-  - [2.1 解决方法](#21-解决方法)
-  - [2.3 可见性 vs 原子性](#23-可见性-vs-原子性)
-  - [2.4 终止模式之两阶段终止模式](#24-终止模式之两阶段终止模式)
-    - [2.4.1 概念](#241-概念)
-    - [2.4.2 实现](#242-实现)
-  - [2.5 模式之 Balking（犹豫）](#25-模式之-balking犹豫)
-- [3、有序性](#3有序性)
-  - [3.1 指令重排](#31-指令重排)
-  - [3.2 多线程下指令重排问题](#32-多线程下指令重排问题)
-- [3、volatile](#3volatile)
-  - [3.1 原理](#31-原理)
-  - [3.2 volatile是如何保证可见性](#32-volatile是如何保证可见性)
-  - [3.3 volatile是如何保证有序性](#33-volatile是如何保证有序性)
-  - [3.4 volatile不能解决原子性](#34-volatile不能解决原子性)
-  - [3.5 double-checked locking (双重检查锁) 问题](#35-double-checked-locking-双重检查锁-问题)
-  - [3.6 double-checked locking 解决指令重排问题](#36-double-checked-locking-解决指令重排问题)
-  - [3.7 happens-before](#37-happens-before)
-  - [3.8 练习题](#38-练习题)
-    - [3.8.1 balking 模式习题](#381-balking-模式习题)
-    - [3.8.2 线程安全单例习题](#382-线程安全单例习题)
-
----
-
 # 1、Java内存模型
 
 [好文推荐](https://zhuanlan.zhihu.com/p/29881777)
@@ -97,21 +68,21 @@ public class Test1 {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075643.png" alt="image-20210701232031928" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075643.png" />
 
 **为什么呢？分析一下：**  
 
 - 初始状态， t 线程刚开始从主内存读取了 run 的值到工作内存。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075644.png" alt="image-20210701232139454" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075644.png" />
 
 - 因为 t 线程要频繁从主内存中读取 run 的值，JIT 编译器会将 run 的值缓存至自己工作内存中的高速缓存中，减少对主存中 run 的访问，提高效率  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075645.png" alt="image-20210701232237795" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075645.png" />
 
 - 1 秒之后，main 线程修改了 run 的值，并同步至主存，而 t 是从自己工作内存中的高速缓存中读取这个变量的值，结果永远是旧值  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075646.png" alt="image-20210701232336049" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075646.png" />
 
 
 
@@ -247,7 +218,7 @@ putstatic i // 线程2-将修改后的值存入静态变量i 静态变量i=-1
 
 顾名思义，就是将终止过程分成两个阶段，其中第一个阶段主要是线程 T1 向线程 T2发送终止指令，而第二阶段则是线程 T2响应终止指令。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075647.png" alt="image-20210714133822429" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075647.png" />
 
 1. **错误思路**
 
@@ -264,7 +235,7 @@ putstatic i // 线程2-将修改后的值存入静态变量i 静态变量i=-1
 
 2. **两阶段终止模式**  
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075648.png" alt="image-20210714135631522" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075648.png" />
 
 ### 2.4.2 实现
 
@@ -324,7 +295,7 @@ class TPTInterrupt {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075649.png" alt="image-20210714145709677" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075649.png" />
 
 **使用volatile关键字来实现两阶段终止模式**：
 
@@ -399,7 +370,7 @@ class Monitor {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075650.png" alt="image-20210714145644902" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075650.png" />
 
 ## 2.5 模式之 Balking（犹豫）
 
@@ -598,7 +569,7 @@ java -jar target/jcstress.jar
 
 摘录其中一次结果 ：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075651.png" alt="image-20210702145353317" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075651.png" />
 
 出现为0的次数虽然很少，但是毕竟出现了。
 
@@ -636,7 +607,7 @@ public class ConcurrencyTest {
 
 结果为：  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075652.png" alt="image-20210702145600272" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075652.png" />
 
 
 
@@ -657,7 +628,7 @@ volatile 的底层实现原理是：`内存屏障`，`Memory Barrier（Memory Fe
 
 最出名的就是Intel 的`MESI协议`，`MESI协议`保证了每个缓存中使用的共享变量的副本是一致的。它核心的思想是：当CPU写数据时，如果发现操作的变量是共享变量，即在其他CPU中也存在该变量的副本，会发出信号通知其他CPU将该变量的缓存行置为无效状态，因此当其他CPU需要读取这个变量时，发现自己缓存中缓存该变量的缓存行是无效的，那么它就会从内存重新读取。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075653.png" alt="image-20210826103352820" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075653.png" />
 
 ## 3.2 volatile是如何保证可见性
 
@@ -688,7 +659,7 @@ volatile 的底层实现原理是：`内存屏障`，`Memory Barrier（Memory Fe
   
   ```
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075654.png" alt="1594698374315" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075654.png" />
 
 
 
@@ -720,7 +691,7 @@ volatile 的底层实现原理是：`内存屏障`，`Memory Barrier（Memory Fe
   
   ```
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075655.png" alt="1594698559052" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075655.png" />
 
 
 
@@ -732,7 +703,7 @@ volatile 的底层实现原理是：`内存屏障`，`Memory Barrier（Memory Fe
 
   下图t2线程, 就先读取了i=0, 此时还是会出现指令交错的现象, 可以使用`synchronized`来解决原子性
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075656.png" alt="1594698671628" style="zoom: 50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075656.png" />
 
 
 
@@ -847,7 +818,7 @@ volatile 的底层实现原理是：`内存屏障`，`Memory Barrier（Memory Fe
 
 - 通过上面的字节码发现, 这一步`INSTANCE = new Singleton();`操作不是一个`原子操作`, 它分为`21, 24两个指令`, 此时可能就会发生`指令重排`的问题
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075657.png" alt="1594701748458" style="zoom: 50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075657.png" />
 
 - 关键在于 `0: getstatic` 这行代码在 monitor 控制之外，它就像之前举例中不守规则的人，可以越过 monitor 读取 INSTANCE 变量的值
 
@@ -917,7 +888,7 @@ public final class Singleton {
 
 加上`volatile`之后, 保证了`指令的有序性`, 不会发生指令重排, 21就不会跑到24之后执行了:
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075658.png" alt="1594703228878" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075658.png" />
 
 
 

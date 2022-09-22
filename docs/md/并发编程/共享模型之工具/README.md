@@ -556,7 +556,409 @@ boolean isTerminated();
 boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException;
 ```
 
+---
 
+### 异步模式之工作线程  
+
+#### 1. 定义
+
+让有限的工作线程（Worker Thread）来轮流异步处理无限多的任务。也可以将其归类为分工模式，它的典型实现就是线程池，也体现了经典设计模式中的**享元模式**。
+
+例如，海底捞的服务员（线程），轮流处理每位客人的点餐（任务），如果为每位客人都配一名专属的服务员，那么成本就太高了（对比另一种多线程设计模式：Thread-Per-Message）。
+
+例如，如果一个餐馆的工人既要招呼客人（任务类型A），又要到后厨做菜（任务类型B）显然效率不咋地，分成服务员（线程池A）与厨师（线程池B）更为合理，当然你能想到更细致的分工。
+
+>  [!Note]注意，不同任务类型应该使用不同的线程池，这样能够避免饥饿，并能提升效率。
+
+#### 2. 饥饿
+
+> **固定大小线程池会有饥饿现象**
+
+- 两个工人是同一个线程池中的两个线程
+- 他们要做的事情是：为客人点餐和到后厨做菜，这是两个阶段的工作  
+  - 客人点餐：必须先点完餐，等菜做好，上菜，在此期间处理点餐的工人必须等待  
+  - 后厨做菜：没啥说的，做就是了  
+- 比如工人A 处理了点餐任务，接下来它要等着 工人B 把菜做好，然后上菜，他俩也配合的蛮好  
+- 但现在同时来了两个客人，这个时候工人A 和工人B 都去处理点餐了，这时没人做饭了，饥饿  
+
+> **示例代码**
+
+```java
+package com.gyz.demo.n8;
+
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+/**
+ *
+ * @Author gong_yuzhuo
+ * @Version 1.0.0
+ */
+@Slf4j(topic = "c.TestDeadLock")
+public class TestDeadLock {
+
+    static final List<String> MENU = Arrays.asList("地三鲜", "宫保鸡丁", "辣子鸡丁", "烤鸡翅");
+    static Random RANDOM = new Random();
+
+    static String cooking() {
+        return MENU.get(RANDOM.nextInt(MENU.size()));
+    }
+
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        executorService.execute(() -> {
+            log.debug("处理点餐...");
+            Future<String> f = executorService.submit(() -> {
+                log.debug("做菜");
+                return cooking();
+            });
+            try {
+                log.debug("上菜: {}", f.get());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        });
+/*executorService.execute(() -> {
+log.debug("处理点餐...");
+Future<String> f = executorService.submit(() -> {
+log.debug("做菜");
+return cooking();
+});
+try {
+log.debug("上菜: {}", f.get());
+} catch (InterruptedException | ExecutionException e) {
+e.printStackTrace();
+}
+});*/
+
+
+    }
+}
+```
+
+输出  
+
+```
+17:21:27.883 c.TestDeadLock [pool-1-thread-1] - 处理点餐...
+17:21:27.891 c.TestDeadLock [pool-1-thread-2] - 做菜
+17:21:27.891 c.TestDeadLock [pool-1-thread-1] - 上菜: 烤鸡翅
+```
+
+当注释取消后，可能的输出  
+
+```
+17:08:41.339 c.TestDeadLock [pool-1-thread-2] - 处理点餐...
+17:08:41.339 c.TestDeadLock [pool-1-thread-1] - 处理点餐...
+```
+
+解决方法可以增加线程池的大小，不过不是根本解决方案，还是前面提到的，不同的任务类型，采用不同的线程池，例如：  
+
+```java
+package com.gyz.demo.n8;
+
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+/**
+ *
+ * @Author gong_yuzhuo
+ * @Version 1.0.0
+ */
+@Slf4j(topic = "c.TestDeadLock")
+public class TestDeadLock {
+
+    static final List<String> MENU = Arrays.asList("地三鲜", "宫保鸡丁", "辣子鸡丁", "烤鸡翅");
+    static Random RANDOM = new Random();
+
+    static String cooking() {
+        return MENU.get(RANDOM.nextInt(MENU.size()));
+    }
+
+    public static void main(String[] args) {
+        ExecutorService waiterPool = Executors.newFixedThreadPool(1);
+        ExecutorService cookPool = Executors.newFixedThreadPool(1);
+        waiterPool.execute(() -> {
+            log.debug("处理点餐...");
+            Future<String> f = cookPool.submit(() -> {
+                log.debug("做菜");
+                return cooking();
+            });
+            try {
+                log.debug("上菜: {}", f.get());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        });
+        waiterPool.execute(() -> {
+            log.debug("处理点餐...");
+            Future<String> f = cookPool.submit(() -> {
+                log.debug("做菜");
+                return cooking();
+            });
+            try {
+                log.debug("上菜: {}", f.get());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+}
+```
+
+输出  
+
+```
+17:25:14.626 c.TestDeadLock [pool-1-thread-1] - 处理点餐...
+17:25:14.630 c.TestDeadLock [pool-2-thread-1] - 做菜
+17:25:14.631 c.TestDeadLock [pool-1-thread-1] - 上菜: 地三鲜
+17:25:14.632 c.TestDeadLock [pool-1-thread-1] - 处理点餐...
+17:25:14.632 c.TestDeadLock [pool-2-thread-1] - 做菜
+17:25:14.632 c.TestDeadLock [pool-1-thread-1] - 上菜: 辣子鸡丁
+```
+
+#### 3. 创建多少线程池合适
+
+- 过小会导致程序不能充分地利用系统资源、容易导致饥饿
+- 过大会导致更多的线程上下文切换，占用更多内存
+
+> **CPU 密集型运算**  
+
+通常采用 cpu 核数 + 1 能够实现最优的 CPU 利用率，+1 是保证当线程由于页缺失故障（操作系统）或其它原因导致暂停时，额外的这个线程就能顶上去，保证 CPU 时钟周期不被浪费。
+
+> **I/O 密集型运算**   
+
+CPU 不总是处于繁忙状态，例如，当你执行业务计算时，这时候会使用 CPU 资源，但当你执行 I/O 操作时、远程RPC 调用时，包括进行数据库操作时，这时候 CPU 就闲下来了，你可以利用多线程提高它的利用率。  
+
+**经验公式如下**：
+
+`线程数 = 核数 * 期望 CPU 利用率 * 总时间(CPU计算时间+等待时间) / CPU 计算时间  `
+
+例如 4 核 CPU 计算时间是 50% ，其它等待时间是 50%，期望 cpu 被 100% 利用，套用公式  
+
+`4 * 100% * 100% / 50% = 8`
+
+例如 4 核 CPU 计算时间是 10% ，其它等待时间是 90%，期望 cpu 被 100% 利用，套用公式  
+
+`4 * 100% * 100% / 10% = 40  `  
+
+### 任务调度线程池
+
+在『任务调度线程池』功能加入之前，可以使用 java.util.Timer 来实现定时功能，Timer 的优点在于简单易用，但由于所有任务都是由同一个线程来调度，因此所有任务都是串行执行的，同一时间只能有一个任务在执行，前一个任务的延迟或异常都将会影响到之后的任务。  
+
+```java
+    public static void main(String[] args) {
+        Timer timer = new Timer();
+        TimerTask task1 = new TimerTask() {
+            @Override
+            public void run() {
+                log.debug("task 1");
+                sleep(2);
+            }
+        };
+        TimerTask task2 = new TimerTask() {
+            @Override
+            public void run() {
+                log.debug("task 2");
+            }
+        };
+        // 使用 timer 添加两个任务，希望它们都在 1s 后执行
+        // 但由于 timer 内只有一个线程来顺序执行队列中的任务，因此『任务1』的延时，影响了『任务2』的执行
+        timer.schedule(task1, 1000);
+        timer.schedule(task2, 1000);
+    }
+```
+
+输出  
+
+```
+20:46:09.444 c.TestTimer [main] - start...
+20:46:10.447 c.TestTimer [Timer-0] - task 1
+20:46:12.448 c.TestTimer [Timer-0] - task 2
+```
+
+使用 ScheduledExecutorService 改写：  
+
+```java
+    public static void main(String[] args) {
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+        // 添加两个任务，希望它们都在 1s 后执行
+        executor.schedule(() -> {
+            System.out.println("任务1，执行时间：" + new Date());
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+            }
+        }, 1000, TimeUnit.MILLISECONDS);
+        executor.schedule(() -> {
+            System.out.println("任务2，执行时间：" + new Date());
+        }, 1000, TimeUnit.MILLISECONDS);
+    }
+```
+
+输出  
+
+```
+任务1，执行时间：Thu Jan 03 12:45:17 CST 2019
+任务2，执行时间：Thu Jan 03 12:45:17 CST 2019
+```
+
+scheduleAtFixedRate 例子：  
+
+```java
+    public static void main(String[] args) {
+        ScheduledExecutorService pool = Executors.newScheduledThreadPool(1);
+        log.debug("start...");
+        pool.scheduleAtFixedRate(() -> {
+            log.debug("running...");
+        }, 1, 1, TimeUnit.SECONDS);
+    }
+```
+
+输出  
+
+```
+21:45:43.167 c.TestTimer [main] - start...
+21:45:44.215 c.TestTimer [pool-1-thread-1] - running...
+21:45:45.215 c.TestTimer [pool-1-thread-1] - running...
+21:45:46.215 c.TestTimer [pool-1-thread-1] - running...
+21:45:47.215 c.TestTimer [pool-1-thread-1] - running...
+```
+
+scheduleAtFixedRate 例子（任务执行时间超过了间隔时间）：  
+
+```java
+        ScheduledExecutorService pool = Executors.newScheduledThreadPool(1);
+        log.debug("start...");
+        pool.scheduleAtFixedRate(() -> {
+            log.debug("running...");
+            sleep(2);
+        }, 1, 1, TimeUnit.SECONDS);
+```
+
+输出分析：一开始，延时 1s，接下来，由于任务执行时间 > 间隔时间，间隔被『撑』到了 2s  
+
+```
+21:44:30.311 c.TestTimer [main] - start...
+21:44:31.360 c.TestTimer [pool-1-thread-1] - running...
+21:44:33.361 c.TestTimer [pool-1-thread-1] - running...
+21:44:35.362 c.TestTimer [pool-1-thread-1] - running...
+21:44:37.362 c.TestTimer [pool-1-thread-1] - running...
+```
+
+scheduleWithFixedDelay 例子：  
+
+```java
+        ScheduledExecutorService pool = Executors.newScheduledThreadPool(1);
+        log.debug("start...");
+        pool.scheduleWithFixedDelay(() -> {
+            log.debug("running...");
+            sleep(2);
+        }, 1, 1, TimeUnit.SECONDS);
+```
+
+输出分析：一开始，延时 1s，scheduleWithFixedDelay 的间隔是 上一个任务结束 <-> 延时 <-> 下一个任务开始 所以间隔都是 3s  
+
+```
+21:40:55.078 c.TestTimer [main] - start...
+21:40:56.140 c.TestTimer [pool-1-thread-1] - running...
+21:40:59.143 c.TestTimer [pool-1-thread-1] - running...
+21:41:02.145 c.TestTimer [pool-1-thread-1] - running...
+21:41:05.147 c.TestTimer [pool-1-thread-1] - running...
+```
+
+> 评价: 整个线程池表现为：线程数固定，任务数多于线程数时，会放入无界队列排队。任务执行完毕，这些线
+> 程也不会被释放。用来执行延迟或反复执行的任务 
+
+### 正确处理执行任务异常
+
+方法1：主动捉异常   
+
+```java
+        ExecutorService pool = Executors.newFixedThreadPool(1);
+        pool.submit(() -> {
+            try {
+                log.debug("task1");
+                int i = 1 / 0;
+            } catch (Exception e) {
+                log.error("error:", e);
+            }
+        });
+```
+
+输出  
+
+![image-20220921232919466](https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220921232919.png)
+
+方法2：使用 Future  
+
+```java
+        ExecutorService pool = Executors.newFixedThreadPool(1);
+        Future<Boolean> f = pool.submit(() -> {
+            log.debug("task1");
+            int i = 1 / 0;
+            return true;
+        });
+        log.debug("result:{}", f.get());
+```
+
+输出  
+
+![image-20220921232905827](https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220921232906.png)
+
+### * 应用之定时任务
+
+```java
+package cn.itcast.n8;
+
+import java.time.DayOfWeek;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+public class TestSchedule {
+
+    // 如何让每周四 18:00:00 定时执行任务？
+    public static void main(String[] args) {
+        //  获取当前时间
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(now);
+        // 获取周四时间
+        LocalDateTime time = now.withHour(18).withMinute(0).withSecond(0).withNano(0).with(DayOfWeek.THURSDAY);
+        // 如果 当前时间 > 本周周四，必须找到下周周四
+        if(now.compareTo(time) > 0) {
+            time = time.plusWeeks(1);
+        }
+        System.out.println(time);
+        // initailDelay 代表当前时间和周四的时间差
+        // period 一周的间隔时间
+        long initailDelay = Duration.between(now, time).toMillis();
+        long period = 1000 * 60 * 60 * 24 * 7;
+        ScheduledExecutorService pool = Executors.newScheduledThreadPool(1);
+        pool.scheduleAtFixedRate(() -> {
+            System.out.println("running...");
+        }, initailDelay, period, TimeUnit.MILLISECONDS);
+    }
+}
+
+```
+
+---
 
 # AQS原理
 
@@ -798,7 +1200,7 @@ if (state 状态允许了){
 
 ## 主要用到 AQS 的并发工具类  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075918.png" alt="image-20210704161800179" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075918.png" />
 
 
 
@@ -821,7 +1223,7 @@ AQS 是用来构建锁或者其它同步器组件的重量级基础框架及**�
 
 **CLH**：`Craig、Landin and Hagersten 队列`，是一个`双向链表`，AQS中的队列是CLH变体的虚拟双向队列FIFO：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075919.png" alt="image-20210823101521209" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075919.png" />
 
 
 
@@ -837,7 +1239,7 @@ AQS 是用来构建锁或者其它同步器组件的重量级基础框架及**�
 
 官方解释
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075920.png" alt="image-20210823104457009" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075920.png" />
 
 有阻塞就需要排队，实现排队必然需要队列
 
@@ -865,7 +1267,7 @@ AQS 是用来构建锁或者其它同步器组件的重量级基础框架及**�
 
    CLH队列（三个人的名字组成），为一个双向队列，类似于银行侯客区的等待顾客
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075921.png" alt="image-20210823105258179" style="zoom:40%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075921.png" />
 
 3. 内部类Node（Node类在AQS类内部）
 
@@ -913,11 +1315,11 @@ AQS 是用来构建锁或者其它同步器组件的重量级基础框架及**�
        
    ```
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075922.png" alt="image-20210823105527564" style="zoom:50%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075922.png" />
 
 4. AQS同步队列的基本结构
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075923.png" alt="image-20210823105610538" style="zoom:50%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075923.png" />
 
 
 
@@ -927,11 +1329,11 @@ AQS 是用来构建锁或者其它同步器组件的重量级基础框架及**�
 
 - ReentrantLock
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075925.png" alt="image-20210823102312038" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075925.png" />
 
 - CountDownLatch
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075926.png" alt="image-20210823102421758" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075926.png" />
 
 - ReentrantReadWriteLock
 
@@ -984,7 +1386,7 @@ AQS 是用来构建锁或者其它同步器组件的重量级基础框架及**�
 
 - Semaphore
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075927.png" alt="image-20210823102801480" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075927.png" />
 
 - **进一步理解锁和同步器的关系**
 
@@ -1003,7 +1405,7 @@ AQS 是用来构建锁或者其它同步器组件的重量级基础框架及**�
 
 - 如果AB两个线程进来了以后，请问这个总共有多少个Node节点？答案是3个，其中队列的第一个是傀儡节点(哨兵节点)，如下图。
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075928.png" alt="image-20210823110242172" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075928.png" />
 
 
 
@@ -1015,23 +1417,23 @@ AQS 是用来构建锁或者其它同步器组件的重量级基础框架及**�
 
 在 `ReentrantLock` 内定义了静态内部类，分别为 `NoFairSync`（非公平锁）和 `FairSync`（公平锁）
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075929.png" alt="image-20210823143521545" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075929.png" />
 
 `ReentrantLock` 的构造函数：不传参数表示创建非公平锁；参数为 true 表示创建公平锁；参数为 false 表示创建非公平锁
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075930.png" alt="image-20210823143652152" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075930.png" />
 
 > **`lock()` 方法的执行流程：以 `NonfairSync` 为例**
 
-<img src="https://img-blog.csdnimg.cn/img_convert/dc2b26211d2bec8e0182f859d9df08e5.png" alt="image-20210121111748695" style="zoom:40%;" />
+<img src="https://img-blog.csdnimg.cn/img_convert/dc2b26211d2bec8e0182f859d9df08e5.png" />
 
 在 `ReentrantLock` 中，`NoFairSync` 和 `FairSync` 中 `tryAcquire()` 方法的区别，可以明显看出公平锁与非公平锁的`lock()`方法唯一的区别就在于公平锁在获取同步状态时多了一个限制条件:`hasQueuedPredecessors()`
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075931.png" alt="image-20210823145243137" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075931.png" />
 
 `hasQueuedPredecessors()` 方法是公平锁加锁时判断等待队列中是否存在有效节点的方法：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075932.png" alt="image-20210823145357869" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075932.png" />
 
 **公平锁与非公平锁的总结**
 
@@ -1041,15 +1443,15 @@ AQS 是用来构建锁或者其它同步器组件的重量级基础框架及**�
 
 2. 非公平锁：不管是否有等待队列，如果可以获取锁，则立刻占有锁对象。也就是说队列的第一 个排队线程在`unpark()`，之后还是需要竞争锁(存在线程竞争的情况下)
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075933.png" alt="image-20210823145539273" style="zoom:50%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075933.png"/>
 
 而 `acquire()` 方法最终都会调用 `tryAcquire()` 方法：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075934.png" alt="image-20210823145809459" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075934.png" />
 
 在 `NonfairSync` 和 `FairSync` 中均重写了其父类 `AbstractQueuedSynchronizer` 中的 `tryAcquire()` 方法
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075935.png" alt="image-20210823145837198" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075935.png" />
 
 
 
@@ -1109,11 +1511,11 @@ public class AQSDemo {
 
   由于第一次执行 `lock()` 方法，`state` 变量的值等于 0，表示 lock 锁没有被占用，此时执行 `compareAndSetState(0, 1)` CAS 判断，可得 `state == expected == 0`，因此 CAS 成功，将 `state` 的值修改为 1
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075936.png" alt="image-20210823150704797" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075936.png" />
 
 - 再来看看 `setExclusiveOwnerThread()` 方法做了啥：将拥有 lock 锁的线程修改为线程 A
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075937.png" alt="image-20210823150834786" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075937.png" />
 
 **再来看看线程 B（客户 B）的执行流程**
 
@@ -1121,31 +1523,31 @@ public class AQSDemo {
 
 - 由于第二次执行 lock() 方法，state 变量的值等于 1，表示 lock 锁被占用，此时执行 compareAndSetState(0, 1) CAS 判断，可得 `state != expected`，因此 CAS 失败，进入 acquire() 方法
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075938.png" alt="image-20210823151316456" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075938.png" />
 
 - `acquire()` 方法主要包含如下几个方法，下面我们一个一个来讲解
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075939.png" alt="image-20210823151347027" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075939.png" />
 
 - **`tryAcquire(arg)` 方法的执行流程**
 
   - 先来看看 `tryAcquire()` 方法，诶，怎么抛了个异常？别着急，仔细一看是 `AbstractQueuedSynchronizer` 抽象队列同步器中定义的方法，既然抛出了异常，就证明父类强制要求子类去实现（**模板设计模式的应用**）
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075940.png" alt="image-20210823151450047" style="zoom:50%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075940.png" />
 
   - `Ctrl + Alt + B`查看子类的实现
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075941.png" alt="image-20210823151633445" style="zoom:40%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075941.png" />
 
   - 这里以非公平锁 `NonfairSync` 为例，在 `tryAcquire()` 方法中调用了 `nonfairTryAcquire()` 方法，注意，这里传入的参数都是 1
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075942.png" alt="image-20210823151741149" style="zoom:50%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075942.png" />
 
 - **`nonfairTryAcquire(acquires)` 正常的执行流程：**
 
   - 在 nonfairTryAcquire() 方法中，大多数情况都是如下的执行流程：线程 B 执行 `int c = getState()` 时，获取到 state 变量的值为 1，表示 lock 锁正在被占用；于是执行 `if (c == 0)` { 发现条件不成立，接着执行下一个判断条件 `else if (current == getExclusiveOwnerThread()) {`，current 线程为线程 B，而`getExclusiveOwnerThread()` 方法返回正在占用 lock 锁的线程，为线程 A，因此 `tryAcquire() `方法最后会 `return false`，表示并没有抢占到 lock 锁
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075943.png" alt="image-20210823153045319" style="zoom:50%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075943.png" />
 
   - **补充**：`getExclusiveOwnerThread()` 方法返回正在占用 lock 锁的线程（排他锁，exclusive）
 
@@ -1156,7 +1558,7 @@ public class AQSDemo {
 
 - **继续往下走，执行 `addWaiter(Node.EXCLUSIVE)` 方法**
 
-  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075944.png" alt="image-20210823153506513" style="zoom:50%;" />
+  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075944.png" />
 
   - 在 `tryAcquire()` 方法返回 `false` 之后，进行 `!` 操作后为 `true`，那么会继续执行 `addWaiter()` 方法
 
@@ -1205,10 +1607,10 @@ public class AQSDemo {
 
     - 第一次执行 for 循环：当线程 B 进来时，双端同步队列为空，此时肯定要先构建一个哨兵节点。此时 `tail == null`，因此进入` if(t == null) `{ 的分支，头指针指向哨兵节点，此时队列中只有一个节点，尾节点即是头结点，因此尾指针也指向该`哨兵节点`
 
-      <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075945.png" alt="image-20210823154055846" style="zoom:50%;" />
+      <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075945.png" />
 
     - 第二次执行 for 循环：现在该将装着线程 B 的节点放入双端同步队列中，此时 tail 指向了哨兵节点，并不等于 null，因此 `if (t == null) `不成立，进入 else 分支。以尾插法的方式，先将 node（装着线程 B 的节点）的 prev 指向之前的 tail，再将 node 设置为尾节点（`执行 compareAndSetTail(t, node)`），最后将 `t.next` 指向 node，最后执行 `return t`结束 for 循环
-      <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075946.png" alt="image-20210823154158327" style="zoom:50%;" />
+      <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075946.png" />
 
     - **注意**：哨兵节点和 `nodeB` 节点的 `waitStatus` 均为 0，表示在等待队列中
 
@@ -1216,7 +1618,7 @@ public class AQSDemo {
 
     执行完 `addWaiter()` 方法之后，就该执行 `acquireQueued()` 方法了，这个方法有点东西，我们放到后面再去讲它
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075947.png" alt="image-20210823154359167" style="zoom:50%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075947.png" />
 
 **最后来看看线程 C（客户 C）的执行流程**
 
@@ -1224,11 +1626,11 @@ public class AQSDemo {
 
 但是在 `addWaiter()` 方法中，执行流程有些区别。此时 `tail != null`，因此在 `addWaiter()` 方法中就已经将 `nodeC` 添加至队尾了
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075948.png" alt="image-20210823154531674" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075948.png" />
 
 执行完 `addWaiter()` 方法后，就已经将 nodeC 挂在了双端同步队列的队尾，不需要再执行 `enq(node)` 方法
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075949.png" alt="image-20210823154601960" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075949.png" />
 
 **再看`acquireQueued()` 方法的执行逻辑**
 
@@ -1300,19 +1702,19 @@ private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
 
 注意：`compareAndSetWaitStatus(pred, ws, Node.SIGNAL) `调用 `unsafe.compareAndSwapInt(node, waitStatusOffset, expect, update); `实现，虽然 `compareAndSwapInt() `方法内无自旋，但是在 `acquireQueued() `方法中的 `for( ; ; ) `能保证此自选操作成功（另一种情况就是线程 B 抢占到 lock 锁）
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075950.png" alt="image-20210823155210711" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075950.png" />
 
 执行完上述操作，将哨兵节点的 `waitStatus` 设置为了 -1；
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075951.png" alt="image-20210823155304008" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075951.png" />
 
 执行完毕将退出 `if` 判断，又会重新进入 `for( ; ; )` 循环，此时执行 `shouldParkAfterFailedAcquire(p, node)` 方法时会返回 `true`，因此此时会接着执行 `parkAndCheckInterrupt()` 方法
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075952.png" alt="image-20210823155509480" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075952.png" />
 
 线程 B 调用 `park()` 方法后被挂起，程序不会然续向下执行，程序就在这儿排队等待
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075953.png" alt="image-20210823155545932" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075953.png" />
 
 **线程 C 的执行流程**
 
@@ -1345,17 +1747,17 @@ private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
 - **`release()` 方法的执行流程**
 
   - 其实主要就是看看 tryRelease(arg) 方法和 unparkSuccessor(h) 方法的执行流程，这里先大概说以下，能有个印象：线程 A 即将让出 lock 锁，因此 tryRelease() 执行后将返回 true，表示礼让成功，head 指针指向哨兵节点，并且 if 条件满足，可执行 unparkSuccessor(h) 方法
-  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075954.png" alt="image-20210823160315262" style="zoom:50%;" />
+  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075954.png" />
 
 - **`tryRelease(arg)` 方法的执行逻辑**
 
   - 又是 `AbstractQueuedSynchronizer` 类中定义的方法，又是抛了个异常
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075955.png" alt="image-20210823160505662" style="zoom:50%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075955.png" />
 
   - 线程 A 只加锁过一次，因此 `state` 的值为 1，参数 `release` 的值也为 1，因此 `c == 0`。将 `free` 设置为 `true`，表示当前 lock 锁已被释放，将排他锁占有的线程设置为 `null`，表示没有任何线程占用 lock 锁
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075956.png" alt="image-20210823160620538" style="zoom:50%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075956.png" />
 
 - **`unparkSuccessor(h)` 方法的执行逻辑**
 
@@ -1392,29 +1794,29 @@ private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
 
   - 执行完上述操作后，当前占用 lock 锁的线程为 `null`，哨兵节点的 `waitStatus` 设置为 0，`state` 的值为 0（表示当前没有任何线程占用 lock 锁）
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075957.png" alt="image-20210823161045805" style="zoom:50%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075957.png" />
 
 **继续来看 B 线程被唤醒之后的执行逻辑**
 
 再次回到 `lock()` 方法的执行流程中来，线程 B 被 `unpark()` 之后将不再阻塞，继续执行下面的程序，线程 B 正常被唤醒，因此 `Thread.interrupted()` 的值为 `false`，表示线程 B 未被中断。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075958.png" alt="image-20210823161154219" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075958.png" />
 
 回到上一层方法中，此时 lock 锁未被占用，线程 B 执行 `tryAcquire(arg)` 方法能够抢到 lock 锁，并且将 `state` 变量的值设置为 1，表示该 lock 锁已经被占用
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075959.png" alt="image-20210823161311056" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716075959.png" />
 
 接着来研究下 `setHead(node)` 方法：传入的节点为 `nodeB`，头指针指向 `nodeB` 节点；将 `nodeB` 中封装的线程置为 `null`（因为已经获得锁了）；`nodeB` 不再指向其前驱节点（哨兵节点）。这一切都是为了将 `nodeB` 作为新的哨兵节点
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080000.png" alt="image-20210823161342735" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080000.png" />
 
 执行完 `setHead(node)` 方法的状态如下图所示：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080001.png" alt="image-20210823161406541" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080001.png" />
 
 将 `p.next` 设置为 `null`，这是原来的哨兵节点就是完全孤立的一个节点，此时 `nodeB` 作为新的哨兵节点
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080002.png" alt="image-20210823161522801" style="zoom:40%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080002.png" />
 
 线程 C 也是类似的执行流程！！！
 
@@ -1424,7 +1826,7 @@ private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
 
 类图结构：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080003.png" alt="image-20210704162454239" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080003.png" />
 
 ## 非公平锁实现原理  
 
@@ -1440,11 +1842,11 @@ public ReentrantLock() {
 
 NonfairSync 继承自 AQS  ，没有竞争时  ：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080004.png" alt="image-20210704180526317" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080004.png" />
 
 第一个竞争出现时 ：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080005.png" alt="image-20210704180547663" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080005.png" />
 
 Thread-1 执行了  
 
@@ -1455,7 +1857,7 @@ Thread-1 执行了
    - Node 的创建是懒惰的
    - 其中第一个 Node 称为 Dummy（哑元）或哨兵，用来占位，并不关联线程  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080006.png" alt="image-20210704180641831" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080006.png" />
 
 当前线程进入 acquireQueued 逻辑  :
 
@@ -1465,7 +1867,7 @@ Thread-1 执行了
 
 3. 进入 shouldParkAfterFailedAcquire 逻辑，将前驱 node，即 head 的 waitStatus 改为 -1，这次返回 false  
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080007.png" alt="image-20210704180724479" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080007.png" />
 
 4. shouldParkAfterFailedAcquire 执行完毕回到 acquireQueued ，再次 tryAcquire 尝试获取锁，当然这时state 仍为 1，失败  
 
@@ -1473,11 +1875,11 @@ Thread-1 执行了
 
 6. 进入 parkAndCheckInterrupt， Thread-1 park（灰色表示）  
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080008.png" alt="image-20210704180758444" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080008.png" />
 
 再次有多个线程经历上述过程竞争失败，变成这个样子  :
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080009.png" alt="image-20210704180821536" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080009.png" />
 
 Thread-0 释放锁，进入 tryRelease 流程，如果成功  :
 
@@ -1491,7 +1893,7 @@ Thread-0 释放锁，进入 tryRelease 流程，如果成功  :
 找到队列中离 head 最近的一个 Node（没取消的），unpark 恢复其运行，本例中即为 Thread-1；
 回到 Thread-1 的 acquireQueued 流程  ：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080011.png" alt="image-20210704180926344" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080011.png" />
 
 如果加锁成功（没有竞争），会设置  ：
 
@@ -1501,7 +1903,7 @@ Thread-0 释放锁，进入 tryRelease 流程，如果成功  :
 
 如果这时候有其它线程来竞争（非公平的体现），例如这时有 Thread-4 来了  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080012.png" alt="image-20210704181006188" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080012.png" />
 
 如果不巧又被 Thread-4 占了先  ：
 
@@ -1975,19 +2377,19 @@ static final class FairSync extends Sync {
 开始 Thread-0 持有锁，调用 await，进入 ConditionObject 的 addConditionWaiter 流程；
 创建新的 Node 状态为 -2（Node.CONDITION），关联 Thread-0，加入等待队列尾部  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080013.png" alt="image-20210704182145999" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080013.png" />
 
 接下来进入 AQS 的 fullyRelease 流程，释放同步器上的锁  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080014.png" alt="image-20210704182200941" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080014.png" />
 
 unpark AQS 队列中的下一个节点，竞争锁，假设没有其他竞争线程，那么 Thread-1 竞争成功  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080015.png" alt="image-20210704182218691" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080015.png" />
 
 park 阻塞 Thread-0  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080016.png" alt="image-20210704182242234" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080016.png" />
 
 
 
@@ -1995,16 +2397,16 @@ park 阻塞 Thread-0
 
 假设 Thread-1 要来唤醒 Thread-0  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080017.png" alt="image-20210704182305210" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080017.png" />
 
 进入 ConditionObject 的 doSignal 流程，取得等待队列中第一个 Node，即 Thread-0 所在 Node  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080018.png" alt="image-20210704182320324" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080018.png" />
 
 执行 `transferForSignal` 流程，将该 Node 加入 AQS 队列尾部，将 Thread-0 的 `waitStatus` 改为 0，Thread-3 的
 `waitStatus` 改为 -1  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080019.png" alt="image-20210704182349010" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080019.png" />
 
 Thread-1 释放锁，进入 unlock 流程，略 !
 
@@ -2239,3 +2641,9 @@ private void doSignalAll(Node first) {
 
 ```
 
+---
+
+# todo
+
+- [ ] Tomcat 线程池  
+- [ ] Fork/Join  

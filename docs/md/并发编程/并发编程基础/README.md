@@ -1,62 +1,6 @@
 <h1 align="center">Java并发编程基础</h1>
 
 
-# 全文目录
-
-- [全文目录](#全文目录)
-- [1、进程与线程](#1进程与线程)
-  - [1.1 进程](#11-进程)
-  - [1.2 线程](#12-线程)
-  - [1.3 线程的生命周期](#13-线程的生命周期)
-- [2、线程创建与运行](#2线程创建与运行)
-  - [2.1 继承Thread类的方式实现](#21-继承thread类的方式实现)
-  - [2.2 实现Runnable接口的run方法方式](#22-实现runnable接口的run方法方式)
-  - [2.3 使用FutureTask的方式](#23-使用futuretask的方式)
-- [3、查看进程线程的方法](#3查看进程线程的方法)
-  - [3.1 windows](#31-windows)
-  - [3.2 linux](#32-linux)
-  - [3.3 Java](#33-java)
-- [4、线程运行原理](#4线程运行原理)
-  - [4.1 栈与栈帧](#41-栈与栈帧)
-  - [4.2 线程上下文切换（Thread Context Switch）](#42-线程上下文切换thread-context-switch)
-- [5、常见方法](#5常见方法)
-  - [5.1 start 与 run](#51-start-与-run)
-  - [5.2 线程通知与等待](#52-线程通知与等待)
-    - [5.2.1 wait()函数](#521-wait函数)
-    - [5.2.2 wait(long timeout)函数](#522-waitlong-timeout函数)
-    - [5.2.3 wait(long timeout, int nanos) 函数](#523-waitlong-timeout-int-nanos-函数)
-    - [5.2.4 notify() 函数](#524-notify-函数)
-    - [5.2.5 notifyAll() 函数](#525-notifyall-函数)
-  - [5.3 等待线程执行终止的join方法](#53-等待线程执行终止的join方法)
-    - [5.3.1 概述](#531-概述)
-    - [5.3.2 join方法示例](#532-join方法示例)
-  - [5.4 让线程睡眠的sleep方法](#54-让线程睡眠的sleep方法)
-    - [5.4.1 概述](#541-概述)
-    - [5.4.2 线程在睡眠时拥有的监视器资源不会被释放](#542-线程在睡眠时拥有的监视器资源不会被释放)
-  - [5.5 让出CPU执行权的yield方法](#55-让出cpu执行权的yield方法)
-    - [5.5.1 概述](#551-概述)
-    - [5.5.2 yield方法示例](#552-yield方法示例)
-    - [5.5.3 总结](#553-总结)
-  - [5.6 线程中断](#56-线程中断)
-    - [5.6.1 void interrupt（）方法](#561-void-interrupt方法)
-    - [5.6.2 boolean isInterrupted（）方法](#562-boolean-isinterrupted方法)
-    - [5.6.3 boolean interrupted（）方法](#563-boolean-interrupted方法)
-    - [5.6.4 方法示例](#564-方法示例)
-- [6、线程死锁](#6线程死锁)
-  - [6.1 什么是线程死锁](#61-什么是线程死锁)
-  - [6.2 举例说明死锁](#62-举例说明死锁)
-  - [6.3 如何避免线程死锁](#63-如何避免线程死锁)
-- [7、守护线程与用户线程](#7守护线程与用户线程)
-  - [7.1 概述](#71-概述)
-  - [7.2 Java中如何创建一个守护线程？](#72-java中如何创建一个守护线程)
-  - [7.3 用户线程与守护线程的区别](#73-用户线程与守护线程的区别)
-- [8、ThreadLocal](#8threadlocal)
-  - [8.1 ThreadLocal使用示例](#81-threadlocal使用示例)
-  - [8.2 ThreadLocal的实现原理](#82-threadlocal的实现原理)
-  - [8.3 ThreadLocal不支持继承性](#83-threadlocal不支持继承性)
-  - [8.4 InheritableThreadLocal类](#84-inheritablethreadlocal类)
-
----
 
 # 1、进程与线程  
 
@@ -84,7 +28,7 @@
 - 阻塞：在某种特殊情况下，被人为挂起或执行输入输出操作时，让出CPU并临时中止自己的执行，进入阻塞状态。
 - 死亡：线程完成了它的全部工作或线程被提前强制性地中止或出现异常导致结束。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750217.png" alt="image-20210618151142645" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750217.png" />
 
 
 
@@ -256,7 +200,7 @@ Java Virtual Machine Stacks （Java 虚拟机栈）
 - 每个栈由多个栈帧（Frame）组成，对应着每次方法调用时所占的内存。
 - 每个线程只能有一个活动栈帧，对应着当前正在执行的那个方法
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750219.png" alt="image-20210608235302453" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750219.png" />
 
 ## 4.2 线程上下文切换（Thread Context Switch）
 
@@ -554,7 +498,7 @@ public class WaitNotifyInterrupt {
 
 运行结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750220.png" alt="image-20210617180739514" style="zoom: 67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750220.png" />
 
 在如上代码中，threadA调用共享对象obj的wait（）方法后阻塞挂起了自己，然后主线程在休眠1s后中断了threadA线程，中断后threadA在obj.wait（）处抛出java.lang.InterruptedException异常而返回并终止。
 
@@ -853,7 +797,7 @@ public class JoinTest2 {
 
 运行结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750221.png" alt="image-20210618145616927" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750221.png" />
 
 如上代码在threadOne线程里面执行死循环，主线程调用threadOne的join方法阻塞自己等待线程threadOne执行完毕，待threadTwo休眠1s后会调用主线程的interrupt（）方法设置主线程的中断标志，从结果看在主线程中的threadOne.join（）处会抛出InterruptedException异常。这里需要注意的是，**在threadTwo里面调用的是主线程的interrupt（）方法，而不是线程threadOne的**。
 
@@ -935,7 +879,7 @@ public class SleepTest1 {
 
 运行结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750222.png" alt="image-20210618162313979" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750222.png" />
 
 如上代码首先创建了一个独占锁，然后创建了两个线程，每个线程在内部先获取锁，然后睡眠，睡眠结束后会释放锁。首先，无论你执行多少遍上面的代码都是线程A先输出或者线程B先输出，不会出现线程A和线程B交叉输出的情况。从执行结果来看，线程A先获取了锁，那么线程A会先输出一行，然后调用sleep方法让自己睡眠10s，在线程A睡眠的这10s内那个独占锁lock还是线程A自己持有，线程B会一直阻塞直到线程A醒来后执行unlock释放锁。
 
@@ -978,7 +922,7 @@ public class SleepTest2 {
 
 运行结果如下：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750223.png" alt="image-20210618163628818" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750223.png" />
 
 子线程在睡眠期间，主线程中断了它，所以子线程在调用sleep方法处抛出了InterruptedException异常。另外需要注意的是，如果在调用Thread.sleep（long millis）时为millis参数**传递了一个负数**，则会抛出**IllegalArgumentException异常**。
 
@@ -1036,13 +980,13 @@ public class YieldTest implements Runnable {
 
 运行结果如下：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750224.png" alt="image-20210618171524644" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750224.png" />
 
 如上代码开启了三个线程，每个线程的功能都一样，都是在for循环中执行5次打印。运行多次后，上面的结果是出现次数最多的。
 
 > 解开Thread.yield（）注释再执行，结果如下:
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750225.png" alt="image-20210618171957151" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750225.png" />
 
 从结果可知，Thread.yield（）方法生效了，三个线程分别在i=0时调用了Thread.yield（）方法，所以三个线程自己的两行输出没有在一起，因为输出了第一行后当前线程让出了CPU执行权。
 
@@ -1296,7 +1240,7 @@ public class InterruptTest4 {
 
 输出结果如下：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750229.png" alt="image-20210618183338728" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750229.png" />
 
 由输出结果可知，调用interrupted（）方法后**中断标志被清除**了。
 
@@ -1310,7 +1254,7 @@ public class InterruptTest4 {
 
 死锁是指两个或两个以上的线程在执行过程中，因争夺资源而造成的互相等待的现象，在无外力作用的情况下，这些线程会一直相互等待而无法继续运行下去，如图所示。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750230.png" alt="image-20210620132934364" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750230.png" />
 
 线程A已经持有了资源2，它同时还想申请资源1，线程B已经持有了资源1，它同时还想申请资源2，所以线程1和线程2就因为相互等待对方已经持有的资源，而进入了死锁状态。
 
@@ -1638,13 +1582,13 @@ public class DaemonThread {
 
 多线程访问同一个共享变量时特别容易出现并发问题，特别是在多个线程需要对一个共享变量进行写入时。为了保证线程安全，一般使用者在访问共享变量时需要进行适当的同步，如图所示。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750237.png" alt="image-20210620191120094" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750237.png" />
 
 当创建一个变量后，每个线程对其进行访问的时候访问的是自己线程的变量呢？其实ThreadLocal就可以做这件事情。
 
 ThreadLocal是JDK包提供的，它提供了线程本地变量，也就是如果你创建了一个ThreadLocal变量，那么访问这个**变量**的每个线程都会有这个变量的一个**本地副本**。当多个线程操作这个变量时，实际操作的是**自己本地内存里面的变量**，从而避免了线程安全问题。创建一个ThreadLocal变量后，每个线程都会复制一个变量到自己的本地内存，如图所示。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750238.png" alt="image-20210620191411889" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750238.png" />
 
 
 
@@ -1734,7 +1678,7 @@ public class ThreadLocalTest {
 
 > ThreadLocal相关类的类图结构如下图所示。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750241.png" alt="image-20210620201848039" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750241.png" />
 
 由该图可知，Thread类中有一个`threadLocals`和一个`inheritableThreadLocals`，它们都是`ThreadLocalMap`类型的变量，而ThreadLocalMap是一个定制化的Hashmap。
 
@@ -1871,7 +1815,7 @@ public class ThreadLocalTest {
 - 如下图所示，在每个线程内部都有一个名为threadLocals的成员变量，该变量的类型为HashMap，其中key为我们定义的ThreadLocal变量的this引用，value则为我们使用set方法设置的值。
 - 每个线程的本地变量存放在线程自己的内存变量threadLocals中，如果当前线程一直不消亡，那么这些本地变量会一直存在，所以可能会造成内存溢出，因此使用完毕后要记得**调用ThreadLocal的remove方法删除对应线程的threadLocals中的本地变量**。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750242.png" alt="image-20210620204220471" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750242.png" />
 
 
 
@@ -2046,7 +1990,7 @@ private void init(ThreadGroup g, Runnable target, String name,
 
   输出结果为：
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750244.png" alt="image-20210621002106137" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151750244.png" />
 
   可见，现在可以从子线程正常获取到线程变量的值了。
 
@@ -2061,7 +2005,9 @@ private void init(ThreadGroup g, Runnable target, String name,
   - 或者在父线程中构造一个map作为参数传递给子线程。
   - 但是这些都改变了我们的使用习惯，所以在这些情况下InheritableThreadLocal就显得比较有用。
 
+  
 
+  
 
   
 

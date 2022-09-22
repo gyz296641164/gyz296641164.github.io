@@ -1,30 +1,12 @@
 <h1 align="center">ThreadPoolExecutor原理探究</h1>
 
-- [1、介绍](#1介绍)
-- [2、在自定义线程池时，请参考以下指南](#2在自定义线程池时请参考以下指南)
-  - [（一）core and maximum pool sizes核心和最大线程池数量](#一core-and-maximum-pool-sizes核心和最大线程池数量)
-  - [（二）prestartCoreThread 核心线程预启动](#二prestartcorethread-核心线程预启动)
-  - [（三）ThreadFactory线程工厂](#三threadfactory线程工厂)
-  - [（四）Keep-alive times 线程存活时间](#四keep-alive-times-线程存活时间)
-  - [（五）Queuing 队列](#五queuing-队列)
-  - [（六）Rejected tasks 拒绝任务](#六rejected-tasks-拒绝任务)
-  - [（七）Hook methods 钩子方法](#七hook-methods-钩子方法)
-  - [（八）Queue maintenance 维护队列](#八queue-maintenance-维护队列)
-  - [（九）Finalization 关闭](#九finalization-关闭)
-- [3、源码分析](#3源码分析)
-  - [3.1 用户线程提交任务的execute方法](#31-用户线程提交任务的execute方法)
-  - [3.2 新增线程的addWorkder方法](#32-新增线程的addworkder方法)
-  - [3.3 工作线程Worker的执行](#33-工作线程worker的执行)
-
----
-
 ## 1、介绍
 
 ExecutorService（ThreadPoolExecutor的顶层接口）使用线程池中的线程执行每个提交的任务，通常我们使用Executors的工厂方法来创建ExecutorService。
 
 ​	<a name="类图">类图</a>
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080048.png" alt="20201104192227932" style="zoom: 67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080048.png" />
 
 ​																		
 
@@ -148,7 +130,7 @@ ExecutorService（ThreadPoolExecutor的顶层接口）使用线程池中的线�
 
 <a name="线程池对任务的处理流程">线程池对任务的处理流程</a>
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080049.png" alt="image-20210603103006164" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080049.png" />
 
 <div align="center">线程任务处理流程</div>
 
@@ -277,7 +259,7 @@ ThreadPoolExecutor为提供了每个任务执行前后提供了钩子方法：
 
 execute 方法的作用是提交任务 command 到线程池进行执行。 用户线程提到线程池的模型图如下图所示。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080050.png" alt="image-20210603165130522" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/20220716080050.png" />
 
 从该图可以看出，ThreadPoolExecutor的实现实际是一个生产消费模型，当用户添加任务到线程池时相当于生产者生产元素，workers线程工作集中的线程直接执行任务或者从任务队列里面获取任务时则相当于消费者消费元素。
 

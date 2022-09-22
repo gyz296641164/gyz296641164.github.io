@@ -1,111 +1,18 @@
 <h1 align="center">共享模型之管程 </h1> 
 
-- [1、共享带来的问题](#1共享带来的问题)
-  - [1.1 小故事](#11-小故事)
-  - [1.2 Java 的体现](#12-java-的体现)
-  - [1.3 临界区 Critical Section](#13-临界区-critical-section)
-  - [1.4 竞态条件 Race Condition](#14-竞态条件-race-condition)
-- [2、synchronized 解决方案](#2synchronized-解决方案)
-  - [2.1 *应用之互斥](#21-应用之互斥)
-  - [2.2 synchronized 语法](#22-synchronized-语法)
-  - [2.3 思考](#23-思考)
-  - [2.4 面向对象改进](#24-面向对象改进)
-- [3、方法上的 synchronized](#3方法上的-synchronized)
-  - [2.1 语法：](#21-语法)
-  - [2.2 不加 synchronized 的方法](#22-不加-synchronized-的方法)
-  - [2.3 所谓的“线程八锁”](#23-所谓的线程八锁)
-- [4、变量的线程安全分析](#4变量的线程安全分析)
-  - [4.1 成员变量和静态变量是否线程安全？](#41-成员变量和静态变量是否线程安全)
-  - [4.2 局部变量是否线程安全？](#42-局部变量是否线程安全)
-  - [4.3 局部变量线程安全分析](#43-局部变量线程安全分析)
-  - [4.4 常见线程安全类](#44-常见线程安全类)
-    - [4.4.1  线程安全类](#441--线程安全类)
-    - [4.4.2 线程安全类方法的组合](#442-线程安全类方法的组合)
-    - [4.4.3 不可变类线程安全性](#443-不可变类线程安全性)
-  - [4.5 实例分析](#45-实例分析)
-- [5、习题](#5习题)
-  - [5.1 卖票练习](#51-卖票练习)
-  - [5.2 转账练习](#52-转账练习)
-- [6、Monitor （管程/监视器）](#6monitor-管程监视器)
-  - [6.1 * Java 对象头](#61--java-对象头)
-  - [6.2 * 原理之 Monitor(锁)](#62--原理之-monitor锁)
-  - [6.3 * 原理之synchronized（字节码角度）](#63--原理之synchronized字节码角度)
-- [7、synchronized原理进阶（重点）](#7synchronized原理进阶重点)
-  - [7.1 基本使用](#71-基本使用)
-  - [7.2 同步原理](#72-同步原理)
-  - [7.3 同步概念](#73-同步概念)
-    - [7.3.1 Java对象头（详细）](#731-java对象头详细)
-    - [7.3.2 对象头中Mark Word与线程中Lock Record](#732-对象头中mark-word与线程中lock-record)
-- [8、锁的优化](#8锁的优化)
-  - [8.1 * 自旋锁](#81--自旋锁)
-    - [8.1.1 引入自旋锁前提](#811-引入自旋锁前提)
-    - [8.1.2 何谓自旋锁？](#812-何谓自旋锁)
-    - [8.1.3 自旋锁等待时间/次数有限度](#813-自旋锁等待时间次数有限度)
-  - [8.2 适应性自旋锁](#82-适应性自旋锁)
-  - [8.3 锁消除](#83-锁消除)
-  - [8.4 锁粗化](#84-锁粗化)
-  - [8.5 * 偏向锁](#85--偏向锁)
-  - [8.6 偏向锁状态](#86-偏向锁状态)
-  - [8.7 偏向锁批量重偏向](#87-偏向锁批量重偏向)
-  - [8.8 轻量级锁](#88-轻量级锁)
-  - [8.9 锁膨胀](#89-锁膨胀)
-  - [8.10 重量级锁](#810-重量级锁)
-  - [8.11 偏向锁、轻量级锁和重量级锁转换](#811-偏向锁轻量级锁和重量级锁转换)
-  - [8.12 锁的优劣](#812-锁的优劣)
-  - [8.12 总结](#812-总结)
-- [9、Park & Unpark](#9park--unpark)
-  - [9.1 基本使用](#91-基本使用)
-  - [9.2 park、unpark 原理](#92-parkunpark-原理)
-- [10、深入线程状态转换](#10深入线程状态转换)
-  - [10.1 转换过程图示](#101-转换过程图示)
-  - [10.2 状态转换过程说明](#102-状态转换过程说明)
-    - [情况一：NEW <–> RUNNABLE](#情况一new--runnable)
-    - [情况二：RUNNABLE <–> WAITING](#情况二runnable--waiting)
-    - [情况三：RUNNABLE <–> WAITING](#情况三runnable--waiting)
-    - [情况四：RUNNABLE <–> WAITING](#情况四runnable--waiting)
-    - [情况五：RUNNABLE <–> TIMED_WAITING](#情况五runnable--timed_waiting)
-    - [情况六：RUNNABLE <–> TIMED_WAITING](#情况六runnable--timed_waiting)
-    - [情况七：RUNNABLE <–> TIMED_WAITING](#情况七runnable--timed_waiting)
-    - [情况八：RUNNABLE <–> TIMED_WAITING](#情况八runnable--timed_waiting)
-    - [情况九：RUNNABLE <–> BLOCKED](#情况九runnable--blocked)
-    - [情况十：RUNNABLE <–> TERMINATED](#情况十runnable--terminated)
-- [11、多把锁](#11多把锁)
-- [12、活跃性](#12活跃性)
-  - [12.1 死锁](#121-死锁)
-  - [12.2 定位死锁](#122-定位死锁)
-  - [12.3 哲学家就餐问题](#123-哲学家就餐问题)
-  - [12.4 活锁](#124-活锁)
-  - [12.5 饥饿](#125-饥饿)
-- [13、ReentrantLock](#13reentrantlock)
-  - [13.1 可重入](#131-可重入)
-  - [13.2 可中断](#132-可中断)
-  - [13.3 锁超时](#133-锁超时)
-  - [13.4 条件变量](#134-条件变量)
-  - [13.5 源码分析](#135-源码分析)
-    - [13.5.1 ReentrantLock类关系](#1351-reentrantlock类关系)
-    - [13.5.2 AbstractQueuedSynchronizer 抽象类分析](#1352-abstractqueuedsynchronizer-抽象类分析)
-    - [13.5.3 Sync 类的源码如下](#1353-sync-类的源码如下)
-    - [13.5.4 NonfairSync 类](#1354-nonfairsync-类)
-    - [13.5.5 FairSync类*](#1355-fairsync类)
-    - [13.5.6 ReentrantLock和 AQS之间方法的交互过程。](#1356-reentrantlock和-aqs之间方法的交互过程)
-    - [13.5.7 ReentrantLock类](#1357-reentrantlock类)
-
----
-
-
 # 1、共享带来的问题
 
 ## 1.1 小故事  
 
 - 老王（操作系统）有一个功能强大的算盘（CPU），现在想把它租出去，赚一点外快 ；
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151753811.png" alt="image-20210621233217765" style="zoom:67%;" /> 
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151753811.png" /> 
 
 - 小南、小女（线程）来使用这个算盘来进行一些计算，并按照时间给老王支付费用；
 
 - 但小南不能一天24小时使用算盘，他经常要小憩一会（sleep），又或是去吃饭上厕所（阻塞 io 操作），有时还需要一根烟，没烟时思路全无（wait）这些情况统称为（阻塞） ；
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151753417.png" alt="image-20210621233726194" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151753417.png" />
 
 - 在这些时候，算盘没利用起来（不能收钱了），老王觉得有点不划算  ；
 
@@ -119,7 +26,7 @@
 
 - 计算流程是这样的  ：
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151753350.png" alt="image-20210621233902217" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151753350.png" />
 
 - 但是由于分时系统，有一天还是发生了事故  ：
 
@@ -131,7 +38,7 @@
 
   - 这时小女的时间也用完了，老王又叫醒了小南：[小南，把你上次的题目算完吧]，小南将他脑海中的结果 1 写入了笔记本   。
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151753648.png" alt="image-20210621234220157" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151753648.png" />
 
   - 小南和小女都觉得自己没做错，但笔记本里的结果是 1 而不是 0  。
 
@@ -216,19 +123,19 @@ public class Test17 {
 
 - 而 Java 的内存模型如下，完成静态变量的自增，自减需要在主存和工作内存中进行数据交换：  
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151753151.png" alt="image-20210622000020431" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151753151.png" />
 
   如果是单线程以上 8 行代码是顺序执行（不会交错）没有问题：  
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151753134.png" alt="image-20210622000247627" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151753134.png" />
 
   但多线程下这 8 行代码可能交错运行，出现负数的情况：  
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754841.png" alt="image-20210622000511386" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754841.png" />
 
   出现正数的情况：  
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754840.png" alt="image-20210622000609400" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754840.png" />
 
 
 
@@ -371,7 +278,7 @@ public class Test17 {
 
 用图来表示  ：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754799.png" alt="a" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754799.png" />
 
 ## 2.3 思考  
 
@@ -619,9 +526,9 @@ class Test{
 
   输出结果：
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754151.png" alt="image-20210623135347925" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754151.png" />
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754191.png" alt="image-20210623135412408" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754191.png" />
 
 - **情况三**：3 1s 12 或 23 1s 1 或 32 1s 1  
 
@@ -683,10 +590,10 @@ class Test{
 
   输出结果：
 
-  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754599.png" alt="image-20210623161124271" style="zoom:67%;" />
-  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754000.png" alt="image-20210623161155784" style="zoom:67%;" />
+  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754599.png" />
+  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754000.png" />
 
-  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754455.png" alt="image-20210623161252681" style="zoom:67%;" />
+  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754455.png" />
 
 
 
@@ -743,7 +650,7 @@ class Test{
 
   输出结果：
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754303.png" alt="image-20210623162330367" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754303.png" />
 
 
 
@@ -805,7 +712,7 @@ class Test{
 
   输出结果：
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754950.png" alt="image-20210623163041318" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754950.png" />
 
 
 
@@ -862,8 +769,8 @@ class Test{
   
   输出结果：
   
-  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754135.png" alt="image-20210623164144365" style="zoom:67%;" />
-- <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754519.png" alt="image-20210623164202895" style="zoom:67%;" />
+  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754135.png" />
+- <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754519.png" />
 
 
 
@@ -925,7 +832,7 @@ class Test{
   
   输出结果：
   
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754942.png" alt="image-20210623165053131" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151754942.png" />
   
   
   
@@ -987,8 +894,8 @@ class Test{
   
     输出结果：
   
-    - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755887.png" alt="image-20210623165534279" style="zoom:67%;" />
-    - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755735.png" alt="image-20210623165548559" style="zoom:67%;" />
+    - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755887.png" />
+    - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755735.png" />
 
 
 
@@ -1095,7 +1002,7 @@ public static void test1();
 
 如图  ：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755224.png" alt="image-20210623171706765" style="zoom: 40%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755224.png" />
 
 局部变量的引用稍有不同  。
 
@@ -1151,7 +1058,7 @@ public class ThreadUnsafe {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755352.png" alt="image-20210623173445246" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755352.png"/>
 
 从结果可知：如果线程2 还未 add，线程1 remove 就会报错。
 
@@ -1161,7 +1068,7 @@ public class ThreadUnsafe {
 
 - method3 与 method2 分析相同  。
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755974.png" alt="image-20210820152546860" style="zoom: 67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755974.png" />
 
 > **将 list 修改为局部变量**  
 
@@ -1219,7 +1126,7 @@ public class ThreadUnsafe {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755015.png" alt="image-20210623174826852" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755015.png" />
 
 **分析**：  
 
@@ -1227,7 +1134,7 @@ public class ThreadUnsafe {
 - 而 method2 的参数是从 method1 中传递过来的，与 method1 中引用同一个对象  。
 - method3 的参数分析与 method2 相同  。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755729.png" alt="image-20210623174951694" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755729.png" />
 
 
 
@@ -1339,7 +1246,7 @@ Hashtable table = new Hashtable();
 	}
 ```
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755816.png" alt="image-20210623181155669" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755816.png" />
 
 这里只能是get方法内部是线程安全的, put方法内部是线程安全的. 组合起来使用还是会受到`上下文切换`的影响。当线程 1 执行完 get(“key”) ，这是一个原子操作没出问题，但是在 get(“key”) == null 比较时，如果线程1的时间片用完了，线程 2 获取时间片执行了 get(“key”) == null 操作，然后进行 put(“key”, “v2”) 操作，结束后，线程 1 被分配 cpu 时间片继续执行，执行 put 操作就会出现线程安全问题。
 
@@ -1800,7 +1707,7 @@ class TicketWindow {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755991.png" alt="image-20210624150507823" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755991.png" />
 
 保证了线程安全性。
 
@@ -1894,7 +1801,7 @@ class Account {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755664.png" alt="image-20210624155725058" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755664.png" />
 
 > 解决：**锁类对象Account.class**
 
@@ -1982,7 +1889,7 @@ class Account {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755143.png" alt="image-20210624162447064" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755143.png" />
 
 
 
@@ -2001,17 +1908,17 @@ class Account {
 
 > **对象头包含两部分**：`运行时元数据（Mark Word）`和`类型指针（Klass Word）`。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755248.png" alt="image-20210624164945147" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151755248.png" />
 
 **如果对象是数组，还需要记录数组的长度**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756208.png" alt="image-20210624171554545" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756208.png" />
 
 <a name="运行时元数据（Mark Word）">运行时元数据（Mark Word）</a>
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756719.png" alt="image-20210624165024532" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756719.png" />
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756399.png" alt="image-20210624171618310" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756399.png" />
 
 1. **hashcode**：31位的对象标识hashCode，采用延迟加载技术。调用方法System.identityHashCode()计算，并会将结果写到该对象头中。它是一个地址，用于栈对堆空间中对象的引用指向，不然栈是无法找到堆中对象的；
 2. **GC分代年龄**：记录幸存者区对象被GC之后的年龄age，一般age为15（`阈值为15`的原因是因为age只有4位最大就可以将阈值设置15）之后下一次GC就会直接进入老年代，要是还没有等到年龄为15，`幸存者区就满了`怎么办？那就下一次GC就将大对象或者年龄大者直接进入老年代。
@@ -2024,7 +1931,7 @@ class Account {
 
    - 另外：锁的状态有两位数的`空间标识`，这样就可以实现用较少的空间去存储更多的信息，**0 表示不可偏向，1 表示可偏向**。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756375.png" alt="image-20210624171008492" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756375.png" />
 
 
 
@@ -2040,7 +1947,7 @@ class Account {
 
 一个**对象的内存结构包括：`运行时元数据、类型指针、数据类型、对齐填充`**。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756834.png" alt="image-20210624172638208" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756834.png" />
 
 
 
@@ -2058,7 +1965,7 @@ JDK6对Synchronized的优先状态：`偏向锁–>轻量级锁–>重量级锁`
 >
 > **原理解释**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756447.png" alt="image-20210624182256645" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756447.png" />
 
 - 刚开始时 Monitor 中的 Owner 为 null
 - 当 Thread-2 执行` synchronized(obj){} `代码时就会将 Monitor 的所有者Owner 设置为 Thread-2，上锁成功，Monitor 中同一时刻只能有一个 Owner
@@ -2091,7 +1998,7 @@ public static void main(String[] args) {
 
 反编译后的部分字节码(javac xxx.java ; javap -c xxx.class):
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756487.png" alt="20201219201521709" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756487.png" />
 
 ​	**注意**：方法级别的 synchronized 不会在字节码指令中有所体现。
 
@@ -2265,7 +2172,7 @@ public synchronized void method();
 
 在JVM中，**对象**在内存中的布局分为三块区域：`对象头`、`实例数据`和`对齐填充`。如下图所示：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756895.png" alt="image-20210625152853539" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756895.png" />
 
 1. **实例数据**：存放类的属性数据信息，包括父类的属性信息；
 2. **对齐填充**：由于虚拟机要求 对象起始地址必须是8字节的整数倍。填充数据不是必须存在的，仅仅是为了字节对齐；
@@ -2314,11 +2221,11 @@ Java对象头**无锁状态**下Mark Word部分的存储结构（32位虚拟机�
 
 **对象头信息是与对象自身定义的数据无关的额外存储成本**，但是考虑到虚拟机的空间效率，Mark Word被设计成一个非固定的数据结构以便在极小的空间内存存储尽量多的数据，它会根据对象的状态复用自己的存储空间，也就是说，Mark Word会随着程序的运行发生变化，可能变化为存储以下4种数据：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756754.png" alt="image-20210625155644300" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756754.png" />
 
 在64位虚拟机下，Mark Word是64bit大小的，其存储结构如下：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756535.png" alt="image-20210625155853812" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756535.png" />
 
 对象头的最后两位存储了锁的标志位，01是初始状态，未加锁，其对象头里存储的是对象本身的哈希码，**随着锁级别的不同，对象头里会存储不同的内容**。
 
@@ -2480,7 +2387,7 @@ public void vectorTest(){
 
 这要从SMP（对称多处理器）架构说起，下图大概表明了SMP的结构：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756673.png" alt="image-20210626182205103" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756673.png" />
 
 **SMP（对称多处理器）架构**：
 
@@ -2524,7 +2431,7 @@ public void vectorTest(){
 
 > **偏向锁的获取和释放流程图**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756288.png" alt="2062729-b4873ca2e39c1db7" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756288.png" />
 
 
 
@@ -2532,7 +2439,7 @@ public void vectorTest(){
 
 `运行时元数据（Mark Word）`的结构如下:
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756263.png" alt="image-20210627114350815" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756263.png" />
 
 - **Normal**：一般状态，没有加任何锁，前面62位保存的是对象的信息，最后2位为状态（01），倒数第三位表示是否使用偏向锁（未使用：0）；
 - **Biased**：偏向状态，使用偏向锁，前面54位保存的当前线程的ID，最后2位为状态（01），倒数第三位表示是否使用偏向锁（使用：1）；
@@ -2564,21 +2471,20 @@ public void vectorTest(){
 
   - 创建锁记录（Lock Record）对象，每个线程都的栈帧都会包含一个锁记录的结构，内部可以存储锁定对象的`Mark Word`
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756111.png" alt="image-20210822170321230" style="zoom:50%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756111.png" />
 
     
 
   - 让锁记录（Lock Record）中的`Object reference`指向锁对象 ，将锁对象头中的 Mark Word 信息复制到锁记录中（Displaced Mard Word），并且尝试用CAS(Compare And Sweep)将栈帧中的锁记录的`lock record 地址` 和` state: 00`替换Object对象的`Mark Word`
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756080.png" alt="image-20210630161312955" style="zoom: 50%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756080.png" />
 
   - 如果`cas替换成功`, 获得了轻量级锁，那么对象的`对象头储存的就是锁记录的地址和状态00`
 
     - 锁对象的**对象头**中存储了锁记录的地址和状态, 标志哪个线程获得了锁
     - 此时栈帧中存储了`对象的对象头`中替换之前的`锁状态标志01`，`年龄计数器`，`哈希值`等；对象的对象头中就存储了`栈帧中锁记录的地址和状态00`, 这样的话对象就知道了是`哪个线程锁住自己`。
 
-
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756880.png" alt="image-20210630162047651" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756880.png" />
 
 - 如果`cas替换失败`，有两种情况 : **① 锁膨胀 ② 重入锁失败**
 
@@ -2606,7 +2512,7 @@ public void vectorTest(){
 
   3. 图示
 
-     <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756191.png" alt="image-20210630162916233" style="zoom: 50%;" />
+     <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756191.png" />
 
 
 
@@ -2621,7 +2527,7 @@ public void vectorTest(){
 
 > **轻量级锁获取和释放流程图示**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756064.png" alt="2062729-b952465daf77e896" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151756064.png" />
 
 **为什么升级为轻量锁时要把对象头里的Mark Word复制到线程栈的锁记录中呢？**
 
@@ -2647,13 +2553,13 @@ public void vectorTest(){
 
 - 当 Thread-1 进行轻量级加锁时，Thread-0 已经对该对象加了轻量级锁, 此时发生`锁膨胀`
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757175.png" alt="image-20210630163422910" style="zoom: 50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757175.png" />
 
 - 这时Thread-1加轻量级锁失败，**进入锁膨胀流程**
 
   - 因为`Thread-1`线程加轻量级锁失败, 轻量级锁没有阻塞队列的概念, 所以此时就要`为对象申请Monitor锁(重量级锁)`，让`Object指向重量级锁地址 10`，然后`自己进入Monitor 的EntryList 变成BLOCKED状态`
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757976.png" alt="image-20210630163534394" style="zoom: 50%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757976.png" />
 
 - 当Thread-0 线程执行完synchronized同步块时，使用cas将Mark Word的值恢复给对象头, 肯定恢复失败,因为对象的对象头中存储的是重量级锁的地址,状态变为10了之前的是00，肯定恢复失败。那么会进入重量级锁的解锁过程，即按照Monitor的地址找到Monitor对象，将Owner设置为null，唤醒EntryList中的Thread-1线程。
   
@@ -2669,13 +2575,13 @@ Synchronized是通过对象内部的一个叫做 `监视器锁（Monitor）`来�
 
 图示一：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757560.png" alt="image-20210630164805494" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757560.png" />
 
 
 
 图示二：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757519.png" alt="2062729-61dfb07d48d8588c" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757519.png" />
 
 
 
@@ -2781,7 +2687,7 @@ public class TestMultiLock {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757072.png" alt="image-20210627182153673" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757072.png" />
 
 先unpark 后park：
 
@@ -2822,7 +2728,7 @@ public class TestMultiLock2 {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757711.png" alt="image-20210627182845440" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757711.png" />
 
 **特点**  ：
 
@@ -2853,7 +2759,7 @@ public class TestMultiLock2 {
 
 > **先调用park再调用upark的过程**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757376.png" alt="image-20210627185050489" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757376.png" />
 
 **调用park**：
 
@@ -2873,7 +2779,7 @@ public class TestMultiLock2 {
 
 > **先调用upark再调用park的过程**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757031.png" alt="image-20210627185721836" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757031.png" />
 
 - 调用 `Unsafe.unpark(Thread_0)`方法，设置 `_counter 为 1`
 - 当前线程调用 `Unsafe.park()` 方法
@@ -2890,9 +2796,9 @@ public class TestMultiLock2 {
 
 `Thread.java`的内部类`State`包含以下几种状态：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757791.png" alt="image-20210627190102709" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757791.png" />
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757847.png" alt="64146d2ab235481979b13ec4e9608fc5" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757847.png" />
 
 
 
@@ -3020,7 +2926,7 @@ class BigRoom {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757336.png" alt="image-20210628105631067" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757336.png" />
 
 改进让`小南, 小女`获取不同的锁即可：
 
@@ -3073,7 +2979,7 @@ class BigRoom {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757064.png" alt="image-20210628110057530" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757064.png" />
 
 **将锁的粒度细分**  :
 
@@ -3160,7 +3066,7 @@ public class DeadLockTest1 {
 
 - 检测死锁可以使用 **jconsole**工具，或者使用 **jps** 定位进程 id，再用 **jstack id** 定位死锁  (保证代码在运行)
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757143.png" alt="image-20210628115511397" style="zoom: 50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757143.png" />
 
           - waiting to lock <0x00000000d5f5e318> (a java.lang.Object)
           - locked <0x00000000d5f5e308> (a java.lang.Object)
@@ -3170,13 +3076,13 @@ public class DeadLockTest1 {
 
   windows下：输入jconsole
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757391.png" alt="image-20210628120133574" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757391.png" />
 
 
 
 ## 12.3 哲学家就餐问题  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757231.png" alt="image-20210628120323957" width="450px" height="330px" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757231.png" />
 
 有五位哲学家，围坐在圆桌旁。
 
@@ -3315,11 +3221,11 @@ public class TestLiveLock {
 
 线程饥饿的例子，先来看看使用顺序加锁的方式解决之前的死锁问题  ：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757215.png" alt="image-20210628135954435" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757215.png" />
 
 顺序加锁的解决方案 ：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757351.png" alt="image-20210628140014081" style="zoom: 50%;" /> 
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151757351.png" /> 
 
 
 
@@ -3425,7 +3331,7 @@ public class ReentRantLockTest {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758129.png" alt="image-20210630000212313" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758129.png" />
 
 
 
@@ -3492,7 +3398,7 @@ public class ReentrantTest {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758272.png" alt="image-20210630215134674" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758272.png" />
 
 测试使用`lock.lock()`不可以从阻塞队列中打断, 一直等待别的线程释放锁：
 
@@ -3546,7 +3452,7 @@ public class ReentrantTest2 {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758240.png" alt="image-20210630215500901" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758240.png" />
 
 **lock()锁不能被打断**, 在主线程中调用`t1.interrupt()`，不能打断， 当主线程释放锁之后，t1获得了锁。
 
@@ -3610,7 +3516,7 @@ public class ReentrantTestTimeOut {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758751.png" alt="image-20210630222453763" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758751.png" />
 
 
 
@@ -3672,7 +3578,7 @@ public class ReentrantTestSetTimeOut {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758936.png" alt="image-20210630222832034" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758936.png" />
 
 
 
@@ -3899,7 +3805,7 @@ public class ConditionVariable {
 
 ### 13.5.1 ReentrantLock类关系
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758040.png" alt="image-20210701105842440" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758040.png" />
 
 - **ReentrantLock** 实现了 **Lock**接口，**Lock**接口中定义了 **lock**与 **unlock**相关操作。 
 
@@ -3921,7 +3827,7 @@ public class ConditionVariable {
 
 一般来说，**自定义同步器要么是独占方式，要么是共享方式**，它们也只需实现`tryAcquire`、`tryRelease`、`tryAcquireShared`、`tryReleaseShared`中的一种即可。**AQS也支持自定义同步器同时实现独占和共享两种方式**，如`ReentrantReadWriteLock`。ReentrantLock是独占锁，所以实现了tryAcquire、tryRelease。以非公平锁为例，这里主要阐述一下**非公平锁与AQS**之间方法的关联之处，
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758736.jpg" alt="自定义同步器 (1)" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758736.jpg" />
 
 
 
@@ -4093,7 +3999,7 @@ static final class NonfairSync extends Sync {
 
 跟踪 lock方法的源码可知，当资源空闲时，它总是会先判断 sync队列(AbstractQueuedSynchronizer中的数据结构)是否有等待时间更长的线程，如果存在，则将该线程加入到等待队列的尾部，实现了公平获取原则。其中，FairSync 类的 lock的方法调用如下，只给出了主要的方法。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758928.png" alt="img" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Concurrent/202207151758928.png" />
 
 可以看出只要资源被其他线程占用，该线程就会添加到 **sync queue**中的尾部，而不会先尝试获取资源。这也是和 Nonfair最大的区别，Nonfair每一次都会尝试去获取资源，如果此时该资源恰好被释放，则会被当前线程获取，这就造成了不公平的现象，当获取不成功，再加入队列尾部。
 
