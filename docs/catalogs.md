@@ -35,6 +35,11 @@
 - [第8章-重构、测试和调试](/md/JAVA/Java8/第三部分-高效Java8编程/第8章-重构、测试和调试.md)
 - [第9章-默认方法](/md/JAVA/Java8/第三部分-高效Java8编程/第9章-默认方法.md)
 - [第10章-用Optional取代null](/md/JAVA/Java8/第三部分-高效Java8编程/第10章-用Optional取代null.md)
+
+### **JAVA集合**
+
+- [ArrayList底层实现原理](/md/JAVA/JAVA集合/ArrayList底层实现原理.md)
+- [HashMap底层原理](/md/JAVA/JAVA集合/HashMap底层原理.md)
 <!-- tabs:end -->
 ---
 

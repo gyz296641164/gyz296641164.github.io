@@ -2,8 +2,6 @@
 
 文章来源：https://thinkwon.blog.csdn.net/article/details/104588551
 
-学习日期：2022/10/19
-
 ---
 
 # JAVA集合框架图示
