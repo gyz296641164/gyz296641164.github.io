@@ -1,8 +1,9 @@
 # 简介
 
-✊不积跬步，无以至千里；不积小流，无以成江海！
+> [!NOTE]
+> 声明：本仓库仅供学习使用，毫无其他意图！
 
-声明：本仓库仅供学习使用，毫无其他意图！
+✊不积跬步，无以至千里；不积小流，无以成江海！
 
 ---
 
@@ -207,7 +208,6 @@
 - [线程池ThreadPoolExecutor原理探究](/md/并发编程/线程池ThreadPoolExecutor原理探究/README.md)
    
 <!-- tabs:end -->   
----
 
 <!-- 最近更新时间 -->
 <last-update-time>{docsify-updated}</last-update-time>
