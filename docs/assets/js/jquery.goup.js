@@ -83,7 +83,7 @@
             entryAnimation: 'fade',
             goupSpeed: 'slow',
             hideUnderWidth: 500,
-            containerColor: '#42B983',
+            containerColor: '#007be8',
             arrowColor: '#fff',
             title: '',
             titleAsText: false,

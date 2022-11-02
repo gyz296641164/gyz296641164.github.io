@@ -140,7 +140,7 @@ body[data-page="README.md"] #app2 {
     /*margin: 0 2px;*/
     /*padding: 3px 5px;*/
     /*white-space: nowrap;*/
-    background: #ffc0cb;
+    background: #ffc0cb !important;
     color: #333;
 }
 
@@ -152,15 +152,16 @@ body[data-page="README.md"] #app2 {
     text-decoration: none;
 }
 
-h1 span {
-    display: inline-block;
-    /*background: rgb(66, 185, 131);*/
-    background: rgb(43 132 209 / 64%);
-    color: #ffffff;
-    padding: 10px 16px;
-    border-radius: 5px;
-    box-shadow: 1px 1px 3px black;
-}
+/*一级标题样式*/
+/*h1 span {*/
+/*    display: inline-block;*/
+/*    !*background: rgb(66, 185, 131);*!*/
+/*    background: rgb(43 132 209 / 64%);*/
+/*    color: #ffffff;*/
+/*    padding: 10px 16px;*/
+/*    border-radius: 5px;*/
+/*    box-shadow: 1px 1px 3px black;*/
+/*}*/
 
 /*代码块背景*/
 p code {
@@ -362,5 +363,19 @@ h4 {
     padding: 0;
 }
 
+.content {
+    background: #f5f5d5;
+}
 
+.sidebar, body {
+    background-color: #f5f5d5;
+}
 
+.sidebar-toggle {
+    background-color: #f5f5d5;
+}
+
+/*分割线颜色*/
+.markdown-section hr {
+    border-bottom: 1px solid #999;
+}

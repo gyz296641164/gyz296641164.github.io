@@ -1,6 +1,7 @@
 <h1 align="center">IoC 之解析Bean：解析 import 标签</h1>
 
->  [!Note]  **本文主要基于 Spring 5.0.6.RELEASE**
+> [!Note] 本文主要基于 Spring 5.0.6.RELEASE
+
 
 # 背景
 

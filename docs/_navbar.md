@@ -1,4 +1,4 @@
-- [<span class="iconfont icon-icon_fabu"></span> 首页](/README.md)
+- [<span class="iconfont icon-icon_fabu"></span> 首页](/catalogs.md)
   - [JAVA](README?id=c01)
   - [Linux](README?id=c02)
   - [JVM](README?id=c08)
