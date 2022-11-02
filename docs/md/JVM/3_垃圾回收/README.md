@@ -2,7 +2,7 @@
 
 # 1、如何判断对象是否可以被回收
 
-判断对象存活一般有两种方式：**引用计数算法** 和 **可达性分析算法。**
+> 判断对象存活一般有两种方式：**引用计数算法** 和 **可达性分析算法。**
 
 ## 1.1 引用技术算法（Reference Counting）
 
@@ -25,7 +25,7 @@
 
 当p的指针断开的时候，内部的引用形成一个循环，这就是循环引用，从而造成内存泄漏。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357156.png" alt="image-20210612135459864" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357156.png" alt="image-20210612135459864" />
 
 
 
@@ -79,7 +79,7 @@ PSYoungGen: 15490K->808K(76288K)] 15490K->816K(251392K)
 
 如下图所示， 对象object 5、 object 6、 object 7虽然互有关联， 但是它们到GC Roots是不可达的，因此它们将会被判定为可回收的对象。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357158.png" alt="image-20210612161242546" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357158.png" alt="image-20210612161242546" />
 
 **GC Roots的对象包括以下几种：**
 
@@ -163,7 +163,7 @@ StringBuffer str = new StringBuffer("hello");
 
 局部变量str指向stringBuffer实例所在堆空间，通过str可以操作该实例，那么str就是StringBuffer实例的强引用对应内存结构：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357159.png" alt="image-20210819114825554" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357159.png" alt="image-20210819114825554" />
 
 如果此时，在运行一个赋值语句:
 
@@ -174,7 +174,7 @@ StringBuffer str1 = str;
 
 对应的内存结构为:
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357160.png" alt="image-20210819114925558" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357160.png" alt="image-20210819114925558" />
 
 那么我们将 str = null；则原来堆中的对象也不会被回收，因为还有其它对象指向该区域。
 
@@ -385,7 +385,7 @@ obj 是 null
     
     
   
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357161.png" alt="image-20210613160905013" style="zoom: 40%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357161.png" alt="image-20210613160905013" />
 
 **缺点：**
 
@@ -412,7 +412,7 @@ obj 是 null
 
 将内存分为等大小的两个区域：`From`和`To`区。当from域内存不够了，开始执行GC操作，先将被`GC Roots`引用的对象从From区放入To区中，然后直接把from域进行内存清理，最后交换`From和To`。如图所示。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357162.png" alt="image-20210613161014625" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357162.png" alt="image-20210613161014625" />
 
 **优点：**
 
@@ -439,7 +439,7 @@ obj 是 null
 2. 第二阶段将所有被引用对象压缩到内存一端，按顺序排放。
 3. 之后，清理边界外所有的内存空间。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357163.png" alt="image-20210613161825635" style="zoom: 40%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357163.png" alt="image-20210613161825635" />
 
 **标清和标整的区别**
 
@@ -490,9 +490,9 @@ obj 是 null
 
 - 每次新生代中可用内存空间为整个新生代容量的 90%，每次使用 `eden` 和其中一个 `survivour`。对象首先分配在伊甸园区域新生代空间不足时，触发 `minor gc`，`伊甸园`和 `from` 存活的对象使用 copy 复制到 to 中，存活的对象年龄加 1并且交换 `from` `to`。
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357164.png" alt="image-20210613171231234" style="zoom: 50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357164.png" alt="image-20210613171231234"  />
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357165.png" alt="image-20210613170131633" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357165.png" alt="image-20210613170131633"  />
 
 - Minor GC 会引发 `stop the world`，暂停其它用户的线程，等垃圾回收结束，用户线程才恢复运行。
 
@@ -571,7 +571,7 @@ obj 是 null
 
 按线程数分（垃圾回收线程数），可以分为**串行垃圾回收器**和**并行垃圾回收器**。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357166.png" alt="image-20210613175751786" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357166.png" alt="image-20210613175751786" />
 
 **串行回收**：指的是在同一时间段内只允许有一个CPU用于执行垃圾回收操作，此时工作线程被暂停，直至垃圾收集工作结束。
 
@@ -590,7 +590,7 @@ obj 是 null
 
 - 独占式垃圾回收器（Stop the world）一旦运行，就停止应用程序中的所有用户线程，直到垃圾回收过程完全结束。
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357167.png" alt="image-20200713083443486" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357167.png" alt="image-20200713083443486"  />
 
   
 
@@ -634,7 +634,7 @@ obj 是 null
 - 这种情况下，应用程序能容忍较高的暂停时间，因此，高吞吐量的应用程序有更长的时间基准，快速响应是不必考虑的。
 - 吞吐量优先，意味着在单位时间内，STW的时间最短：0.2 + 0.2 = 0.4。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357168.png" alt="image-20210613182649880" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357168.png" alt="image-20210613182649880" />
 
 ### 4.2.3  性能指标：暂停时间
 
@@ -644,7 +644,7 @@ obj 是 null
 
   暂停时间优先，意味着尽可能让单次STW的时间最短：0.1+0.1 + 0.1+ 0.1+ 0.1=0.5
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357169.png" alt="image-20210613182910370" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357169.png" alt="image-20210613182910370" />
 
 
 
@@ -677,7 +677,7 @@ obj 是 null
 
 ##  5.2  七款经典收集器与垃圾分代之间的关系
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357170.png" alt="image-20200713093757644" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357170.png" alt="image-20200713093757644" />
 
 新生代收集器：Serial、ParNew、Parallel Scavenge；
 
@@ -691,7 +691,7 @@ obj 是 null
 
 **组合如图所示：**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357171.png" alt="image-20210613183552941" style="zoom: 40%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357171.png" alt="image-20210613183552941" />
 
 - 两个收集器间有连线，表明它们可以搭配使用：Serial/Serial old、Serial/CMS、ParNew/Serial Old、ParNew/CMS、Parallel Scavenge/Serial 0ld、Parallel Scavenge/Parallel 0ld、G1；
 - 其中Serial Old作为CMS出现"Concurrent Mode Failure"失败的后备预案。
@@ -712,7 +712,7 @@ obj 是 null
 
 - `-XX:+PrintCommandLineFlags`：查看命令行相关参数（包含使用的垃圾收集器）
 - 使用命令行指令：`jinfo -flag `相关垃圾回收器参数 进程ID
-- <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357173.png" alt="image-20210819224501888" style="zoom:50%;" />
+- <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357173.png" alt="image-20210819224501888"  />
 
 
 
@@ -739,7 +739,7 @@ obj 是 null
 
     
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357174.png" alt="image-20200713100703799" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357174.png" alt="image-20200713100703799" />
 
   
 
@@ -795,7 +795,7 @@ Parallel Old收集器采用了`标记-压缩算法`，但同样也是基于并�
 
 高吞吐量则可以高效率地利用CPU时间，尽快完成程序的运算任务，主要适合在后台运算而不需要太多交互的任务。因此，常见在服务器环境中使用。例如，那些执行批量处理、订单处理、工资支付、科学计算的应用程序。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357175.png" alt="image-20200713110359441" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357175.png" alt="image-20200713110359441" />
 
 **参数配置：**
 
@@ -856,7 +856,7 @@ Parallel Old收集器采用了`标记-压缩算法`，但同样也是基于并�
 - CMS收集器的关注点是`尽可能缩短垃圾收集时用户线程的停顿时间`。停顿时间越短（低延迟）就越适合与用户交互的程序，良好的响应速度能提升用户体验。很大一部分的Java应用集中在互联网站或者B/S系统的服务端上!
 - 不幸的是，CMS作为老年代的收集器，却`无法与JDK1.4.0中已经存在的新生代收集器Parallel Scavenge配合工作`，所以在JDK1.5中使用CMS来收集老年代的时候，新生代只能选择ParNew或者Serial收集器中的一个。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357176.png" alt="image-20200713205154007" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357176.png" alt="image-20200713205154007" />
 
 CMS整个过程比之前的收集器要复杂，整个过程分为4个主要阶段，即`初始标记阶段`、`并发标记阶段`、`重新标记阶段`和`并发清除阶段`。(涉及STW的阶段主要是：初始标记 和 重新标记)。
 
@@ -961,11 +961,11 @@ HotSpot有这么多的垃圾回收器，Serial GC、Parallel GC、Concurrent Mar
 
 G1所谓的分代，已经不是下面这样的了：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357177.png" alt="image-20210615230148851" style="zoom: 35%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357177.png" alt="image-20210615230148851" />
 
 而是这样的一个区域：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357178.png" alt="image-20210615230206527" style="zoom:40%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357178.png" alt="image-20210615230206527" />
 
 
 
@@ -1024,7 +1024,7 @@ G1中提供了三种垃圾回收模式：**YoungGC、Mixed GC和FullGC**，在�
 
 如果需要，单线程、独占式、高强度的FullGC还是继续存在的。它针对GC的评估失败提供了一种失败保护机制，即强力回收。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357179.png" alt="image-20210615230734500" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357179.png" alt="image-20210615230734500" />
 
 顺时针，Young GC -> Young GC + Concurrent Mark -> Mixed GC顺序，进行垃圾回收。
 
@@ -1041,7 +1041,7 @@ G1中提供了三种垃圾回收模式：**YoungGC、Mixed GC和FullGC**，在�
 
 JVM启动时，G1先准备好Eden区，程序在运行过程中不断创建对象到Eden区，当Eden空间耗尽时，G1会启动一次年轻代垃圾回收过程。YGC时，首先G1停止应用程序的执行（Stop-The-World），G1创建回收集（Collection Set），回收集是指需要被回收的内存分段的集合，年轻代回收过程的回收集包含年轻代Eden区和Survivor区所有的内存分段。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357180.png" alt="image-20210615231612092" style="zoom: 40%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357180.png" alt="image-20210615231612092" />
 
 然后开始如下回收过程：
 
@@ -1078,7 +1078,7 @@ JVM启动时，G1先准备好Eden区，程序在运行过程中不断创建对�
 
 - 当越来越多的对象晋升到老年代old region时，为了避免堆内存被耗尽，虚拟机会触发一个混合的垃圾收集器，即Mixed GC，该算法并不是一个Old GC，除了回收整个Young Region，还会回收一部分的Old Region。这里需要注意：**是一部分老年代，而不是全部老年代**。可以选择哪些Old Region进行收集，从而可以对垃圾回收的耗时时间进行控制。也要注意的是Mixed GC并不是Full GC。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357181.png" alt="image-20210615231929744" style="zoom:40%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357181.png" alt="image-20210615231929744" />
 
 - 并发标记结束以后，老年代中百分百为垃圾的内存分段被回收了，部分为垃圾的内存分段被计算了出来。默认情况下，这些老年代的内存分段会分8次（可以通过-XX:G1MixedGCCountTarget设置）被回收。
 
@@ -1129,7 +1129,7 @@ G1的初衷就是要避免Full GC的出现。但是如果上述方式不能正�
 
 - 然后检查将要写入的引用指向的对象是否和该Reference类型数据在不同的Region（其他收集器：检查老年代对象是否引用了新生代对象）；如果不同，通过cardTable把相关引用信息记录到引用指向对象的所在Region对应的Remembered Set中；当进行垃圾收集时，在GC根节点的枚举范围加入Remembered Set；就可以保证不进行全局扫描，也不会有遗漏。
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357182.png" alt="image-20210615231344841" style="zoom: 50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357182.png" alt="image-20210615231344841"  />
 
 
 
@@ -1139,13 +1139,13 @@ G1的初衷就是要避免Full GC的出现。但是如果上述方式不能正�
 
 截止JDK1.8，一共有7款不同的垃圾收集器。每一款的垃圾收集器都有不同的特点，在具体使用的时候，需要根据具体的情况选用不同的垃圾收集器。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357183.png" alt="image-20210615232454310" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357183.png" alt="image-20210615232454310" />
 
 GC发展阶段：Serial => Parallel（并行）=> CMS（并发）=> G1 => ZGC
 
 不同厂商、不同版本的虚拟机实现差距比较大。HotSpot虚拟机在JDK7/8后所有收集器及组合如下图：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357184.png" alt="image-20210615232536530" style="zoom: 40%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357184.png" alt="image-20210615232536530" />
 
 
 
@@ -1192,7 +1192,7 @@ Java垃圾收集器的配置对于JVM优化来说是一个很重要的选择，�
 
 参数解析：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357186.png" alt="image-20210615233021687" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357186.png" alt="image-20210615233021687" />
 
 ## 7.2 PrintGCDetails
 
@@ -1204,11 +1204,11 @@ Java垃圾收集器的配置对于JVM优化来说是一个很重要的选择，�
 
 输入信息如下：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357187.png" alt="image-20210615233100501" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357187.png" alt="image-20210615233100501" />
 
 参数解析：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357188.png" alt="image-20210615233115682" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357188.png" alt="image-20210615233115682" />
 
 ## 7.3  补充
 
@@ -1227,13 +1227,13 @@ user代表用户态回收耗时，sys内核态回收耗时，rea实际耗时。�
 
 ## 7.4  Young GC图片
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357189.png" alt="image-20210615233315260" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357189.png" alt="image-20210615233315260" />
 
 
 
 ## 7.5  FullGC图片
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357190.png" alt="image-20210615233333482" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121357190.png" alt="image-20210615233333482" />
 
 # 8、 面试
 
@@ -1360,46 +1360,3 @@ Stop-the-World，简称STW，指的是GC事件发生过程中，会产生应用�
 - Parallel Scavenge（-XX:+UseParallelGC）框架下，默认是在要触发full GC前先执行一次young GC，并且两次GC之间能让应用程序稍微运行一小下，以期降低full GC的暂停时间（因为young GC会尽量清理了young gen的死对象，减少了full GC的工作量）。控制这个行为的VM参数是-XX:+ScavengeBeforeFullGC。这是HotSpot VM里的奇葩
 
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

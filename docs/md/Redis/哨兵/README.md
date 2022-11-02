@@ -2,15 +2,11 @@
 
 Redis的主从复制模式下，一旦主节点由于故障不能提供服务，就会发生群龙无首的情况，如果在主机宕机时，能够在从机中选出一个来充当主机，那么就不用我们每次去手动重启主机了，Redis从2.8开始正式提供了Redis Sentinel（哨兵） 架构来解决这个问题 。
 
-
-
 ## 1、基本概念  
 
 
 
 <div align='center'>Redis Sentinel相关名词解释</div>
-
-​	
 
 | 名词             | 逻辑结构           | 物理结构            |
 | ---------------- | ------------------ | ------------------- |
@@ -49,7 +45,7 @@ Redis主从复制模式下， 一旦主节点出现了故障不可达，对于�
 
 1）主节点发生故障后，客户端（client）连接主节点失败，两个从节点与主节点连接失败造成复制中断。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084714.png" alt="image-20210524233933622" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084714.png" alt="image-20210524233933622" />
 
 2） 如果主节点无法正常启动， 需要选出一个从节点（slave-1） ， 对其执行slaveof no one命令使其成为新的主节点。  
 
@@ -59,15 +55,15 @@ Redis主从复制模式下， 一旦主节点出现了故障不可达，对于�
 
 3）原来的从节点（slave-1） 成为新的主节点后， 更新应用方的主节点信息， 重新启动应用方。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084716.png" alt="image-20210524234057278" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084716.png" alt="image-20210524234057278" />
 
 4）客户端命令另一个从节点（slave-2） 去复制新的主节点（new-master）  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084717.png" alt="image-20210524234208542" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084717.png" alt="image-20210524234208542" />
 
 5）待原来的主节点恢复后， 让它去复制新的主节点。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084718.png" alt="image-20210524234241368" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084718.png" alt="image-20210524234241368" />
 
 上述处理过程就可以认为整个服务或者架构的设计不是高可用的， 因为整个故障转移的过程需要人介入。即使把上述流程自动化了， 但是仍然存在如下问题：  
 
@@ -93,7 +89,7 @@ Redis Sentinel正是用于解决这些问题 ！
 
   
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084719.png" alt="image-20210525000448572" style="zoom:80%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084719.png" alt="image-20210525000448572" />
 
 <center>Redis主从复制与Redis Sentinel架构的区别  <center/>
 
@@ -103,7 +99,7 @@ Redis Sentinel正是用于解决这些问题 ！
 
 下面以1个主节点、 2个从节点、 3个Sentinel节点组成的Redis Sentinel为例子进行说明， 拓扑结构如图所示。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084720.png" alt="image-20210525000654700" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084720.png" alt="image-20210525000654700" />
 
 <center>Redis Sentinel拓扑结构<center/>
 
@@ -111,31 +107,31 @@ Redis Sentinel正是用于解决这些问题 ！
 
 1. 如图所示， 主节点出现故障， 此时两个从节点与主节点失去连接， 主从复制失败。  
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084721.png" alt="image-20210525001600460" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084721.png" alt="image-20210525001600460" />
 
 <center>主节点故障<center/>
 
 2. 每个Sentinel节点通过定期监控发现主节点出现了故障。  
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084722.png" alt="image-20210525001716060" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084722.png" alt="image-20210525001716060" />
 
 <center>Sentinel节点集合发现主节点故障  </center>
 
 3. 多个Sentinel节点对主节点的故障达成一致， 选举出sentinel-3节点作为领导者负责故障转移。  
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084723.png" alt="image-20210525001828064" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084723.png" alt="image-20210525001828064" />
 
 <center>Redis Sentinel对主节点故障转移  </center>
 
 4. Sentinel领导者节点执行了故障转移， 整个过程和高可用一样的，只不过是自动化的。
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084724.png" alt="image-20210525002011869" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084724.png" alt="image-20210525002011869" />
 
 <center>Sentinel领导者节点执行故障转移的四个步骤  </center>
 
 5. 故障转移后整个Redis Sentinel的拓扑结构图。  
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084725.png" alt="image-20210525002106871" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084725.png" alt="image-20210525002106871" />
 
 <center>故障转移后的拓扑结构  </center>
 
@@ -161,7 +157,7 @@ Redis Sentinel正是用于解决这些问题 ！
 
 以3个Sentinel节点、 1个主节点、 2个从节点组成一个RedisSentinel进行说明， 拓扑结构如图所示。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084726.png" alt="image-20210525222026897" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084726.png" alt="image-20210525222026897" />
 
 <div align='center'>Redis Sentinel安装示例拓扑图  </div>
 
@@ -169,7 +165,7 @@ Redis Sentinel正是用于解决这些问题 ！
 
 具体的物理部署如表所示。
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084727.png" alt="image-20210525222140497" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084727.png" alt="image-20210525222140497" />
 
 
 
@@ -178,8 +174,6 @@ Redis Sentinel正是用于解决这些问题 ！
 Redis Sentinel中Redis数据节点没有做任何特殊配置，  以一个比较简单的配置进行说明。  
 
 1. 启动主节点  
-
-   
 
    - 配置：  
 
@@ -191,33 +185,27 @@ Redis Sentinel中Redis数据节点没有做任何特殊配置，  以一个比�
      dbfilename "dump-6379.rdb"
      dir "/opt/soft/redis/data/"
      ```
-
-     
-
+   
    - 启动主节点：  
 
      ```
      redis-server redis-6379.conf
      ```
 
-     
-
    - 确认是否启动。 一般来说只需要ping命令检测一下就可以， 确认Redis数据节点是否已经启动。  
-
+   
      ```
      $ redis-cli -h 127.0.0.1 -p 6379 ping
      PONG
      ```
-
-     
-
-2. 启动两个从节点  
-
    
+     
+   
+2. 启动两个从节点  
 
    - 配置：
      两个从节点的配置是完全一样的， 下面以一个从节点为例子进行说明，和主节点的配置不一样的是添加了slaveof配置。  
-
+   
      ```
      redis-6380.conf
      port 6380
@@ -227,33 +215,27 @@ Redis Sentinel中Redis数据节点没有做任何特殊配置，  以一个比�
      dir "/opt/soft/redis/data/"
      slaveof 127.0.0.1 6379
      ```
-
-     
-
+   
    - 启动两个从节点：  
 
      ```
      redis-server redis-6380.conf
      redis-server redis-6381.conf
      ```
-
-     
-
+   
    - 验证：  
-
+   
      ```
      $ redis-cli -h 127.0.0.1 -p 6380 ping
      PONG
      $ redis-cli -h 127.0.0.1 -p 6381 ping
      PONG
      ```
-
+   
      
-
+   
    3. 确认主从关系 
-
-       
-
+   
       主节点的视角， 它有两个从节点， 分别是127.0.0.1： 6380和127.0.0.1：6381
 
       ```
@@ -265,11 +247,9 @@ Redis Sentinel中Redis数据节点没有做任何特殊配置，  以一个比�
       slave1:ip=127.0.0.1,port=6381,state=online,offset=281,lag=0
       .................
       ```
-
       
-
       从节点的视角， 它的主节点是127.0.0.1： 6379：  
-
+   
       ```
       $ redis-cli -h 127.0.0.1 -p 6380 info replication
       # Replication
@@ -279,14 +259,12 @@ Redis Sentinel中Redis数据节点没有做任何特殊配置，  以一个比�
       master_link_status:up
       .................
       ```
-
       
-
       此时拓扑结构如图所示。  
+      
+      ​	<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084728.png" alt="image-20210525224231878" />
 
-      ​	<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084728.png" alt="image-20210525224231878" style="zoom: 50%;" />
-
-​										添加两个从节点
+添加两个从节点。
 
 
 
@@ -310,29 +288,27 @@ Redis Sentinel中Redis数据节点没有做任何特殊配置，  以一个比�
    sentinel failover-timeout mymaster 180000
    ```
 
-   1） Sentinel节点的默认端口是26379。
-   2） sentinel monitor mymaster127.0.0.1 6379 2配置代表sentinel-1节点需要监控127.0.0.1： 6379这个主节点， 2代表判断主节点失	   败至少需要2个Sentinel节点同意， mymaster是主节点的别名。
+   - Sentinel节点的默认端口是26379。
+   - sentinel monitor mymaster127.0.0.1 6379 2配置代表sentinel-1节点需要监控127.0.0.1： 6379这个主节点， 2代表判断主节点失	   败至少需要2个Sentinel节点同意， mymaster是主节点的别名。
 
    
 
 2. 启动Sentinel节点  
-
-   
 
    Sentinel节点的启动方法有两种：  
 
    - 方法一， 使用redis-sentinel命令：  
 
      ```
-     redis-sentinel redis-sentinel-26379.conf
+  redis-sentinel redis-sentinel-26379.conf
      ```
-
+   
    - 方法二， 使用redis-server命令加--sentinel参数：  
 
      ```
-     redis-server redis-sentinel-26379.conf --sentinel
+  redis-server redis-sentinel-26379.conf --sentinel
      ```
-
+   
      两种方法本质上是一样的。 
 
      
@@ -353,7 +329,7 @@ Redis Sentinel中Redis数据节点没有做任何特殊配置，  以一个比�
 
    当三个Sentinel节点都启动后， 整个拓扑结构如图所示。  
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084729.png" alt="image-20210525230746759" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084729.png" alt="image-20210525230746759" />
 
 <div align='center'>Redis Sentinel最终拓扑结构  </div>
 
@@ -449,7 +425,7 @@ sentinel parallel-syncs <master-name> <nums>
 
 ​		parallelsyncs=3会同时发起复制， parallel-syncs=1时从节点会轮询发起复制。  
 
-​		<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084730.png" alt="image-20210525233048986" style="zoom:67%;" />
+​		<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084730.png" alt="image-20210525233048986" />
 
 
 
@@ -527,7 +503,7 @@ sentinel failover-timeout master-business-2 180000
 sentinel parallel-syncs master-business-2 1
 ```
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084731.png" alt="image-20210525233735172" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084731.png" alt="image-20210525233735172" />
 
 <div align='center'>Redis Sentinel监控多个主节点  </div>
 
@@ -543,7 +519,7 @@ sentinel set <param> <value>
 
 sentinel set命令支持的参数  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084732.png" alt="image-20210525233900346" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084732.png" alt="image-20210525233900346" />
 
 有几点需要注意一下：  
 
@@ -611,18 +587,16 @@ Jedis jedis = null;
 
 ## 4、本章重点回顾
 
-
-
-1） Redis Sentinel是Redis的高可用实现方案： 故障发现、 故障自动转移、 配置中心、 客户端通知。
-2） Redis Sentinel从Redis2.8版本开始才正式生产可用， 之前版本生产不可用。
-3） 尽可能在不同物理机上部署Redis Sentinel所有节点。
-4） Redis Sentinel中的Sentinel节点个数应该为大于等于3且最好为奇数。
-5） Redis Sentinel中的数据节点与普通数据节点没有区别。
-6） 客户端初始化时连接的是Sentinel节点集合， 不再是具体的Redis节点， 但Sentinel只是配置中心不是代理。
-7） Redis Sentinel通过三个定时任务实现了Sentinel节点对于主节点、 从节点、 其余Sentinel节点的监控。
-8） Redis Sentinel在对节点做失败判定时分为主观下线和客观下线。
-9） 看懂Redis Sentinel故障转移日志对于Redis Sentnel以及问题排查非常有帮助。
-10） Redis Sentinel实现读写分离高可用可以依赖Sentinel节点的消息通知， 获取Redis数据节点的状态变化。  
+1. Redis Sentinel是Redis的高可用实现方案： 故障发现、 故障自动转移、 配置中心、 客户端通知。
+2. Redis Sentinel从Redis2.8版本开始才正式生产可用， 之前版本生产不可用。
+3. 尽可能在不同物理机上部署Redis Sentinel所有节点。
+4. Redis Sentinel中的Sentinel节点个数应该为大于等于3且最好为奇数。
+5. Redis Sentinel中的数据节点与普通数据节点没有区别。
+6. 客户端初始化时连接的是Sentinel节点集合， 不再是具体的Redis节点， 但Sentinel只是配置中心不是代理。
+7. Redis Sentinel通过三个定时任务实现了Sentinel节点对于主节点、 从节点、 其余Sentinel节点的监控。
+8. Redis Sentinel在对节点做失败判定时分为主观下线和客观下线。
+9. 看懂Redis Sentinel故障转移日志对于Redis Sentnel以及问题排查非常有帮助。
+10. Redis Sentinel实现读写分离高可用可以依赖Sentinel节点的消息通知， 获取Redis数据节点的状态变化。  
 
 **遗漏补缺：**
 

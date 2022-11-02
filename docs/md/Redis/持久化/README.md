@@ -1,34 +1,3 @@
-- [持久化](#持久化)
-  - [1、RDB](#1rdb)
-    - [1.1 背景](#11-背景)
-    - [1.2 RDB概念](#12-rdb概念)
-      - [1.2.1 RDB（快照）原理](#121-rdb快照原理)
-    - [1.3  RDB文件的创建与载入](#13--rdb文件的创建与载入)
-      - [1.3.1 SAVE命令执行时的服务器状态](#131-save命令执行时的服务器状态)
-      - [1.3.2 BGSAVE命令执行时的服务器状态](#132-bgsave命令执行时的服务器状态)
-      - [1.3.3 RDB文件载入时的服务器状态](#133-rdb文件载入时的服务器状态)
-    - [1.4 自动触发RDB的持久化机制](#14-自动触发rdb的持久化机制)
-    - [1.5 RDB文件结构](#15-rdb文件结构)
-    - [1.6 分析RDB文件](#16-分析rdb文件)
-      - [1.6.1 不包含任何键值对的RDB文件](#161-不包含任何键值对的rdb文件)
-      - [1.6.2 包含字符串键的RDB文件](#162-包含字符串键的rdb文件)
-      - [1.6.3 包含带有过期时间的字符串键的RDB文件](#163-包含带有过期时间的字符串键的rdb文件)
-      - [1.6.4 包含一个集合键的RDB文件](#164-包含一个集合键的rdb文件)
-      - [1.6.5 关于分析RDB文件的说明](#165-关于分析rdb文件的说明)
-    - [1.7 RDB的优缺点](#17-rdb的优缺点)
-    - [1.8 重点回顾](#18-重点回顾)
-  - [2、AOF](#2aof)
-    - [2.1 AOF持久化](#21-aof持久化)
-    - [2.2 使用AOF](#22-使用aof)
-    - [2.3 AOF工作流程详解](#23-aof工作流程详解)
-      - [2.3.1 命令写入](#231-命令写入)
-      - [2.3.2 文件同步](#232-文件同步)
-      - [2.3.4 重写机制](#234-重写机制)
-      - [2.3.5 重启加载](#235-重启加载)
-      - [2.3.6 文件校验](#236-文件校验)
-    - [2.4 多实例部署](#24-多实例部署)
-    - [2.5 本章重点回顾](#25-本章重点回顾)
-
 
 # 持久化 
 
@@ -65,7 +34,7 @@ RDB持久化是把当前线程数据生成快照保存到硬盘的过程，触�
 
   - exec系列函数在执行时会**直接替换掉当前进程的地址空间**
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084529.png" alt="image-20210721115534618" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084529.png" alt="image-20210721115534618" />
 
 - `COW(Copy On Write) `机制属于操作系统处理多进程下的一种机制，Redis在持久化的时候会调用**glibc函数**fork一个子进程。**父子进程会共享内存里面的代码段和数据段**。
 
@@ -96,7 +65,7 @@ RDB持久化是把当前线程数据生成快照保存到硬盘的过程，触�
 
   
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084530.png" alt="image-20210517001413526" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084530.png" alt="image-20210517001413526" />
 
   
 
@@ -104,13 +73,13 @@ RDB持久化是把当前线程数据生成快照保存到硬盘的过程，触�
 
   
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084531.png" alt="image-20210517001703923" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084531.png" alt="image-20210517001703923" />
 
 - 创建RDB文件的实际工作由rdb.c/rdbSave函数完成，SAVE命令和BGSAVE命令会以不同的方式调用这个函数，通过以下伪代码可以明显地看出这两个命令之间的区别：
 
   
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084532.png" alt="image-20210517001747919" style="zoom:57%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084532.png" alt="image-20210517001747919" />
 
 RDB文件的载入工作是在服务器启动时自动执行的，所以Redis并没有专门用于载入RDB文件的命令，只要Redis服务器在启动检测到RDB文件存在，他就会自动加载RDB文件。
 
@@ -131,7 +100,7 @@ RDB文件的载入工作是在服务器启动时自动执行的，所以Redis并
 
   
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084534.png" alt="image-20210517003007667" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084534.png" alt="image-20210517003007667" />
 
 - 载入RDB文件的实际工作由`rdb.c/rdbLoad`函数完成，这个函数和rdbSave函数之间的关系如图所示：
 
@@ -183,7 +152,7 @@ Redis进程执行fork操作创建子进程， RDB持久化过程由子进程负�
 
   
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084537.png" alt="image-20210517004540138" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084537.png" alt="image-20210517004540138" />
 
 ***
 
@@ -396,7 +365,7 @@ AOF的工作流程：
 
 如图2-1所示：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084550.png" alt="image-20210518002532684" style="zoom:57%;" />  
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084550.png" alt="image-20210518002532684" />  
 
 
 
@@ -427,9 +396,7 @@ AOF命令写入的内容直接是文本协议格式。 例如SET KEY VALUE这条
 
 Redis提供了多种AOF缓冲区同步文件策略， 由参数**appendfsync**控制，在配置文件中可配制为：**appendfsync everysec**，不同值的含义如表2-2所示。  
 
-​												表2-2 AOF缓冲区同步文件策略  
-
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084552.png" alt="image-20210518004156756" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084552.png" alt="image-20210518004156756" />
 
 系统调用write（根据条件，将缓冲区内容写入到 AOF 文件）和fsync说明：  
 
@@ -463,7 +430,7 @@ AOF重写降低了文件占用空间， 除此之外， 另一个目的是： �
 
 **AOF重写流程**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084553.png" alt="image-20210518005500702" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084553.png" alt="image-20210518005500702" />
 
 1. 执行AOF重写请求。
 
@@ -490,7 +457,7 @@ AOF重写降低了文件占用空间， 除此之外， 另一个目的是： �
 
 AOF和RDB文件都可以用于服务器重启时的数据恢复。 如图所示，表示Redis持久化文件加载流程  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084556.png" alt="image-20210518005841671" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084556.png" alt="image-20210518005841671" />
 
 流程说明：
 
@@ -523,7 +490,7 @@ Redis单线程架构导致无法充分利用CPU多核特性， 通常的做法�
 
 我们基于以上指标， 可以通过外部程序轮询控制AOF重写操作的执行，整个过程如图所示。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084601.png" alt="image-20210518230650362" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084601.png" alt="image-20210518230650362" />
 
 流程说明：  
 

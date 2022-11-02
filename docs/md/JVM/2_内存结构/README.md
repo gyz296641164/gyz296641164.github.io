@@ -1,88 +1,11 @@
 <h1 align="center" style="color:orange">内存结构</h1>
 
-- [整体架构](#整体架构)
-- [程序计数器（PC Register）](#程序计数器pc-register)
-  - [程序计数器（Program Counter Register）定义](#程序计数器program-counter-register定义)
-  - [作用](#作用)
-  - [代码演示](#代码演示)
-  - [PC寄存器为什么被设定为私有](#pc寄存器为什么被设定为私有)
-  - [CPU时间片](#cpu时间片)
-- [虚拟机栈(Java Virtual Machine Stacks)](#虚拟机栈java-virtual-machine-stacks)
-  - [定义](#定义)
-  - [演示代码](#演示代码)
-  - [问题辨析](#问题辨析)
-  - [线程安全问题](#线程安全问题)
-  - [栈帧的内部结构](#栈帧的内部结构)
-    - [局部变量表](#局部变量表)
-      - [静态变量与局部变量的对比](#静态变量与局部变量的对比)
-    - [操作数栈](#操作数栈)
-      - [概念](#概念)
-      - [代码追踪](#代码追踪)
-  - [栈内存溢出](#栈内存溢出)
-    - [栈帧过多导致栈内存溢出](#栈帧过多导致栈内存溢出)
-    - [栈帧过大导致栈内存溢出](#栈帧过大导致栈内存溢出)
-  - [线程运行诊断](#线程运行诊断)
-    - [案例一：CPU占用过高](#案例一cpu占用过高)
-    - [案例二：程序运行很长时间没有结果（死锁）](#案例二程序运行很长时间没有结果死锁)
-- [本地方法栈(Native Method Stacks)](#本地方法栈native-method-stacks)
-- [堆（Heap）](#堆heap)
-  - [定义](#定义-1)
-    - [堆参数设置](#堆参数设置)
-    - [堆内存细分](#堆内存细分)
-    - [图解对象分配过程](#图解对象分配过程)
-    - [对象分配的特殊情况](#对象分配的特殊情况)
-  - [堆内存溢出](#堆内存溢出)
-  - [堆内存诊断工具](#堆内存诊断工具)
-  - [堆空间分代思想](#堆空间分代思想)
-  - [内存分配策略](#内存分配策略)
-  - [为对象分配内存TLAB](#为对象分配内存tlab)
-    - [堆空间都是共享的么](#堆空间都是共享的么)
-    - [为什么有TLAB](#为什么有tlab)
-    - [什么是TLAB](#什么是tlab)
-    - [TLAB分配过程](#tlab分配过程)
-  - [堆是分配对象的唯一选择吗](#堆是分配对象的唯一选择吗)
-    - [逃逸分析](#逃逸分析)
-    - [栈上分配](#栈上分配)
-    - [锁消除](#锁消除)
-    - [分离对象和标量替换](#分离对象和标量替换)
-    - [代码优化之标量替换](#代码优化之标量替换)
-    - [逃 逸分析的不足](#逃-逸分析的不足)
-  - [小结](#小结)
-- [方法区（Method Area）](#方法区method-area)
-  - [定义](#定义-2)
-  - [方法区的演进与内部结构](#方法区的演进与内部结构)
-    - [HotSpot中方法区的演进](#hotspot中方法区的演进)
-      - [为什么永久代要被元空间替代](#为什么永久代要被元空间替代)
-      - [StringTable为什么要调整位置](#stringtable为什么要调整位置)
-    - [方法区内部结构](#方法区内部结构)
-      - [类型信息](#类型信息)
-      - [域信息](#域信息)
-      - [方法信息](#方法信息)
-      - [non-final的类变量](#non-final的类变量)
-      - [全局常量](#全局常量)
-      - [运行时常量池 VS 常量池](#运行时常量池-vs-常量池)
-  - [方法区内存大小与OOM](#方法区内存大小与oom)
-    - [设置方法区大小](#设置方法区大小)
-    - [方法区内存溢出示例代码](#方法区内存溢出示例代码)
-    - [如何解决这些OOM](#如何解决这些oom)
-  - [常量池](#常量池)
-  - [运行时常量池](#运行时常量池)
-  - [StringTable 特性](#stringtable-特性)
-  - [StringTable 位置](#stringtable-位置)
-  - [StringTable垃圾回收调优](#stringtable垃圾回收调优)
-- [直接内存](#直接内存)
-  - [定义](#定义-3)
-  - [基本使用](#基本使用)
-  - [内存溢出](#内存溢出)
-  - [释放原理](#释放原理)
 
-
----
 
 
 # 整体架构
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155788.png" alt="image-20210611162052821" style="zoom: 80%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155788.png" alt="image-20210611162052821" />
 
 
 
@@ -617,7 +540,7 @@ public class Demo1_3 {
 
 当某个线程调用一个本地方法时，它就进入了一个全新的并且不再受虚拟机限制的世界。它和虚拟机拥有同样的权限。如下图所示。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155792.png" alt="image-20210611171210708" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155792.png" alt="image-20210611171210708" />
 
 - 本地方法可以通过本地方法接口来访问虚拟机内部的运行时数据区。
 - 它甚至可以直接使用本地处理器中的寄存器。
@@ -659,7 +582,7 @@ ms： //memory start
 
 **堆空间内部结构，JDK1.8之前永久代，1.8之后永久代替换成元空间。如下图所示。**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155793.png" alt="image-20210611175149235" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155793.png" alt="image-20210611175149235" />
 
 **Java 7及之前堆内存逻辑上分为三部分：新生区+养老区+永久区**
 
@@ -692,8 +615,12 @@ Java堆区进一步细分的话，可以划分为`年轻代（YoungGen）`和`�
 
 ![image-20210611175730724](https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155795.png)
 
-- Eden -> From ->To :  8:1:1
-- 新生代 -> 老年代：1:2
+- Eden -> From ->To :  
+  - 8:1:1
+
+- 新生代 -> 老年代：
+  - 1:2
+
 
 配置新生代与老年代在堆结构的占比：
 
@@ -725,13 +652,13 @@ Java堆区进一步细分的话，可以划分为`年轻代（YoungGen）`和`�
 
 我们创建的对象，一般都是存放在Eden区的，当我们Eden区满了后，就会触发GC操作，一般被称为 **YGC / Minor GC操作**。如下图所示。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155796.png" alt="image-20210611181650259" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155796.png" alt="image-20210611181650259" />
 
 当我们进行一次垃圾收集后，红色的将会被回收，而绿色的还会被占用着，存放在S0(Survivor From)区。同时我们给每个对象设置了一个年龄计数器，一次回收后就是1。
 
 同时Eden区继续存放对象，当Eden区再次存满的时候，又会触发一个Minor GC操作，此时GC将会把 Eden和Survivor From中的对象 进行一次收集，把存活的对象放到 Survivor To区，同时让年龄 + 1。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155797.png" alt="image-20210611181731676" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155797.png" alt="image-20210611181731676" />
 
 我们继续不断的进行对象生成 和 垃圾回收，当Survivor中的对象的年龄达到15的时候，将会触发一次 Promotion晋升的操作，也就是将年轻代中的对象晋升到老年代中。
 
@@ -1233,7 +1160,7 @@ private static void alloc() {
 
 - -XX:HandlePromotionFalilure：是否设置空间分配担保
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155799.png" alt="image-20210818153240854" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155799.png" alt="image-20210818153240854" />
 
 总结：
 
@@ -1285,7 +1212,7 @@ JDK7的时候
 
 JDK8的时候，元空间大小只受物理内存影响
 
-![image-20200708211637952](https://gitee.com/LastedMemory/LearningNotes/raw/master/JVM/1_%E5%86%85%E5%AD%98%E4%B8%8E%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AF%87/9_%E6%96%B9%E6%B3%95%E5%8C%BA/images/image-20200708211637952.png)
+![image-20220901215910350](https://studyimages.oss-cn-beijing.aliyuncs.com/others/20220901215910.png)
 
 - 在JDK 1.7及以前，习惯上把`方法区`，称为`永久代`。jdk8开始，使用元空间取代了永久代。元空间与永久代最大的区别在于：元空间不在虚拟机设置的内存中，而是使用`本地内存`。
 - JDK 1.8后元空间存放在堆外内存中，把方法区的`StringTable`转移到了堆中。
@@ -1678,11 +1605,11 @@ ByteBuffer byteBuffer = ByteBuffer.allocateDirect(BUFFER);
 
 **文件读写流程**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155805.png" alt="image-20210612000941540" style="zoom: 47%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155805.png" alt="image-20210612000941540" />
 
 **使用了DirectBuffer**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155806.png" alt="image-20210612001323279" style="zoom:47%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121155806.png" alt="image-20210612001323279" />
 
 直接内存是操作系统和Java代码**都可以访问的一块区域**，无需将代码从系统内存复制到Java堆内存，从而提高了效率。
 

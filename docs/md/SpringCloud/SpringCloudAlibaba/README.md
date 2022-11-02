@@ -1,62 +1,5 @@
 <h1 align="center">Spring Cloud Alibaba</h1>
 
-**目录**
-
-- [18、Spring Cloud Alibaba入门简介](#18spring-cloud-alibaba入门简介)
-  - [18.1 为什么会出现Spring Cloud Alibaba？](#181-为什么会出现spring-cloud-alibaba)
-  - [18.2 Spring Cloud Alibaba带来什么？](#182-spring-cloud-alibaba带来什么)
-    - [18.2.1 是什么](#1821-是什么)
-    - [18.2.2 主要功能](#1822-主要功能)
-    - [18.2.3 组件](#1823-组件)
-  - [18.3 Spring Cloud Alibaba学习资料获取](#183-spring-cloud-alibaba学习资料获取)
-- [19、Spring Cloud Alibaba Nacos服务注册和配置中心](#19spring-cloud-alibaba-nacos服务注册和配置中心)
-  - [19.1 Nacos简介](#191-nacos简介)
-  - [19.2 安装并运行Nacos](#192-安装并运行nacos)
-  - [19.3 Nacos作为服务注册中心演示](#193-nacos作为服务注册中心演示)
-    - [19.3.1 基于Nacos的服务提供者](#1931-基于nacos的服务提供者)
-    - [19.3.2 基于Nacos的服务消费者](#1932-基于nacos的服务消费者)
-    - [19.3.3 Nacos服务注册中心对比提升](#1933-nacos服务注册中心对比提升)
-  - [19.4 Nacos作为服务配置中心演示](#194-nacos作为服务配置中心演示)
-    - [19.4.1 Nacos作为配置中心--基础配置](#1941-nacos作为配置中心--基础配置)
-    - [19.4.2 Nacos作为配置中心--分类配置](#1942-nacos作为配置中心--分类配置)
-    - [19.4.3 Case：三种方案配置（Data ID、Group、Namespace）](#1943-case三种方案配置data-idgroupnamespace)
-  - [19.5 Nacos集群和持久化配置 **](#195-nacos集群和持久化配置-)
-    - [19.5.1 官网说明](#1951-官网说明)
-    - [19.5.3 Nacos持久化配置解释](#1953-nacos持久化配置解释)
-    - [19.5.4 Linux版nacos+mysql生产环境配置](#1954-linux版nacosmysql生产环境配置)
-- [20、Spring Cloud Alibaba Sentinel实现熔断与限流](#20spring-cloud-alibaba-sentinel实现熔断与限流)
-  - [20.1 Sentinel介绍](#201-sentinel介绍)
-  - [20.2 安装Sentinel控制台](#202-安装sentinel控制台)
-  - [20.3 初始化演示工程](#203-初始化演示工程)
-  - [20.4 流控规则](#204-流控规则)
-    - [20.4.1 基本介绍](#2041-基本介绍)
-    - [20.4.2 流控模式](#2042-流控模式)
-    - [20.4.3 流控效果](#2043-流控效果)
-  - [20.5 Sentinel降级](#205-sentinel降级)
-    - [20.5.1 概述](#2051-概述)
-    - [20.5.2 降级策略实战](#2052-降级策略实战)
-  - [20.6 热点key限流](#206-热点key限流)
-    - [20.6.1 基本介绍](#2061-基本介绍)
-    - [20.6.2 参数例外项](#2062-参数例外项)
-  - [20.7 @SentinelResource配置](#207-sentinelresource配置)
-    - [20.7.1 SentinelResource配置(上)](#2071-sentinelresource配置上)
-    - [20.7.3 SentinelResource配置(下)](#2073-sentinelresource配置下)
-  - [20.8 服务熔断功能](#208-服务熔断功能)
-    - [20.8.1 Sentinel服务熔断Ribbon](#2081-sentinel服务熔断ribbon)
-    - [20.8.2 Sentinel服务熔断OpenFeign](#2082-sentinel服务熔断openfeign)
-  - [20.9 Sentinel持久化规则](#209-sentinel持久化规则)
-    - [20.9.1 是什么](#2091-是什么)
-    - [20.9.2 怎么玩](#2092-怎么玩)
-    - [20.9.3 步骤](#2093-步骤)
-- [21、Spring Cloud Alibaba Seata处理分布式事务](#21spring-cloud-alibaba-seata处理分布式事务)
-  - [21.1 分布式事务问题](#211-分布式事务问题)
-  - [21.2 Seata简介](#212-seata简介)
-  - [21.3 Seata-Server安装](#213-seata-server安装)
-  - [21.4 订单/库存/账户业务数据库准备](#214-订单库存账户业务数据库准备)
-  - [21.5 订单/库存/账户业务微服务准备](#215-订单库存账户业务微服务准备)
-  - [21.6 Seata之@GlobalTransactional验证](#216-seata之globaltransactional验证)
-  - [21.7 Seata原理简介](#217-seata原理简介)
-
 # 18、Spring Cloud Alibaba入门简介
 
 ## 18.1 为什么会出现Spring Cloud Alibaba？
@@ -65,7 +8,7 @@
 
 https://spring.io/blog/2018/12/12/spring-cloud-greenwich-rc1-available-now
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251024.png" alt="image-20210727094129608" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251024.png" alt="image-20210727094129608" />
 
 **什么是维护模式**
 
@@ -109,15 +52,15 @@ Spring Cloud Netflix 将不再开发新的组件。
 
 ### 18.2.3 组件
 
-- [Sentinel](https://github.com/alibaba/Sentinel) ：把流量作为切入点，从流量控制、熔断降级、系统负载保护等多个维度保护服务的稳定性。
-- [Nacos](https://github.com/alibaba/Nacos) ：一个更易于构建云原生应用的动态服务发现、配置管理和服务管理平台。
-- [RocketMQ](https://rocketmq.apache.org/) ：一款开源的分布式消息系统，基于高可用分布式集群技术，提供低延时的、高可靠的消息发布与订阅服务。
-- [Dubbo](https://github.com/apache/dubbo) ：Apache Dubbo™ 是一款高性能 Java RPC 框架。
-- [Seata](https://github.com/seata/seata) ：阿里巴巴开源产品，一个易于使用的高性能微服务分布式事务解决方案。
-- [Alibaba Cloud OSS](https://www.aliyun.com/product/oss) : 阿里云对象存储服务（Object Storage Service，简称 OSS），是阿里云提供的海量、安全、低成本、高可靠的云存储服务。您可以在任何应用、任何时间、任何地点存储和访问任意类型的数据。
-- [Alibaba Cloud SchedulerX](https://help.aliyun.com/document_detail/43136.html) : 阿里中间件团队开发的一款分布式任务调度产品，提供秒级、精准、高可靠、高可用的定时（基于 Cron 表达式）任务调度服务。
-- [Alibaba Cloud SMS](https://www.aliyun.com/product/sms) : 覆盖全球的短信服务，友好、高效、智能的互联化通讯能力，帮助企业迅速搭建客户触达通道。
-- 更多组件请参考：[Roadmap](https://github.com/alibaba/spring-cloud-alibaba/blob/master/Roadmap-zh.md)
+- **[Sentinel](https://github.com/alibaba/Sentinel)**：把流量作为切入点，从流量控制、熔断降级、系统负载保护等多个维度保护服务的稳定性。
+- **[Nacos](https://github.com/alibaba/Nacos)**：一个更易于构建云原生应用的动态服务发现、配置管理和服务管理平台。
+- **[RocketMQ](https://rocketmq.apache.org/)**：一款开源的分布式消息系统，基于高可用分布式集群技术，提供低延时的、高可靠的消息发布与订阅服务。
+- **[Dubbo](https://github.com/apache/dubbo)**：Apache Dubbo™ 是一款高性能 Java RPC 框架。
+- **[Seata](https://github.com/seata/seata)**：阿里巴巴开源产品，一个易于使用的高性能微服务分布式事务解决方案。
+- **[Alibaba Cloud OSS](https://www.aliyun.com/product/oss)**: 阿里云对象存储服务（Object Storage Service，简称 OSS），是阿里云提供的海量、安全、低成本、高可靠的云存储服务。您可以在任何应用、任何时间、任何地点存储和访问任意类型的数据。
+- **[Alibaba Cloud SchedulerX](https://help.aliyun.com/document_detail/43136.html)**: 阿里中间件团队开发的一款分布式任务调度产品，提供秒级、精准、高可靠、高可用的定时（基于 Cron 表达式）任务调度服务。
+- **[Alibaba Cloud SMS](https://www.aliyun.com/product/sms)**: 覆盖全球的短信服务，友好、高效、智能的互联化通讯能力，帮助企业迅速搭建客户触达通道。
+- 更多组件请参考 [Roadmap](https://github.com/alibaba/spring-cloud-alibaba/blob/master/Roadmap-zh.md)。
 
 
 
@@ -192,7 +135,7 @@ Spring Cloud Netflix 将不再开发新的组件。
 
 - 默认账号密码都是nacos，结果页面
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251025.png" alt="image-20210727213448499" style="zoom:57%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251025.png" alt="image-20210727213448499" />
 
 ***
 
@@ -328,11 +271,11 @@ public class ConfigClientController {
 
 - http://localhost:9001/payment/nacos/1
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251026.png" alt="image-20210727214315477" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251026.png" alt="image-20210727214315477" />
 
 - nacos控制台
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251027.png" alt="image-20210727214328968" style="zoom:57%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251027.png" alt="image-20210727214328968" />
 
 - nacos服务注册中心+服务提供者9001都OK了
 
@@ -404,7 +347,7 @@ public class ConfigClientController {
 
 自带负载均衡：spring-cloud-starter-alibaba-nacos-discovery内含netflix-ribbon包。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251028.png" alt="image-20210727215313230" style="zoom:67%;" />	
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251028.png" alt="image-20210727215313230" />	
 
 **YML**
 
@@ -477,15 +420,15 @@ public class OrderNacosController {
 
 - 启动nacos控制台
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251029.png" alt="image-20210727221839894" style="zoom:57%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251029.png" alt="image-20210727221839894" />
 
 - http://localhost:83/consumer/payment/nacos/1
 
 - 83访问9001/9002，轮询负载OK
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251030.png" alt="image-20210727223227082" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251030.png" alt="image-20210727223227082" />
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251031.png" alt="image-20210727223236927" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251031.png" alt="image-20210727223236927" />
 
 
 
@@ -493,15 +436,15 @@ public class OrderNacosController {
 
 **Nacos全景图所示**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251032.png" alt="image-20210727223412893" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251032.png" alt="image-20210727223412893" />
 
 **Nacos和CAP**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251033.png" alt="image-20210727223532429" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251033.png" alt="image-20210727223532429" />
 
 **Nacos服务发现实例模型**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251034.png" alt="image-20210727223510288" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251034.png" alt="image-20210727223510288" />
 
 **Nacos支持AP和CP模式的切换**
 
@@ -518,8 +461,6 @@ public class OrderNacosController {
 ```
 curl -X PUT '$NACOS_SERVER:8848/nacos/v1/ns/operator/switches?entry=serverMode&value=CP
 ```
-
-
 
 ***
 
@@ -690,11 +631,11 @@ public class ConfigClientController {
 
 - 配置新增
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251035.png" alt="image-20210728224133051" style="zoom:57%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251035.png" alt="image-20210728224133051" />
 
 - 配置说明
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251036.png" alt="image-20210728224254023" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251036.png" alt="image-20210728224254023" />
 
 **测试**
 
@@ -702,7 +643,7 @@ public class ConfigClientController {
 - 运行`cloud-config-nacos-client3377`的主启动类
 - 调用接口查看配置信息 - http://localhost:3377/config/info
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251037.png" alt="image-20210728224527388" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251037.png" alt="image-20210728224527388" />
 
 - 修改下Nacos中的yaml配置文件，再次调用查看配置的接口，就会发现配置已经刷新。(@RefreshScope：支持Nacos的动态刷新功能)
 
@@ -732,11 +673,11 @@ public class ConfigClientController {
 
 **配置管理**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251038.png" alt="image-20210728225248079" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251038.png" alt="image-20210728225248079" />
 
 **命名空间**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251039.png" alt="image-20210728225303001" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251039.png" alt="image-20210728225303001" />
 
 
 
@@ -748,7 +689,7 @@ public class ConfigClientController {
 
 **三者情况**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251040.png" alt="image-20210728225845028" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251040.png" alt="image-20210728225845028" />
 
 1. 默认情况：`Namespace=public`，`Group=DEFAULT_GROUP`，默认`Cluster是DEFAULT`
 
@@ -776,11 +717,11 @@ public class ConfigClientController {
 
 - 新建dev配置Data ID和test配置Data ID
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251041.png" alt="image-20210728231102465" style="zoom:57%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251041.png" alt="image-20210728231102465" />
 
 **通过spring.profile.active属性就能进行多环境下的配置文件的读取**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251042.png" alt="image-20210728231309656" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251042.png" alt="image-20210728231309656" />
 
 **测试**
 
@@ -788,9 +729,9 @@ public class ConfigClientController {
 
 - 配置是什么就加载什么： test/dev
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251043.png" alt="image-20210728231652079" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251043.png" alt="image-20210728231652079" />
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251044.png" alt="image-20210728231723321" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251044.png" alt="image-20210728231723321" />
 
 
 
@@ -800,11 +741,11 @@ public class ConfigClientController {
 
 **在nacos图形界面控制台上面新建配置文件DataID**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251045.png" alt="image-20210728232204733" style="zoom: 67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251045.png" alt="image-20210728232204733" />
 
 **bootstrap和application**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251046.png" alt="image-20210728232513066" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251046.png" alt="image-20210728232513066" />
 
 
 
@@ -812,15 +753,15 @@ public class ConfigClientController {
 
 **新建dev/test的Namespace**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251047.png" alt="image-20210728232713080" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251047.png" alt="image-20210728232713080" />
 
 **回到服务管理-服务列表查看**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251048.png" alt="image-20210728232810512" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251048.png" alt="image-20210728232810512" />
 
 **按照域名配置填写**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251049.png" alt="image-20210728234615892" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251049.png" alt="image-20210728234615892" />
 
 **YML**
 
@@ -842,7 +783,7 @@ http://localhost:3377/config/info
 
 > **官网架构图**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251052.png" alt="image-20210728235111366" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251052.png" alt="image-20210728235111366" />
 
 - 因此开源的时候推荐用户把所有服务列表放到一个vip下面，然后挂到一个域名下面
 
@@ -857,7 +798,7 @@ http://localhost:3377/config/info
 
 > **官网结构图翻译**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251053.png" alt="image-20210728235230558" width="630px" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251053.png" alt="image-20210728235230558" />
 
 **说明**：
 
@@ -900,7 +841,7 @@ http://localhost:3377/config/info
 
 > Nacos默认自带的是嵌入式数据库**derby**，nacos的pom.xml中可以看出。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251054.png" alt="image-20210729155052779" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251054.png" alt="image-20210729155052779" />
 
 > **derby到mysql的切换配置步骤**
 
@@ -948,7 +889,7 @@ Nacos下载Linux版：
 
 - SQL脚本在哪里
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251055.png" alt="image-20210729160223272" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251055.png" alt="image-20210729160223272" />
 
 - 自己Linux机器上的mysql数据库粘贴
 
@@ -956,7 +897,7 @@ Nacos下载Linux版：
 
 - 位置
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251056.png" alt="image-20210729160341672" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251056.png" alt="image-20210729160341672" />
 
 - 添加以下内容，设置数据源
 
@@ -969,7 +910,7 @@ Nacos下载Linux版：
   db.password=1234
   ```
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251057.png" alt="image-20210729160404837" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251057.png" alt="image-20210729160404837" />
 
 **Linux服务器上nacos的集群配置cluster.conf**
 
@@ -980,7 +921,7 @@ Nacos下载Linux版：
 
 - 复制出cluster.conf
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251058.png" alt="image-20210729160634179" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251058.png" alt="image-20210729160634179" />
 
 - 内容
 
@@ -992,7 +933,7 @@ Nacos下载Linux版：
 
   这个IP不能写127.0.0.1，必须是Linux命令`hostname -i`能够识别的IP.
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251059.png" alt="image-20210729160813191" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251059.png" alt="image-20210729160813191" />
 
 **编辑nacos的启动脚本startup.sh，使它能够接受不同的启动端口**
 
@@ -1002,31 +943,31 @@ Nacos下载Linux版：
 
 - **修改内容**
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251060.png" alt="image-20210729161835528" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251060.png" alt="image-20210729161835528" />
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251061.png" alt="image-20210729161843617" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251061.png" alt="image-20210729161843617" />
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251062.png" alt="image-20210729161853675" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251062.png" alt="image-20210729161853675" />
 
 - 执行方式
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251063.png" alt="image-20210729161911857" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251063.png" alt="image-20210729161911857" />
 
 **Nginx的配置，由它作为负载均衡器**
 
 - 修改Nginx的配置文件
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251064.png" alt="image-20210729161947833" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251064.png" alt="image-20210729161947833" />
 
 - 修改内容
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251065.png" alt="image-20210729162033467" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251065.png" alt="image-20210729162033467" />
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251066.png" alt="image-20210729162048565" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251066.png" alt="image-20210729162048565" />
 
 - 按照指定启动
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251067.png" alt="image-20210729162102148" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251067.png" alt="image-20210729162102148" />
 
 **截止到此处，1个Nginx+3个nacos注册中心+1个mysql**
 
@@ -1046,15 +987,13 @@ Nacos下载Linux版：
 
 - 新建一个配置测试
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251068.png" alt="image-20210729162236852" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251068.png" alt="image-20210729162236852" />
 
 - 新建后，可在linux服务器的mysql新插入一条记录
 
   ```
   select * from config;
   ```
-
-
 
 > **测试**
 
@@ -1088,13 +1027,13 @@ Nacos下载Linux版：
 
 - 访问nacos，查看注册结果。
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251069.png" alt="image-20210729162526180" style="zoom:57%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251069.png" alt="image-20210729162526180" />
 
 
 
 > **高可用小总结**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251070.png" alt="image-20210729162549332" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251070.png" alt="image-20210729162549332" />
 
 
 
@@ -1114,7 +1053,7 @@ Sentinel 是面向分布式服务架构的流量控制组件，主要以流量�
 
 **Sentinel 主要特性**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251071.png" alt="image-20210731123435061" width="600px" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251071.png" alt="image-20210731123435061" />
 
 
 
@@ -1307,7 +1246,7 @@ public class FlowLimitController {
 
 - 空空如也
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251072.png" alt="image-20210731181202368" width="600px" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251072.png" alt="image-20210731181202368" />
 
 - sentinel采用的是懒加载说明
 
@@ -1319,7 +1258,7 @@ public class FlowLimitController {
 
   - 效果
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251073.png" alt="image-20210731181346832" width="600px" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251073.png" alt="image-20210731181346832" />
 
 - 结论：sentinel正在监控微服务8401
 
@@ -1331,7 +1270,7 @@ public class FlowLimitController {
 
 ### 20.4.1 基本介绍
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251074.png" alt="image-20210731182313481" width="600px" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251074.png" alt="image-20210731182313481" />
 
 - 资源名：唯一名称，默认请求路径；
 - 针对来源：Sentinel可以针对调用者进行限流，填写微服务名，默认default（不区分来源）；
@@ -1357,7 +1296,7 @@ public class FlowLimitController {
 **配置说明**
 
 - 表示1秒钟内查询1次就是OK，若超过次数1，就直接->快速失败，报默认错误
-- <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251075.png" alt="image-20210731182826995" style="zoom:57%;" />
+- <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251075.png" alt="image-20210731182826995" />
 
 **测试**
 
@@ -1371,8 +1310,6 @@ public class FlowLimitController {
 
 直接调用默认报错信息，技术方面OK，但是，是否应该有我们自己的后续处理？类似有个`fallback`的兜底方法。
 
-
-
 > **关联**
 
 **是什么**？
@@ -1384,29 +1321,29 @@ public class FlowLimitController {
 
 当关联资源/testB的QPS阀值超过1时，就限流/testA的Rest访问地址，**当关联资源到阈值后限制配置好的资源名**。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251078.png" alt="image-20210731183936055" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251078.png" alt="image-20210731183936055" />
 
 **postman模拟并发密集访问testB**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251079.png" alt="image-20210731190249285" style="zoom:47%;"/>
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251079.png" alt="image-20210731190249285"/>
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251080.png" alt="image-20210731190345470" style="zoom:47%;"/>
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251080.png" alt="image-20210731190345470"/>
 
 - 访问testB成功
 
 - postman里新建多线程集合组
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251081.png" alt="image-20210731190846980" style="zoom:57%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251081.png" alt="image-20210731190846980" />
 
 - 访问地址添加进新线程组
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251082.png" alt="image-20210731191144948" style="zoom:47%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251082.png" alt="image-20210731191144948" />
 
 - run
 
   大批量线程高并发访问B，导致A失效了。`注：以下请求前，先启动大批量请求。即先前设置的每隔0,3秒请求一次`
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251083.png" alt="image-20210731191449838" style="zoom:47%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251083.png" alt="image-20210731191449838" />
 
 
 
@@ -1430,7 +1367,7 @@ Warm Up（RuleConstant.CONTROL_BEHAVIOR_WARM_UP）方式，即`预热/冷启动`
 
 **通常冷启动的过程系统允许通过的 QPS 曲线如下图所示**：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251084.png" alt="image-20210731195016246" style="zoom:47%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251084.png" alt="image-20210731195016246" />
 
 - 默认coldFactor为3，即请求QPS 从 threshold / 3开始，经预热时长逐渐升至设定的QPS阈值
 - 限流冷启动
@@ -1442,14 +1379,14 @@ Warm Up（RuleConstant.CONTROL_BEHAVIOR_WARM_UP）方式，即`预热/冷启动`
 com.alibaba.csp.sentinel.slots.block.flow.controller.WarmUpController
 ```
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251085.png" alt="image-20210731195605977" style="zoom:80%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251085.png" alt="image-20210731195605977" />
 
 **WarmUp配置**
 
 - 案例，阀值为10+预热时长设置5秒。
 
 - 系统初始化的阀值为10/ 3约等于3，即阀值刚开始为3；然后过了5秒后阀值才慢慢升高恢复到10
-- <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251086.png" alt="image-20210731200410718" style="zoom:47%;" />
+- <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251086.png" alt="image-20210731200410718" />
 
   
 
@@ -1469,14 +1406,14 @@ com.alibaba.csp.sentinel.slots.block.flow.controller.WarmUpController
 
 设置：/testA每秒1次请求，超过的话就排队等待，等待的超时时间为20000毫秒。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251087.png" alt="image-20210731222701960" style="zoom:47%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251087.png" alt="image-20210731222701960" />
 
 **匀速排队**
 
 匀速排队（RuleConstant.CONTROL_BEHAVIOR_RATE_LIMITER）方式会严格控制请求通过的间隔时间，也即是让请求以均匀的速度通过，对应的是漏桶算法。详细文档可以参考 `流量控制 - 匀速器模式`，具体的例子可以参见 PaceFlowDemo。
 
 该方式的作用如下图所示：
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251088.png" alt="image-20210731222119072" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251088.png" alt="image-20210731222119072" />
 
 这种方式主要用于处理间隔性突发的流量，例如消息队列。想象一下这样的场景，在某一秒有大量的请求到来，而接下来的几秒则处于空闲状态，我们希望系统能够在接下来的空闲期间逐渐处理这些请求，而不是在第一秒直接拒绝多余的请求。
 
@@ -1498,7 +1435,7 @@ com.alibaba.csp.sentinel.slots.block.flow.controller.RateLimiterController
 
 - Postman模拟并发密集访问testA
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251089.png" alt="image-20210731224215083" style="zoom:57%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251089.png" alt="image-20210731224215083" />
 
 
 
@@ -1517,7 +1454,7 @@ com.alibaba.csp.sentinel.slots.block.flow.controller.RateLimiterController
 
 **基本介绍**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251090.png" alt="image-20210731224732811" style="zoom:47%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251090.png" alt="image-20210731224732811" />
 
 - RT（平均响应时间，秒级）
   - 平均响应时间 超出阈值 且 在时间窗口内通过的请求>=5，两个条件同时满足后触发降级；
@@ -1546,7 +1483,7 @@ com.alibaba.csp.sentinel.slots.block.flow.controller.RateLimiterController
 
 - 平均响应时间(`DEGRADE_GRADE_RT`)：当1s内持续进入5个请求，对应时刻的平均响应时间（秒级）均超过阈值（ count，以ms为单位），那么在接下的时间窗口（`DegradeRule`中的`timeWindow`，以s为单位）之内，对这个方法的调用都会自动地熔断(抛出DegradeException )。注意Sentinel 默认统计的RT上限是`4900 ms`，超出此阈值的都会算作4900ms，若需要变更此上限可以通过启动配置项`-Dcsp.sentinel.statistic.max.rt=xxx`来配置。
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251091.png" alt="image-20210731233437062" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251091.png" alt="image-20210731233437062" />
 
 - **注意**：Sentinel 1.7.0才有**平均响应时间**（`DEGRADE_GRADE_RT`），Sentinel 1.8.0的没有这项，取而代之的是**慢调用比例**(`SLOW_REQUEST_RATIO`)。
 
@@ -1579,13 +1516,13 @@ com.alibaba.csp.sentinel.slots.block.flow.controller.RateLimiterController
 
 - 配置
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251092.png" alt="image-20210731231524896" style="zoom:47%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251092.png" alt="image-20210731231524896" />
 
 - jmeter压测
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251093.png" alt="image-20210731232454053" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251093.png" alt="image-20210731232454053" />
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251094.png" alt="image-20210801085518921" style="zoom:37%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251094.png" alt="image-20210801085518921" />
 
 - 结论
 
@@ -1626,11 +1563,11 @@ com.alibaba.csp.sentinel.slots.block.flow.controller.RateLimiterController
 
 - 配置
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251095.png" alt="image-20210801090637646" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251095.png" alt="image-20210801090637646" />
 
 - jmeter
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251096.png" alt="image-20210731233842338" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251096.png" alt="image-20210731233842338" />
 
 - 结论
 
@@ -1640,7 +1577,7 @@ com.alibaba.csp.sentinel.slots.block.flow.controller.RateLimiterController
   
   - 效果：
   
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251097.png" alt="image-20210801090831283" style="zoom:50%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251097.png" alt="image-20210801090831283" />
   
     ![image-20210801090803634](https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251098.png)
   
@@ -1654,7 +1591,7 @@ com.alibaba.csp.sentinel.slots.block.flow.controller.RateLimiterController
 
 - 异常数( `DEGRADE_GRADF_EXCEPTION_COUNT` )：当资源近1分钟的异常数目超过阈值之后会进行熔断。注意由于统计时间窗口是分钟级别的，若`timeWindow`小于60s，则结束熔断状态后码可能再进入熔断状态。
 - **异常数是按照分钟统计的，时间窗口一定要大于等于60秒**
-- <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251099.png" alt="image-20210731234415679" style="zoom:67%;" />
+- <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251099.png" alt="image-20210731234415679" />
 
 **注意**，与Sentinel 1.8.0相比，有些不同（Sentinel 1.8.0才有的半开状态），Sentinel 1.8.0的如下：
 
@@ -1681,7 +1618,7 @@ com.alibaba.csp.sentinel.slots.block.flow.controller.RateLimiterController
 
 - 配置
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251100.png" alt="image-20210801091056136" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251100.png" alt="image-20210801091056136" />
 
 - 访问：http://localhost:8401/testE，第一次访问绝对报错，因为除数不能为零，我们看到error窗口，但是达到5次报错后，进入熔断后降级。
 
@@ -1704,7 +1641,7 @@ com.alibaba.csp.sentinel.slots.block.flow.controller.RateLimiterController
 
 热点参数限流会统计传入参数中的热点参数，并根据配置的限流阈值与模式，对包含热点参数的资源调用进行限流。热点参数限流可以看做是一种特殊的流量控制，仅对包含热点参数的资源调用生效。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251101.png" alt="sentinel-hot-param-overview-1" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251101.png" alt="sentinel-hot-param-overview-1" />
 
 Sentinel 利用 LRU 策略统计最近最常访问的热点参数，结合令牌桶算法来进行参数级别的流控。热点参数限流支持集群模式。
 
@@ -1762,7 +1699,7 @@ public class FlowLimitController {
 
 > **配置**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251102.png" alt="image-20210801095456903" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251102.png" alt="image-20210801095456903" />
 
 - `@SentinelResource(value = "testHotKey", blockHandler = "dealHandler_testHotKey")`
 
@@ -1783,10 +1720,6 @@ right
 
 - http://localhost:8401/testHotKey?p2=33（不受监控，设置的第一个参数是p1）
 
-
-
-
-
 ### 20.6.2 参数例外项
 
 上述案例演示了第一参数p1，当QPS超过了1秒1次点击后马上限流。
@@ -1799,9 +1732,9 @@ right
 
 **配置**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251103.png" alt="image-20210801101838992" style="zoom:40%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251103.png" alt="image-20210801101838992" />
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251104.png" alt="image-20210801101902106" style="zoom:40%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251104.png" alt="image-20210801101902106" />
 
 **测试**
 
@@ -1825,7 +1758,7 @@ right
     }
 ```
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251105.png" alt="image-20210801102347401" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251105.png" alt="image-20210801102347401" />
 
 **结论**
 
@@ -1889,7 +1822,7 @@ Module：**`cloudalibaba-sentinel-service8401`**
 
 **配置流控规则**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251106.png" alt="image-20210801184239275" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251106.png" alt="image-20210801184239275" />
 
 - 表示1秒钟内查询次数大于1，就跑到我们自定义的处流，限流。
 
@@ -1903,7 +1836,7 @@ Module：**`cloudalibaba-sentinel-service8401`**
   {"code":444, "message":"com.alibaba.csp.sentinel.slots.block.flow.FlowException\t 服务不可用", "data":null}
   ```
   
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251107.png" alt="image-20210801184417919" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251107.png" alt="image-20210801184417919" />
 
 **额外问题**
 
@@ -1932,7 +1865,7 @@ Module：**`cloudalibaba-sentinel-service8401`**
 
     **Sentinel控制台配置**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251108.png" alt="image-20210801132812228" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251108.png" alt="image-20210801132812228" />
 
 **测试**
 
@@ -1987,7 +1920,7 @@ public class RateLimitController {
 
 Sentinel控制台配置
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251109.png" alt="image-20210801190152637" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251109.png" alt="image-20210801190152637" />
 
 测试
 
@@ -2692,7 +2625,7 @@ public class OrderNacosMain84 {
 
 - 添加Nacos业务规则配置
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251110.png" alt="image-20210801204315759" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251110.png" alt="image-20210801204315759" />
 
   配置内容解析
 
@@ -2718,7 +2651,7 @@ public class OrderNacosMain84 {
 
 - 启动8401后刷新sentinel发现业务规则有了
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251111.png" alt="image-20210801204524402" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251111.png" alt="image-20210801204524402" />
 
 - 快速访问测试接口
 
@@ -2728,7 +2661,7 @@ public class OrderNacosMain84 {
 
 - 停止8401再看sentinel - 停机后发现流控规则没有了
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251112.png" alt="image-20210801204716682" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251112.png" alt="image-20210801204716682" />
 
 - 重新启动8401再看sentinel
 
@@ -2756,7 +2689,7 @@ public class OrderNacosMain84 {
   - 仓储服务：对给定的商品扣除仓储数量
   - 订单服务：根据采购需求创建订单
   - 账户服务：从用户账户中扣除余额
-  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251113.png" alt="image-20210803000948862" style="zoom:67%;" />
+  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251113.png" alt="image-20210803000948862" />
 
 **一句话：一次业务操作需要垮多个数据源或需要垮多个系统进行远程调用,就会产生分布式事务问题！**
 
@@ -2792,7 +2725,7 @@ public class OrderNacosMain84 {
   4. TM向TC发起针对XID的全局提交或回滚决议；
   5. TC调度XID下管辖的全部分支事务完成提交或回滚请求。
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251114.png" alt="image-20210803002330061" style="zoom:47%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251114.png" alt="image-20210803002330061" />
 
 
 
@@ -2810,13 +2743,9 @@ public class OrderNacosMain84 {
 
    - seata的分布式交易解决方案
 
-     <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251115.png" alt="image-20210803003136030" style="zoom:37%;" />
+     <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251115.png" alt="image-20210803003136030" />
 
    - 我们只需要使用一个 `@GlobalTransactional` 注解在业务方法上；
-
-
-
-
 
 ***
 
@@ -2850,9 +2779,9 @@ public class OrderNacosMain84 {
 
      - store模块
 
-       <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251116.png" alt="image-20210803233226407" style="zoom:50%;" />
+       <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251116.png" alt="image-20210803233226407" />
 
-       <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251117.png" alt="image-20210803233250935" style="zoom:50%;" />
+       <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251117.png" alt="image-20210803233250935" />
 
        ```
        ## transaction log store
@@ -2960,7 +2889,7 @@ public class OrderNacosMain84 {
 
    5. 修改`seata-server-0.9.0\seata\conf`目录下的`registry.conf`目录下的`registry.conf`配置文件
 
-      <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251118.png" alt="image-20210803232105525" style="zoom:47%;" />
+      <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251118.png" alt="image-20210803232105525" />
 
       ```
       registry {
@@ -3229,7 +3158,7 @@ public class OrderNacosMain84 {
 
 4. 项目resources文件夹下新建`file.conf`、`registry.conf`
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251119.png" alt="image-20210804003415482" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251119.png" alt="image-20210804003415482" />
 
    ```
    ### file.conf
@@ -3496,7 +3425,7 @@ public class OrderNacosMain84 {
 
    - OrderDao
 
-     ```
+     ```java
      @Mapper
      public interface OrderDao {
      
@@ -4076,7 +4005,7 @@ public class OrderNacosMain84 {
 
 **数据库初始情况：**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251120.png" alt="image-20210804234426126" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251120.png" alt="image-20210804234426126" />
 
 **正常下单**
 
@@ -4084,7 +4013,7 @@ public class OrderNacosMain84 {
 
 - 数据库正常下单后状况：
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251121.png" alt="image-20210804234517681" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251121.png" alt="image-20210804234517681" />
 
 **超时异常,没加@GlobalTransactional**
 
@@ -4120,7 +4049,7 @@ public class OrderNacosMain84 {
 
 - 数据库情况
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251122.png" alt="af40cc3756cef7179e58c813ed404db3" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251122.png" alt="af40cc3756cef7179e58c813ed404db3" />
 
 - **故障情况**
 
@@ -4162,9 +4091,9 @@ public class OrderNacosMain84 {
 
 > **TC/TM/RM三个组件**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251123.png" alt="image-20210803003646181" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251123.png" alt="image-20210803003646181" />
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251124.png" alt="image-20210803003658113" style="zoom:47%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251124.png" alt="image-20210803003658113" />
 
 - 形象比喻：TM相当于学生、TC相当于上课教师、RM相当于课程ID
 - **分布式事务的执行流程**：
@@ -4203,13 +4132,13 @@ public class OrderNacosMain84 {
 
 以上操作全部在一个数据库事务内完成, 这样保证了一阶段操作的原子性。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251125.png" alt="image-20210803004403296" style="zoom:47%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251125.png" alt="image-20210803004403296" />
 
 **二阶段提交**
 
 - 二阶段如果顺利提交的话，因为"业务SQL"在一阶段已经提交至数据库，所以Seata框架只需将一阶段保存的快照数据和行锁删掉，完成数据清理即可。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251126.png" alt="image-20210803004443861" style="zoom:47%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251126.png" alt="image-20210803004443861" />
 
 **三阶段回滚**
 
@@ -4219,13 +4148,13 @@ public class OrderNacosMain84 {
 
 - 如果两份数据完全一致就说明没有脏写， 可以还原业务数据，如果不一致就说明有脏写, 出现脏写就需要转人工处理。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251127.png" alt="image-20210803004618837" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251127.png" alt="image-20210803004618837" />
 
 **补充**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251128.png" alt="image-20210803004729401" style="zoom:47%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251128.png" alt="image-20210803004729401" />
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251129.png" alt="image-20210803004736944" style="zoom:47%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151251129.png" alt="image-20210803004736944" />
 
 **源码学习**
 

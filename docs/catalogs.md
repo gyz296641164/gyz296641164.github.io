@@ -178,6 +178,7 @@
 - [复制](/md/Redis/复制/README.md)
 - [哨兵](/md/Redis/哨兵/README.md)
 - [缓存设计](/md/Redis/缓存设计/README.md)
+- [Redis分布式锁](/md/Redis/Redis分布式锁/README.md)
 - [JAVA操作Redis](/md/Redis/JAVA操作Redis/README.md)
 - [Redis常见面试题](/md/Redis/Redis常见面试题/README.md)
    

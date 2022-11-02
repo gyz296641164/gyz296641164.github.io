@@ -1,80 +1,19 @@
 <h1 align="center">SpringCloud(H版&alibaba)</h1>
 
 
-- [1、Spring Cloud简介](#1spring-cloud简介)
-- [2、Boot和Cloud版本选型](#2boot和cloud版本选型)
-  - [2.1 SpringBoot版本选择](#21-springboot版本选择)
-  - [2.2 SpringCloud版本选择](#22-springcloud版本选择)
-  - [2.3 Springcloud和Springboot之间的依赖关系如何看](#23-springcloud和springboot之间的依赖关系如何看)
-- [3、Cloud组件停更说明](#3cloud组件停更说明)
-- [4、父工程Project空间新建](#4父工程project空间新建)
-  - [4.1 父工程步骤](#41-父工程步骤)
-  - [4.2 父工程pom](#42-父工程pom)
-  - [4.3 Maven中的DependencyManagement和Dependencies](#43-maven中的dependencymanagement和dependencies)
-- [5、支付模块构建](#5支付模块构建)
-  - [项目结构图](#项目结构图)
-  - [5.1 cloud-api-commons模块](#51-cloud-api-commons模块)
-  - [5.2 cloud-provider-payment8001模块](#52-cloud-provider-payment8001模块)
-  - [5.3 cloud-consumer-order80模块](#53-cloud-consumer-order80模块)
-- [6、Eureka](#6eureka)
-  - [6.1 Eureka基础知识](#61-eureka基础知识)
-  - [6.2 EurekaServer服务端安装](#62-eurekaserver服务端安装)
-  - [6.3 cloud-provider-payment8001 注册进EurekaServer](#63-cloud-provider-payment8001-注册进eurekaserver)
-  - [6.4 cloud-consumer-order80 注册进EurekaServer](#64-cloud-consumer-order80-注册进eurekaserver)
-  - [6.5 Eureka集群原理说明](#65-eureka集群原理说明)
-  - [6.6 Eureka集群环境构建](#66-eureka集群环境构建)
-  - [6.7 订单支付两微服务注册进Eureka集群](#67-订单支付两微服务注册进eureka集群)
-  - [6.8 支付微服务集群配置](#68-支付微服务集群配置)
-  - [6.9 actuator微服务信息完善](#69-actuator微服务信息完善)
-  - [6.10 服务发现Discovery](#610-服务发现discovery)
-  - [6.11 eureka自我保护](#611-eureka自我保护)
-  - [6.12 怎么禁止自我保护](#612-怎么禁止自我保护)
-- [7、Zookeeper服务注册与发现](#7zookeeper服务注册与发现)
-- [8、Consul服务注册与发现](#8consul服务注册与发现)
-  - [8.1 Consul简介](#81-consul简介)
-  - [8.2 安装并运行Consul](#82-安装并运行consul)
-  - [8.3 服务提供者注册进Consul](#83-服务提供者注册进consul)
-  - [8.4 服务消费者注册进Consul](#84-服务消费者注册进consul)
-- [9、三个注册中心异同点](#9三个注册中心异同点)
-- [10、Ribbon入门介绍](#10ribbon入门介绍)
-  - [10.1 概述](#101-概述)
-  - [10.2 Ribbon负载均衡演示](#102-ribbon负载均衡演示)
-  - [10.3 Ribbon核心组件IRule](#103-ribbon核心组件irule)
-  - [10.4 Ribbon负载规则替换](#104-ribbon负载规则替换)
-  - [10.5 Ribbon负载均衡算法](#105-ribbon负载均衡算法)
-- [11、OpenFeign服务接口调用](#11openfeign服务接口调用)
-  - [11.1 概述](#111-概述)
-  - [11.2 OpenFeign使用步骤](#112-openfeign使用步骤)
-  - [11.3 OpenFeign超时控制](#113-openfeign超时控制)
-  - [11.4 OpenFeign日志打印功能](#114-openfeign日志打印功能)
-- [12、Hystrix](#12hystrix)
-  - [12.1 概述](#121-概述)
-  - [12.2 HyStrix重要概念](#122-hystrix重要概念)
-  - [12.3 hystrix案例](#123-hystrix案例)
-    - [12.3.1 基础构建](#1231-基础构建)
-    - [12.3.2 高并发测试](#1232-高并发测试)
-    - [12.3.3 新建订单微服务调用支付服务出现卡顿](#1233-新建订单微服务调用支付服务出现卡顿)
-    - [12.3.4 降级容错解决的维度要求](#1234-降级容错解决的维度要求)
-    - [12.3.5 服务降级](#1235-服务降级)
-    - [12.3.6 服务熔断](#1236-服务熔断)
-    - [12.3.7 hystrix工作流程](#1237-hystrix工作流程)
-    - [12.3.8 服务监控hystrixDashboard](#1238-服务监控hystrixdashboard)
-- [关于我遇到的坑](#关于我遇到的坑)
-
-
 # 1、Spring Cloud简介
 
 Spring Cloud是基于Spring Boot的。Spring Cloud提供了开发分布式微服务系统的一些常用组件，例如**服务注册和发现**、**配置中心**、**熔断器**、**智能路由**、**微代理**、**控制总线**、**全局锁**、**分布式会话**等。Spring Cloud包装的其他技术框架如下：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248717.png" alt="image-20210711184017479" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248717.png" alt="image-20210711184017479" />
 
 **Spring Cloud技术栈**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248719.png" alt="netflix" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248719.png" alt="netflix" />
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248720.png" alt="img" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248720.png" alt="img" />
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248721.png" alt="image-20210711184448633" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248721.png" alt="image-20210711184448633" />
 
 
 
@@ -111,11 +50,11 @@ Spring Cloud是基于Spring Boot的。Spring Cloud提供了开发分布式微服
 
 - https://spring.io/projects/spring-cloud#overview
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248724.png" alt="image-20210711191038044" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248724.png" alt="image-20210711191038044" />
 
 - 依赖
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248725.png" alt="image-20210711191058996" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248725.png" alt="image-20210711191058996" />
 
 - 更详细的版本对应查看方法
 
@@ -125,7 +64,7 @@ Spring Cloud是基于Spring Boot的。Spring Cloud提供了开发分布式微服
 
   - 查看json串返回结果
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248727.png" alt="image-20210724112450605" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248727.png" alt="image-20210724112450605" />
 
 
 
@@ -146,7 +85,7 @@ Spring Cloud是基于Spring Boot的。Spring Cloud提供了开发分布式微服
 
 
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248728.png" alt="image-20210711200946272" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248728.png" alt="image-20210711200946272" />
 
 
 
@@ -166,31 +105,31 @@ Spring Cloud是基于Spring Boot的。Spring Cloud提供了开发分布式微服
 
 1. New Project
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248729.png" alt="image-20210711231751796" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248729.png" alt="image-20210711231751796" />
 
 2. 聚合总父工程名字
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248731.png" alt="image-20210711231825089" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248731.png" alt="image-20210711231825089" />
 
 3. Maven选版本
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248732.png" alt="image-20210711231842629" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248732.png" alt="image-20210711231842629" />
 
 4. 字符编码
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248733.png" alt="image-20210711231903658" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248733.png" alt="image-20210711231903658" />
 
 5. 注解生效激活
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248734.png" alt="image-20210711231919152" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248734.png" alt="image-20210711231919152" />
 
 6. java编译版本选8
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248735.png" alt="image-20210711231934793" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248735.png" alt="image-20210711231934793" />
 
 8. File Type过滤（看个人习惯）
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248736.png" alt="image-20210711231951411" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248736.png" alt="image-20210711231951411" />
 
 
 
@@ -367,11 +306,11 @@ Spring Cloud是基于Spring Boot的。Spring Cloud提供了开发分布式微服
 
 ## 项目结构图
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248737.png" alt="image-20210717203614371" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248737.png" alt="image-20210717203614371" />
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248738.png" alt="image-20210717203631789" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248738.png" alt="image-20210717203631789" />
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248739.png" alt="image-20210717203648872" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248739.png" alt="image-20210717203648872" />
 
 ***
 
@@ -794,7 +733,7 @@ public class OrderMain80 {
 
 - 在服务注册与发现中，有一个注册中心。当服务器启动的时候，会把当前自己服务器的信息比如服务地址通讯地址等以别名方式注册到注册中心上。另一方(消费者服务提供者)，以该别名的方式去注册中心上获取到实际的服务通讯地址，然后再实现本地RPC调用RPC远程调用框架核心设计思想:在于注册中心，因为使用注册中心管理每个服务与服务之间的一个依赖关系(服务治理概念)。在任何RPC远程框架中，都会有一个注册中心存放服务地址相关信息(接口地址)
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248740.png" alt="image-20210718123935698" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248740.png" alt="image-20210718123935698" />
 
 
 
@@ -909,7 +848,7 @@ public class EurekaMain7001 {
 
 运行EurekaMain7001启动类，浏览器输入`http://localhost:7001/`回车，会查看到Spring Eureka服务主页。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248741.png" alt="image-20210718135849553" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248741.png" alt="image-20210718135849553" />
 
 
 
@@ -1036,7 +975,7 @@ public class OrderMain80 {
 
 - 浏览器输入 http://localhost:7001 , 在主页的`Instances currently registered with Eureka`将会看到`cloud-provider-payment8001`、`cloud-consumer-order80`两个工程名。
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248743.png" alt="image-20210718142029318" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248743.png" alt="image-20210718142029318" />
 
   
 
@@ -1046,7 +985,7 @@ public class OrderMain80 {
 
 - 否则，会抛出异常`Failed to bind properties under 'eureka.client.service-url' to java.util.Map <java.lang.String, java.lang.String>`。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248744.png" alt="image-20210718142206196" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248744.png" alt="image-20210718142206196" />
 
 
 
@@ -1056,7 +995,7 @@ public class OrderMain80 {
 
 **Eureka集群原理如图所示**。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248745.png" alt="image-20210718170737252" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248745.png" alt="image-20210718170737252" />
 
 服务注册：将服务信息注册进注册中心
 
@@ -1239,7 +1178,7 @@ eureka:
 
 - 结果：负载均衡效果达到，8001/8002端口交替出现
 
-- <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248746.png" alt="image-20210718182727202" style="zoom:40%;" />
+- <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248746.png" alt="image-20210718182727202" />
 
 - 红色描述说明：
 
@@ -1392,7 +1331,7 @@ public class PaymentMain8001 {
 
 - 默认情况下，如果EurekaServer在一定时间内没有接收到某个微服务实例的心跳，EurekaServer将会注销该实例(默认90秒)。但是当网络分区故障发生(延时、卡顿、拥挤)时，微服务与EurekaServer之间无法正常通信，以上行为可能变得非常危险了——因为微服务本身其实是健康的，此时本不应该注销这个微服务。Eureka通过“自我保护模式”来解决这个问题——当EurekaServer节点在短时间内丢失过多客户端时(可能发生了网络分区故障)，那么这个节点就会进入自我保护模式。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248751.png" alt="image-20210718190455534" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248751.png" alt="image-20210718190455534" />
 
 - 自我保护机制∶默认情况下EurekaClient定时向EurekaServer端发送心跳包。
 
@@ -1526,7 +1465,7 @@ Consul官网：https://www.consul.io/docs/intro
 
 - 结果页面
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248756.png" alt="image-20210719224818807" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248756.png" alt="image-20210719224818807" />
 
 
 
@@ -1666,7 +1605,7 @@ public class PaymentController {
 
 - http://localhost:8500
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248758.png" alt="image-20210719232547522" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248758.png" alt="image-20210719232547522" />
 
 
 
@@ -1809,7 +1748,7 @@ public class OrderConsulController {
 
 - http://localhost:8500/ 
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248759.png" alt="image-20210719234445870" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248759.png" alt="image-20210719234445870" />
 
 - 服务消费获取地址： http://localhost/consumer/payment/consul
 
@@ -1837,7 +1776,7 @@ public class OrderConsulController {
 - A：Availability (可用性)
 - P：Partition tolerance （分区容错性)
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248761.png" alt="image-20210719234800286" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248761.png" alt="image-20210719234800286" />
 
 **最多只能同时较好的满足两个**。
 
@@ -1890,7 +1829,7 @@ CAP理论的核心是：**一个分布式系统不可能同时很好的满足一
 
 Ribbon目前也进入维护模式，未来可能被Spring Cloud LoadBalacer替代。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248764.png" alt="image-20210720231257178" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248764.png" alt="image-20210720231257178" />
 
 
 
@@ -1930,7 +1869,7 @@ Nginx是服务器负载均衡，客户端所有请求都会交给nginx，然后�
 
 > **架构说明**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248765.png" alt="image-20210722004454346" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248765.png" alt="image-20210722004454346" />
 
 Ribbon在工作时分成两步：
 
@@ -1957,7 +1896,7 @@ Ribbon在工作时分成两步：
 
 这是因为spring-cloud-starter-netflix-eureka-client自带了spring-cloud-starter-ribbon引用。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248766.png" alt="image-20210722004828563" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248766.png" alt="image-20210722004828563" />
 
 
 
@@ -1969,11 +1908,11 @@ Ribbon在工作时分成两步：
 
 - getForObject()：返回对象为响应体中数据转化成的对象，基本上可以理解为Json。
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248767.png" alt="image-20210722005145663" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248767.png" alt="image-20210722005145663" />
 
 - getForEntity()：返回对象为ResponseEntity对象，包含了响应中的一些重要信息，比如响应头、响应状态码、响应体等。
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248768.png" alt="image-20210722005152982" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248768.png" alt="image-20210722005152982" />
 
 **postForObject() / postForEntity() - POST请求方法**
 
@@ -2012,7 +1951,7 @@ Ribbon在工作时分成两步：
 
 - 新建package：`com.gyz.myrule`，新建`MySelfRule`规则类
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248770.png" alt="image-20210722225826475" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248770.png" alt="image-20210722225826475" />
 
   ```java
   /**
@@ -2057,9 +1996,9 @@ Ribbon在工作时分成两步：
 
   - 返回结果中的serverPort在8001与8002两种间反复转换
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248771.png" alt="image-20210722231608751" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248771.png" alt="image-20210722231608751" />
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248772.png" alt="image-20210722231619782" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248772.png" alt="image-20210722231619782" />
 
 
 
@@ -2497,7 +2436,7 @@ public class RoundRobinRule extends AbstractLoadBalancerRule {
 
 - 小总结
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248774.png" alt="image-20210724111429438" style="zoom:57%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248774.png" alt="image-20210724111429438" />
 
 
 
@@ -2580,7 +2519,7 @@ public class RoundRobinRule extends AbstractLoadBalancerRule {
 
   - 将会跳出错误Spring Boot默认错误页面
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248775.png" alt="image-20210723005742676" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248775.png" alt="image-20210723005742676" />
 
   - OpenFeign默认等待1秒钟，但是服务器处理超过1秒钟，导致 Fegin客户端不想等了，直接返回报错，为了避免这样的情况，有时候我们需要设置Fegin客户端的超时控制
 
@@ -2665,7 +2604,7 @@ logging:
 
 复杂分布式体系结构中的应用程序   有数十个依赖关系,每个依赖关系在某些时候将不可避免地失败。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248777.png" alt="image-20210724114858340" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248777.png" alt="image-20210724114858340" />
 
 > ### 服务雪崩
 
@@ -2872,11 +2811,11 @@ Hystrix官宣,停更进维：https://github.com/Netflix/hystrix
 
     - success的方法：http://localhost:8001/payment/hystrix/ok/1
 
-      <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248778.png" alt="image-20210724143253076" style="zoom:67%;" />
+      <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248778.png" alt="image-20210724143253076" />
 
     - 每次调用耗费5秒钟：http://localhost:8001/payment/hystrix/timeout/1
 
-      <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248779.png" alt="image-20210724143326061" style="zoom:67%;" />
+      <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248779.png" alt="image-20210724143326061" />
 
   - 上述module均OK，以上述为根基平台,从正确->错误->降级熔断->恢复
 
@@ -2904,27 +2843,27 @@ Hystrix官宣,停更进维：https://github.com/Netflix/hystrix
 
   - 一个是命令窗口，一个是JMETER窗口
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248780.png" alt="image-20210724151043925" style="zoom:57%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248780.png" alt="image-20210724151043925" />
 
 **Jmeter测试流程**
 
 - 右键 –> 添加 –> 线程 –> 线程组
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248781.png" alt="image-20210724151317643" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248781.png" alt="image-20210724151317643" />
 
 - 设置线程数量即并发数量
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248782.png" alt="image-20210724151413977" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248782.png" alt="image-20210724151413977" />
 
 - 配置http请求
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248783.png" alt="image-20210724151540906" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248783.png" alt="image-20210724151540906" />
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248784.png" alt="image-20210724152103800" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248784.png" alt="image-20210724152103800" />
 
 - 点击绿色三角形图标启动
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248785.png" alt="image-20210724152132945" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248785.png" alt="image-20210724152132945" />
 
 - 演示结果：拖慢，原因：tomcat的默认的工作线程数被打满了，没有多余的线程来分解压力和处理。
 
@@ -3122,8 +3061,6 @@ Hystrix官宣,停更进维：https://github.com/Netflix/hystrix
 ### 12.3.5 服务降级
 
 > **降级配置**
->
-> 
 
 ```
 @HystrixCommand
@@ -3132,16 +3069,12 @@ Hystrix官宣,停更进维：https://github.com/Netflix/hystrix
 
 
 > **8001先从自身找问题**
->
-> 
 
 设置自身调用超时时间的峰值,峰值内可以正常运行,  超过了需要有兜底的方法处理,做服务降级fallback。
 
 
 
 > **Hystrix之服务降级支付侧fallback**
->
-> 
 
 **业务类启用 - `@HystrixCommand`报异常后如何处理**：
 
@@ -3209,8 +3142,6 @@ public class PaymentHystrixMain8001 {
 
 
 > **Hystrix之服务降级订单侧fallback**
->
-> 
 
 80订单微服务，也可以更好的保护自己，自己也依样画葫芦进行客户端降级保护。
 
@@ -3440,8 +3371,6 @@ public class OrderHyrixController {
 断路器：理解为家里的保险丝
 
 > **熔断机制概述**
->
-> 
 
 熔断机制是应对雪崩效应的一种微服务链路保护机制。当扇出链路的某个微服务出错不可用或者响应时间太长时，会进行服务的降级，进而熔断该节点微服务的调用，快速返回错误的响应信息。**当检测到该节点微服务调用响应正常后，恢复调用链路**。
 
@@ -3449,7 +3378,7 @@ public class OrderHyrixController {
 
 Martin Fowler论文：https://martinfowler.com/bliki/CircuitBreaker.html
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248786.png" alt="image-20210724182257047" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248786.png" alt="image-20210724182257047" />
 
 三个状态：Open（全开）、Half Open（半开）、Closed（关闭）
 
@@ -3557,7 +3486,7 @@ Martin Fowler论文：https://martinfowler.com/bliki/CircuitBreaker.html
 
 **大神结论**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248787.png" alt="image-20210724192438033" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248787.png" alt="image-20210724192438033" />
 
 **熔断类型**
 
@@ -3575,7 +3504,7 @@ Martin Fowler论文：https://martinfowler.com/bliki/CircuitBreaker.html
 
 **官网断路器流程图**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248788.png" alt="image-20210724193200601" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248788.png" alt="image-20210724193200601" />
 
 **断路器在什么情况下开始起作用**
 
@@ -3711,7 +3640,7 @@ public String doSomething() {
 
 - 官网图例
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248789.png" alt="image-20210724194515003" style="zoom:57%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248789.png" alt="image-20210724194515003" />
 
 - 步骤说明
   1. 创建HystrixCommand （用在依赖的服务返回单个操作结果的时候）或HystrixObserableCommand（用在依赖的服务返回多个操作结果的时候）对象。
@@ -3896,25 +3825,25 @@ public String doSomething() {
 
   - 9001监控8001：填写监控地址 - http://localhost:8001/hystrix.stream 
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248790.png" alt="image-20210724204040516" style="zoom:47%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248790.png" alt="image-20210724204040516" />
 
   - 先访问正确地址，再访问错误地址，再正确地址，会发现图示断路器都是慢慢放开的。
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248791.png" alt="image-20210724205201620" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248791.png" alt="image-20210724205201620" />
 
   - 如果一直访问错误请求，那么Circuit会是`Open`状态
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248792.png" alt="image-20210724205307858" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248792.png" alt="image-20210724205307858" />
 
 **如何看?**
 
 - 7色
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248793.png" alt="image-20210724205456238" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248793.png" alt="image-20210724205456238" />
 
 - 1圈
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248794.png" alt="image-20210724205736274" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248794.png" alt="image-20210724205736274" />
 
   - 实心圆：共有两种含义。它通过颜色的变化代表了实例的健康程度，它的健康度从绿色<黄色<橙色<红色递减。
 
@@ -3926,13 +3855,13 @@ public String doSomething() {
 
 - 整图说明
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248795.png" alt="image-20210724205945564" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248795.png" alt="image-20210724205945564" />
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248796.png" alt="image-20210724205952853" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248796.png" alt="image-20210724205952853" />
 
 - 整图说明2
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248797.png" alt="image-20210724210022517" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248797.png" alt="image-20210724210022517" />
 
 
 
@@ -3944,7 +3873,7 @@ public String doSomething() {
 
 > **在SpringBoot启动时，控制台出现如下信息，说明有logging.level属性**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248798.png" alt="image-20210718135030015" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248798.png" alt="image-20210718135030015" />
 
 **两种解决方法：**
 
@@ -3961,9 +3890,9 @@ logging:
 
 2、在IDEA中配置：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248799.png" alt="image-20210718135318964" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248799.png" alt="image-20210718135318964" />
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248800.png" alt="image-20210718135408491" style="zoom:47%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248800.png" alt="image-20210718135408491" />
 
 
 
@@ -3995,7 +3924,7 @@ logging:
 
 > **启动的时候报找不到主加载类的错误**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248802.png" alt="image-20210718174125382" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248802.png" alt="image-20210718174125382" />
 
 
 
@@ -4007,10 +3936,10 @@ logging:
 com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
 ```
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248803.png" alt="image-20210724142824331" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248803.png" alt="image-20210724142824331" />
 
 原因：
 
 在`application.yml`中defaultZone少了/eureka
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248804.png" alt="image-20210724143014306" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151248804.png" alt="image-20210724143014306" />

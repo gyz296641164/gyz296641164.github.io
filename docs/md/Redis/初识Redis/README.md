@@ -39,7 +39,7 @@ Redis安装之后， src和/usr/local/bin目录下多了几个以redis开头可�
 
 <div align="center">Redis可执行文件说明  </div>
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084428.png" alt="image-20210530230103003" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084428.png" alt="image-20210530230103003" />
 
 
 
@@ -146,7 +146,7 @@ $ redis-cli shutdown
 
 如图所示， Redis客户端执行一条命令分为如下4个部分：  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084429.png" alt="image-20210530130021191" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084429.png" alt="image-20210530130021191" />
 
 1. 发送命令
 2. 命令排队
@@ -184,7 +184,7 @@ config rewrite
 
 如果要Redis将配置持久化到本地配置文件， 需要执行config rewrite命令， 如图所示。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084430.png" alt="image-20210530135648796" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084430.png" alt="image-20210530135648796" />
 
 虽然慢查询日志是存放在Redis内存列表中的， 但是**Redis并没有暴露这个列表的键**， 而是通过一组命令来实现对慢查询日志的访问和管理。 下面介绍这几个命令。  
 
@@ -214,7 +214,7 @@ slowlog get [n]
 
 慢查询日志由4个属性组成， 分别是慢查询日志的 `标识id` 、 `发生时间戳`、 `命令耗时`、 `执行命令和参数`， 慢查询列表如图所示。 
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084431.png" alt="image-20210530140949992" style="zoom: 80%;" /> 
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084431.png" alt="image-20210530140949992" /> 
 
 （2） 获取慢查询日志列表当前的长度  
 
@@ -356,7 +356,7 @@ OK
 
 有些应用场景需要在事务之前， 确保事务中的key没有被其他客户端修改过， 才执行事务， 否则不执行（类似乐观锁） 。 Redis提供了watch命令来解决这类问题， 下表展示了两个客户端执行命令的时序。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084432.png" alt="image-20210530145145336" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084432.png" alt="image-20210530145145336" />
 
 可以看到“客户端-1”在执行multi之前执行了watch命令， “客户端-2”在“客户端-1”执行exec之前修改了key值， 造成事务没有执行（exec结果为nil） ， 整个代码如下所示：  
 
@@ -410,7 +410,7 @@ eval 脚本内容 key个数 key列表 参数列表
 
 eval命令和--eval参数本质是一样的， 客户端如果想执行Lua脚本， 首先在客户端编写好Lua脚本代码， 然后把脚本作为字符串发送给服务端， 服务端会将执行结果返回给客户端， 整个过程如图所示。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084433.png" alt="image-20210530211249539" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084433.png" alt="image-20210530211249539" />
 
 
 
@@ -424,7 +424,7 @@ eval命令和--eval参数本质是一样的， 客户端如果想执行Lua脚本
 
 
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084434.png" alt="image-20210530221010913" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084434.png" alt="image-20210530221010913" />
 
 <div align="center">Redis发布订阅模型  </div>
 
@@ -487,7 +487,7 @@ Reading messages... (press Ctrl-C to quit)
 
 如果有多个客户端同时订阅了channel： sports， 整个过程如图所示。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084435.png" alt="image-20210530221810916" style="zoom:67%;" />  
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084435.png" alt="image-20210530221810916" />  
 
 <div align="center">多个客户端同时订阅频道channel： sports  </div>
 
@@ -592,7 +592,7 @@ pubsub numpat
 
 如下图所示， 图中有两套业务， 上面为视频管理系统， 负责管理视频信息； 下面为视频服务面向客户， 用户可以通过各种客户端（手机、 浏览器、 接口） 获取到视频信息。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084436.png" alt="image-20210530224106974" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084436.png" alt="image-20210530224106974" />
 
 <div align="center">发布订阅用于视频信息变化通知  </div>
 

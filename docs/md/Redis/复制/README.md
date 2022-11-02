@@ -49,7 +49,7 @@ OK
 
 针对主节点6379的任何修改都可以同步到从节点6380中，复制过程如图1-1所示。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084639.png" alt="image-20210521000840423" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084639.png" alt="image-20210521000840423" />
 
 <div align="center">图1-1</div>
 
@@ -87,7 +87,7 @@ OK
 
 - slaveof命令不但可以建立复制， 还可以在从节点执行slaveof no one来断开与主节点复制关系。 例如在6380节点上执行**slaveof no one**来断开复制， 如图1-2所示 。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084640.png" alt="image-20210521001929771" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084640.png" alt="image-20210521001929771" />
 
 <div align="center">图1-2</div>
 
@@ -101,7 +101,7 @@ OK
 
   
   
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084641.png" alt="image-20210521002632946" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084641.png" alt="image-20210521002632946" />
   
   <div align="center">图1-3</div>
 
@@ -145,7 +145,7 @@ OK
 
 从图2-1中可以看出复制过程大致分为6个过程：  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084642.png" alt="image-20210523171750298" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084642.png" alt="image-20210523171750298" />
 
 <div align="center">图2-1</div>
 
@@ -180,7 +180,7 @@ OK
 
    如果从节点无法建立连接，定时任务会无限重试直到连接成功或者执行`slaveof no one`取消复制，如图2-5所示。
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084647.png" alt="image-20210523173231452" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084647.png" alt="image-20210523173231452" />
 
    <div align="center">图2-5</div>
 
@@ -201,7 +201,7 @@ OK
    - 检测主节点当前是否可接受处理命令。  
    - 如果发送ping命令后， 从节点没有收到主节点的pong回复或者超时， 比如网络超时或者主节点正在阻塞无法响应命令， 从节点会断开复制连接， 下次定时任务会发起重连，如图2-6所示。
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084649.png" alt="image-20210523173607435" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084649.png" alt="image-20210523173607435" />
 
    <div align="center">图2-6</div>
 
@@ -261,13 +261,13 @@ psync命令运行需要以下组件支持：
 
    复制积压缓冲区是保存在主节点上的一个固定长度的队列， 默认大小为1MB， 当主节点有连接的从节点（slave） 时被创建， 这时主节点（master）响应写命令时， 不但会把命令发送给从节点， 还会写入复制积压缓冲区， 如图2-8所示 。
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084655.png" alt="image-20210523180408062" style="zoom:67%;" /> 
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084655.png" alt="image-20210523180408062" /> 
 
 <div align="center">图2-8</div>
 
 由于缓冲区本质上是先进先出的定长队列， 所以能实现保存最近已复制数据的功能， 用于部分复制和复制命令丢失的数据补救。 复制缓冲区相关统计信息保存在主节点的info replication中：  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084656.png" alt="image-20210523180618269" style="zoom: 80%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084656.png" alt="image-20210523180618269" />
 
 根据统计指标， 可算出复制积压缓冲区内的可用偏移量范围：
 [repl_backlog_first_byte_offset，repl_backlog_first_byte_offset+repl_backlog_histlen]。   
@@ -294,7 +294,7 @@ psync命令运行需要以下组件支持：
 
 全量复制是Redis主从第一次建立复制时必须经历的阶段。触发全量复制的命令是 `sync`和 `psync`，他们的对应版本如图所示。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084700.png" alt="image-20210523192736727" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084700.png" alt="image-20210523192736727" />
 
 这里主要介绍psync全量复制流程， 它与2.8以前的sync全量复制机制基本一致。 全量复制的完整运行流程如图所示。  
 
@@ -308,7 +308,7 @@ psync命令运行需要以下组件支持：
 
    ![image-20210523193448757](https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084701.png)
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084702.png" alt="image-20210523193723883" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084702.png" alt="image-20210523193723883" />
 
 4. 主节点执行bgsave保存RDB文件到本地。
 
@@ -336,7 +336,7 @@ psync命令运行需要以下组件支持：
 
 部分复制主要是Redis针对全量复制的过高开销做出的一种优化措施，使用 `psync{runId}{offset}` 命令实现。 当从节点（slave） 正在复制主节点（master） 时， 如果出现**网络闪断**或者**命令丢失**等异常情况时， 从节点会向主节点要求补发丢失的命令数据， 如果主节点的复制积压缓冲区内存在这部分数据则直接发送给从节点， 这样就可以保持主从节点复制的一致性。 补发的这部分数据一般远远小于全量数据， 所以开销很小。 部分复制的流程如图所示 :
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084707.png" alt="image-20210523195235546" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084707.png" alt="image-20210523195235546" />
 
 流程说明：  
 
@@ -374,7 +374,7 @@ psync命令运行需要以下组件支持：
 
 主从节点在建立复制后， 它们之间维护着长连接并彼此发送心跳命令，如图所示。 
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084714.png" alt="image-20210523195714289" style="zoom:67%;" /> 
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084714.png" alt="image-20210523195714289" /> 
 
 主从心跳判断机制：  
 
@@ -400,7 +400,7 @@ psync命令运行需要以下组件支持：
 
 主节点不但负责数据读写， 还负责把写命令同步给从节点。 写命令的发送过程是异步完成， 也就是说主节点自身处理完写命令后直接返回给客户端， 并不等待从节点复制完成， 主节点复制流程如图所示。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084715.png" alt="image-20210523200128523" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084715.png" alt="image-20210523200128523" />
 
 主节点复制流程：  
 
@@ -427,7 +427,7 @@ psync命令运行需要以下组件支持：
 
 对于读占比较高的场景， 可以通过把一部分读流量分摊到从节点（slave） 来减轻主节点（master） 压力， 同时需要注意永远只对主节点执行写操作， 如图所示。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084717.png" alt="image-20210523201225361" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084717.png" alt="image-20210523201225361" />
 
 当使用从节点响应读请求时， 业务端可能会遇到如下问题：  
 
@@ -439,7 +439,7 @@ psync命令运行需要以下组件支持：
 
    Redis复制数据的延迟由于异步复制特性是无法避免的， 延迟取决于网络带宽和命令阻塞情况， 比如刚在主节点写入数据后立刻在从节点上读取可能获取不到。 需要业务场景允许短时间内的数据延迟。 对于无法容忍大量延迟场景， 可以编写外部监控程序监听主从节点的复制偏移量， 当延迟较大时触发报警或者通知客户端避免读取延迟过高的从节点， 实现逻辑如图所示。  
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084718.png" alt="image-20210523201358588" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084718.png" alt="image-20210523201358588" />
 
    说明如下：
 
@@ -458,13 +458,13 @@ psync命令运行需要以下组件支持：
 
    **惰性删除：** 主节点每次处理读取命令时， 都会检查键是否超时， 如果超时则执行del命令删除键对象， 之后del命令也会异步发送给				   从节点。 需要注意的是为了保证复制的一致性， 从节点自身永远不会主动删除超时数据， 如图所示。
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084719.png" alt="image-20210523201705874" style="zoom:80%;" />  
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084719.png" alt="image-20210523201705874" />  
 
    
 
    **定时删除：** Redis主节点在内部定时任务会循环采样一定数量键，当发现采样的键过期时执行del命令，之后再同步给从节点，如图所示。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084720.png" alt="image-20210523201758625" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084720.png" alt="image-20210523201758625" />
 
 如果此时数据大量超时， 主节点采样速度跟不上过期速度且主节点没有读取过期键的操作， 那么从节点将无法收到del命令。 这时在从节点上可以读取到已经超时的数据。 Redis在3.2版本解决了这个问题， 从节点读取数据之前会检查键的过期时间来决定是否返回数据， 可以升级到3.2版本来规避这个问题。   
 

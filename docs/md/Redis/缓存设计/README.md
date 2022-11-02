@@ -12,7 +12,7 @@
 
 下图左侧为客户端直接调用存储层的架构， 右侧为比较典型的**缓存层+存储层**架构， 下面分析一下缓存加入后带来的收益和成本。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084743.png" alt="image-20210526230557858" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084743.png" alt="image-20210526230557858" />
 
 ### 1.1 **收益如下**  
 
@@ -109,7 +109,7 @@
 
 很多项目缓存比较常用的选型：缓存层选用Redis， 存储层选用MySQL。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084745.png" alt="image-20210526234306093" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084745.png" alt="image-20210526234306093" />
 
 
 
@@ -192,7 +192,7 @@
 
    如图11-4所示， 当第2步存储层不命中后， 仍然将空对象保留到缓存层中， 之后再访问这个数据将会从缓存中获取， 这样就保护了后端数据源。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084747.png" alt="image-20210527000952946" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084747.png" alt="image-20210527000952946" />
 
 ​	当第2步存储层不命中后， 仍然将空对象保留到缓存层中， 之后再访问这个数据将会从缓存中获取， 这样就保护了后端数据源。  
 
@@ -232,7 +232,7 @@ if (storageValue == null) {
 
 在访问缓存层和存储层之前， 将存在的key用布隆过滤器提前保存起来， 做第一层拦截。   最新的用户由于没有历史行为， 就会发生缓存穿透的行为， 为此可以将所有推荐数据的用户做成布隆过滤器。 如果布隆过滤器认为该用户id不存在， 那么就不会访问存储层， 在一定程度保护了存储层。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084748.png" alt="image-20210527001625648" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084748.png" alt="image-20210527001625648" />
 
 
 
@@ -260,7 +260,7 @@ if (storageValue == null) {
 
   
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084750.png" alt="image-20210527224340901" style="zoom:67%;" />         
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084750.png" alt="image-20210527224340901" />         
 
 ​								分布式存储批量操作多次网络时间
 
@@ -268,7 +268,7 @@ if (storageValue == null) {
 
    
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084751.png" alt="image-20210527224615365" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084751.png" alt="image-20210527224615365" />
 
 <div align="center">当一个节点存储批量操作只需一次网络时间  </div>
 
@@ -297,7 +297,7 @@ if (storageValue == null) {
 
 下面将结合Redis Cluster的一些特性对四种分布式的批量操作方式进行说明。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084752.png" alt="image-20210527225947969" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084752.png" alt="image-20210527225947969" />
 
 <div align="center">客户端批量操作的三种实现  </div>
 
@@ -307,7 +307,7 @@ if (storageValue == null) {
 
 
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084753.png" alt="image-20210527230552855" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084753.png" alt="image-20210527230552855" />
 
 <div align="center">客户端串行n次命令 </div> 
 
@@ -334,7 +334,7 @@ List<String> serialMGet(List<String> keys) {
 
 
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084754.png" alt="image-20210527231400589" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084754.png" alt="image-20210527231400589" />
 
 <div align="center">客户端串行node次网络IO  </div>
 
@@ -393,7 +393,7 @@ max_slow(node网络时间)+n次命令时间
 
 
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084755.png" alt="image-20210527231736374" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084755.png" alt="image-20210527231736374" />
 
 <div align="center">客户端并行node次网络IO  </div>
 
@@ -401,17 +401,13 @@ max_slow(node网络时间)+n次命令时间
 
 ### 5.4 **hash_tag实现**  
 
-它可以将多个key强制分配到一个节点上， 它的操作时间 = 1次网络时间 + n次命令时间， 如图所示。
+它可以将多个key强制分配到一个节点上， 它的操作时间 = 1次网络时间 + n次命令时间， 如图所示(hash_tag将多个key分配到一个节点)。
 
-
-
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084756.png" alt="image-20210527231858827" style="zoom: 80%;" />  
-
-​									hash_tag将多个key分配到一个节点
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084756.png" alt="image-20210527231858827" />  
 
 所有key属于node2节点。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084757.png" alt="image-20210527232056234" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084757.png" alt="image-20210527232056234" />
 
 
 
@@ -427,7 +423,7 @@ List<String> hashTagMget(String[] hashTagKeys) {
 
 ### 5.5 **四种批量操作解决方案对比**  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084758.png" alt="image-20210527232211764" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084758.png" alt="image-20210527232211764" />
 
 没有最好的方案只有最合适的方案。  
 
@@ -441,7 +437,7 @@ List<String> hashTagMget(String[] hashTagKeys) {
 
 
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084759.png" alt="image-20210527232845302" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084759.png" alt="image-20210527232845302" />
 
 <div align="center">缓存层不可用引起的雪崩</div>
 
@@ -455,7 +451,7 @@ List<String> hashTagMget(String[] hashTagKeys) {
 
    
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084800.png" alt="image-20210527233730662" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084800.png" alt="image-20210527233730662" />
 
 <div align="center">Hystrix示意图</div>
 
@@ -472,7 +468,7 @@ List<String> hashTagMget(String[] hashTagKeys) {
 
 在缓存失效的瞬间，有大量线程来重建缓存（如下图所示），造成后端负载加大，甚至可能会让应用崩溃。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084801.png" alt="image-20210528234733095" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084801.png" alt="image-20210528234733095" />
 
 <div align="center">热点key失效后大量线程重建缓存  </div>
 
@@ -486,7 +482,7 @@ List<String> hashTagMget(String[] hashTagKeys) {
 
    此方法只允许一个线程重建缓存，其他线程等待重建缓存的线程执行完，重新从缓存中获取数据即可，整个过程如下图所示：
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084802.png" alt="image-20210528235121292" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084802.png" alt="image-20210528235121292" />
 
    <div align="center">使用互斥锁重建缓存</div>
 
@@ -540,7 +536,7 @@ String get(String key) {
 
    
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084803.png" alt="image-20210528235644639" style="zoom:67%;" />  
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084803.png" alt="image-20210528235644639" />  
 
    ​									“永远不过期”策略  
 
@@ -585,7 +581,7 @@ String get(final String key) {
 
 两种解决方法对比如表所示。  
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084804.png" alt="image-20210529000236687" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084804.png" alt="image-20210529000236687" />
 
 
 

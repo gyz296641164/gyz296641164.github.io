@@ -117,7 +117,7 @@ Redis全称为：Remote Dictionary Server（远程数据服务）,是一个基�
 
 1、【全量】RDB持久化，是指在指定的时间间隔内将内存中的数据集快照写入磁盘。实践操作过程是：fork一个子进程，先将数据集写入临时文件，写入成功后，再替换之前的文件，用二进制压缩存储。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084915.png" alt="image-20210515224534732" style="zoom: 67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084915.png" alt="image-20210515224534732" />
 
 **优点**
 
@@ -514,7 +514,7 @@ PERSIST key
 
 ## 46、什么是缓存穿透？怎么解决？
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084916.png" alt="image-20210515233253373" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084916.png" alt="image-20210515233253373"  />
 
 大量的请求瞬时涌入系统，而这个数据在 Redis 中不存在，所有的请求都落到了数据库上把数据库打死。造成这种情况的原因有系统设计不合理、缓存数据更新不及时，或爬虫等恶意攻击。 解决办法有：
 
@@ -533,7 +533,7 @@ PERSIST key
 
 ## 47、什么是缓存雪崩？ 怎么解决？
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084917.png" alt="image-20210515234024923" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/Redis/20220716084917.png" alt="image-20210515234024923"  />
 
 缓存雪崩是指当大量缓存失效时，大量的请求访问直接请求数据库，导致数据库服务器无法抗住请求或挂掉的情况。这时网站常常会出现 502 错误，导致网站不可用问题。
 

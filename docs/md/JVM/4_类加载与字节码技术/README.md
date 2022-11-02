@@ -6,11 +6,11 @@
 
 ## 1.1 运行时数据区域如图所示：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359206.png" alt="image-20210615162908521" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359206.png" alt="image-20210615162908521" />
 
 ## 1.2 类加载如图所示：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359207.png" alt="image-20210615162944141" width="600px" height="430px" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359207.png" alt="image-20210615162944141" />
 
 **注意**：方法区只有HotSpot虚拟机有，J9，JRockit都没有。
 
@@ -39,7 +39,7 @@
 
 3. 在.class文件–>JVM–>最终成为元数据模板，此过程就要一个运输工具（类装载器Class Loader），扮演一个快递员的角色。
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359208.png" alt="image-20210615165053099" style="zoom: 50%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359208.png" alt="image-20210615165053099"  />
 
 
 
@@ -47,7 +47,7 @@
 
 过程如图所示：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359209.png" alt="image-20210615165155881" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359209.png" alt="image-20210615165155881" />
 
 ### 2.3.1 加载
 
@@ -98,7 +98,7 @@
 
    反编译 class 文件后可以查看符号引用，下面带# 的就是符号引用：
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359210.png" alt="image-20210615172149938" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359210.png" alt="image-20210615172149938"  />
 
 
 
@@ -145,11 +145,11 @@
 
    查看下面这个代码的字节码，可以发现有一个`<clinit>()`方法。
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359211.png" alt="image-20210615172636769" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359211.png" alt="image-20210615172636769" />
 
 2. 无 static 变量
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359212.png" alt="image-20210615172723131" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359212.png" alt="image-20210615172723131"  />
 
    加上之后就有了：
 
@@ -162,7 +162,7 @@
    - 先将类变量 a 赋值为 10
    - 再将局部变量赋值为 20
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359214.png" alt="image-20210615172819801" style="zoom: 50%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359214.png" alt="image-20210615172819801"  />
 
    (2) 若该类具有父类，JVM会保证子类的`<clinit>()`执行前，父类的`<clinit>()`已经执行完毕。
 
@@ -237,7 +237,7 @@
 
 - 无论类加载器的类型如何划分，在程序中我们最常见的类加载器始终只有3个，如下所示：
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359216.png" alt="image-20210617142309166" style="zoom: 40%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359216.png" alt="image-20210617142309166"  />
 
   这里的四者之间是包含关系，不是上层和下层，也不是子系统的继承关系。 而是通常使用组合（Composition） 关系来复用父加载器的代码。  
 
@@ -447,7 +447,7 @@ public class CustomClassLoader extends ClassLoader {
 
 - sun.misc.Launcher 它是一个java虚拟机的入口应用。
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359217.png" alt="image-20210617140543772" style="zoom: 40%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359217.png" alt="image-20210617140543772"  />
 
 
 
@@ -455,7 +455,7 @@ public class CustomClassLoader extends ClassLoader {
 
 通过以下四种方式获取：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359218.png" alt="image-20210615174409258" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359218.png" alt="image-20210615174409258" />
 
 代码示例：
 
@@ -509,7 +509,7 @@ Java虚拟机对class文件采用的是**按需加载**的方式，也就是说�
 
 - 流程如图所示：
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359219.png" alt="image-20210819002158636" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359219.png" alt="image-20210819002158636"  />
 
 
 
@@ -571,7 +571,7 @@ public class String {
 
 输出结果：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359220.png" alt="image-20210615175213273" style="zoom:40%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359220.png" alt="image-20210615175213273" />
 
 由于双亲委派机制一直找父类，所以最后找到了Bootstrap ClassLoader，Bootstrap ClassLoader找到的是 JDK 自带的 String 类，在那个String类中并没有 main() 方法，所以就报了上面的错误。
 
@@ -629,7 +629,7 @@ Process finished with exit code 1
 
 5. 从这里面就可以看到SPI核心接口由引导类加载器来加载，SPI具体实现类由系统类加载器来加载。
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359221.png" alt="image-20210615175434066" style="zoom: 40%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/JVM/202207121359221.png" alt="image-20210615175434066"  />
 
 
 

@@ -1,56 +1,5 @@
 # 13、Gateway新一代网关
 
-- [13、Gateway新一代网关](#13gateway新一代网关)
-  - [13.1 概述简介](#131-概述简介)
-  - [13.2 三大核心概念](#132-三大核心概念)
-    - [13.2.1 Route(路由)](#1321-route路由)
-    - [13.2.2 Predicate(断言)](#1322-predicate断言)
-    - [13.2.3 Filter(过滤)](#1323-filter过滤)
-    - [13.2.4 总结](#1324-总结)
-  - [13.3 Gateway工作流程](#133-gateway工作流程)
-  - [13.4 入门配置](#134-入门配置)
-    - [13.4.1 Gateway9527搭建](#1341-gateway9527搭建)
-  - [13.5 通过服务名实现动态](#135-通过服务名实现动态)
-  - [13.6 GateWay常用的Predicate](#136-gateway常用的predicate)
-    - [13.6.1 Predicate是什么](#1361-predicate是什么)
-    - [13.6.2 Route Predicate Factories这个是什么](#1362-route-predicate-factories这个是什么)
-    - [13.6.3 常用的Route Predicate](#1363-常用的route-predicate)
-  - [13.7 GateWay的Filter](#137-gateway的filter)
-    - [13.7.1 概述](#1371-概述)
-    - [13.7.2 Spring Cloud Gateway的filter](#1372-spring-cloud-gateway的filter)
-    - [13.7.3 常用的GatewayFilter](#1373-常用的gatewayfilter)
-    - [13.7.4 自定义全局GlobalFilter](#1374-自定义全局globalfilter)
-- [14、Spring Cloud config分布式配置中心](#14spring-cloud-config分布式配置中心)
-  - [14.1 概述](#141-概述)
-    - [14.1.1 分布式系统面临的问题--配置问题](#1411-分布式系统面临的问题--配置问题)
-    - [14.1.2 配置中心是什么](#1412-配置中心是什么)
-    - [14.1.3 配置中心怎么用](#1413-配置中心怎么用)
-    - [14.1.4 配置中心作用](#1414-配置中心作用)
-    - [14.1.5 与GitHub整合配置](#1415-与github整合配置)
-  - [14.2 Config服务端配置与测试](#142-config服务端配置与测试)
-    - [14.2.1 操作步骤](#1421-操作步骤)
-    - [14.2.2 配置读取规则](#1422-配置读取规则)
-  - [14.3 Config客户端配置与测试](#143-config客户端配置与测试)
-  - [14.4 Config客户端只动态刷新](#144-config客户端只动态刷新)
-    - [14.4.1 动态刷新](#1441-动态刷新)
-- [15、Spring Cloud Bus消息总线](#15spring-cloud-bus消息总线)
-  - [15.1 概述](#151-概述)
-    - [15.1.1 是什么](#1511-是什么)
-    - [15.1.2 能干嘛](#1512-能干嘛)
-    - [15.1.3 为何被称为总线](#1513-为何被称为总线)
-  - [15.2 RabbitMQ环境配置](#152-rabbitmq环境配置)
-  - [15.3 SpringCloud Bus动态刷新全局广播](#153-springcloud-bus动态刷新全局广播)
-    - [15.3.1 必须先具备良好的RabbitMQ环境；](#1531-必须先具备良好的rabbitmq环境)
-    - [15.3.2 演示广播效果增加复杂度，再以3355为模板制作一个3366：](#1532-演示广播效果增加复杂度再以3355为模板制作一个3366)
-    - [15.3.3 配置实现](#1533-配置实现)
-  - [15.4 Bus动态刷新定点通知](#154-bus动态刷新定点通知)
-  - [16.4 消息驱动之消费者](#164-消息驱动之消费者)
-  - [16.5 Stream之消息重复消费](#165-stream之消息重复消费)
-- [17、Spring Cloud Sleuth分布式链路跟踪](#17spring-cloud-sleuth分布式链路跟踪)
-  - [17.1 概述](#171-概述)
-  - [17.2 Sleuth之zipkin搭建安装](#172-sleuth之zipkin搭建安装)
-  - [17.3 Sleuth链路监控展现](#173-sleuth链路监控展现)
-
 ## 13.1 概述简介
 
 > **官网**
@@ -67,13 +16,13 @@
 
 - 但在2.x版本中，zuul的升级一直跳票，SpringCloud最后自己研发了一个网关替代Zuul，那就是SpringCloud Gateway—句话：gateway是原zuul1.x版的替代
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250829.png" alt="image-20210724213804721" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250829.png" alt="image-20210724213804721" />
 
 - Gateway是在Spring生态系统之上构建的API网关服务，基于Spring 5，Spring Boot 2和Project Reactor等技术。
 
 - Gateway旨在提供一种简单而有效的方式来对API进行路由，以及提供一些强大的过滤器功能，例如:熔断、限流、重试等。
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250830.png" alt="image-20210724213930495" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250830.png" alt="image-20210724213930495" />
 
 - SpringCloud Gateway是Spring Cloud的一个全新项目，基于Spring 5.0+Spring Boot 2.0和Project Reactor等技术开发的网关，它旨在为微服务架构提供—种简单有效的统一的API路由管理方式。
 
@@ -95,7 +44,7 @@
 
 > **微服务架构中网关的位置**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250831.png" alt="image-20210724214353070" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250831.png" alt="image-20210724214353070" />
 
 
 
@@ -131,7 +80,7 @@ Springcloud中所集成的Zuul版本，采用的是Tomcat容器，使用的是�
 
 Servlet的生命周期？servlet由servlet container进行生命周期管理。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250832.png" alt="image-20210726133513505" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250832.png" alt="image-20210726133513505" />
 
 - container启动时构造servlet对象并调用servlet init()进行初始化；
 - container运行时接受请求，并为每个请求分配一个线程（一般从线程池中获取空闲线程）然后调用service)；
@@ -175,7 +124,7 @@ Servlet的生命周期？servlet由servlet container进行生命周期管理。
 
 
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250833.png" alt="image-20210724220728641" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250833.png" alt="image-20210724220728641" />
 
 - web请求，通过一些匹配条件，定位到真正的服务节点。并在这个转发过程的前后，进行一些精细化控制。
 
@@ -187,7 +136,7 @@ Servlet的生命周期？servlet由servlet container进行生命周期管理。
 
 [官网总结](https://cloud.spring.io/spring-cloud-static/spring-cloud-gateway/2.2.1.RELEASE/reference/html/#gateway-how-it-works)
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250834.png" alt="image-20210724221112502" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250834.png" alt="image-20210724221112502" />
 
 - 客户端向Spring Cloud Gateway发出请求。然后在Gateway Handler Mapping 中找到与请求相匹配的路由，将其发送到GatewayWeb Handler；
 - Handler再通过指定的过滤器链来将请求发送到我们实际的服务执行业务逻辑，然后返回；
@@ -466,13 +415,13 @@ eureka:
 
 启动`cloud-gateway-gateway9527`会包含如下信息：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250835.png" alt="image-20210725162227513" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250835.png" alt="image-20210725162227513" />
 
 
 
 ### 13.6.2 Route Predicate Factories这个是什么
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250836.png" alt="image-20210725162521485" style="zoom:47%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250836.png" alt="image-20210725162521485" />
 
 - Spring Cloud Gateway将路由匹配作为Spring WebFlux HandlerMapping基础架构的一部分
 - Spring Cloud Gateway包括许多内置的Route Predicate工厂。所有这些Predicate都与HTTP请求的不同属性匹配。多RoutePredicate工厂可以进行组合
@@ -589,7 +538,7 @@ spring:
 **总结**
 
 - 说白了，Predicate就是为了实现一组匹配规则,  让请求过来找到对应的Route进行处理
-- <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250837.png" alt="image-20210725165448722" style="zoom:67%;" />
+- <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250837.png" alt="image-20210725165448722" />
 
 
 
@@ -711,7 +660,7 @@ public class MyLogGatewayFilter implements GlobalFilter, Ordered {
 
 - 启动顺序：7001、8001、9527、8002
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250838.png" alt="image-20210725172725197" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250838.png" alt="image-20210725172725197" />
 
 - 浏览器输入：
 
@@ -736,7 +685,7 @@ public class MyLogGatewayFilter implements GlobalFilter, Ordered {
 
 ### 14.1.2 配置中心是什么
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250839.png" alt="image-20210725175043024" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250839.png" alt="image-20210725175043024" />
 
 - 官网： https://cloud.spring.io/spring-cloud-static/spring-cloud-config/2.2.1.RELEASE/reference/html/
 
@@ -936,15 +885,10 @@ SpringCloud Config分为**服务端**和**客户端**两部分：
 
   - 页面返回结果：
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250840.png" alt="image-20210725183345433" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250840.png" alt="image-20210725183345433" />
 
   
 
-  
-
-  
-
-  
 
 ### 14.2.2 配置读取规则
 
@@ -1123,7 +1067,7 @@ public class ConfigClientController {
   - http://config-3344.com:3344/master/config-dev.yml
 - 启动3355作为Client准备访问
   - http://localhost:3355/test/config/info
-  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250841.png" alt="image-20210725190726233" style="zoom:67%;" />
+  - <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250841.png" alt="image-20210725190726233" />
 - **成功实现了客户端3355访问SpringCloud Config3344通过GitHub获取配置信息，问题随之而来，分布式配置的动态刷新问题**
   - Linux运维修改GitHub上的配置文件内容做调整
   - 刷新3344，发现ConfigServer配置中心立刻响应
@@ -1177,9 +1121,9 @@ public class ConfigClientController {
 
   - 此时修改github配置文件内容 -> 访问3344（http://config-3344.com:3344/master/config-dev.yml） -> 访问3355（http://localhost:3355/test/config/info）
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250842.png" alt="image-20210725232117554" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250842.png" alt="image-20210725232117554" />
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250843.png" alt="image-20210725232136355" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250843.png" alt="image-20210725232136355" />
 
   - 3355还是没有改变，还需一步：需要运维人员通过`cmd窗口`发送`Post请求`刷新3355
 
@@ -1187,7 +1131,7 @@ public class ConfigClientController {
     curl -X POST "http://localhost:3355/actuator/refresh"
     ```
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250844.png" alt="image-20210725232415333" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250844.png" alt="image-20210725232415333" />
 
   - 成功实现了客户端3355刷新到最新配置内容，避免了服务重启
 
@@ -1210,7 +1154,7 @@ SpringCloud Bus配合Springcloud Config使用可以实现配置的动态刷新�
 
 ### 15.1.1 是什么
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250845.png" alt="image-20210725233338052" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250845.png" alt="image-20210725233338052" />
 
 - Spring Cloud Bus是用来将分布式系统的节点与轻量级消息系统链接起来的框架，**它整合了Java的事件处理机制和消息中间件的功能**。
 - Spring Clud Bus目前支持`RabbitMQ`和`Kafka`。
@@ -1387,11 +1331,11 @@ rabbitmq-plugins enable rabbitmq_management
 
 1. 利用消息总线触发一个客户端/bus/refresh，而刷新所有客户端的配置
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250847.png" alt="image-20210726001228006" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250847.png" alt="image-20210726001228006" />
 
 2. 利用消息总线触发一个服务端ConfigServer的/bus/refresh端点，而刷新所有客户端的配置
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250848.png" alt="image-20210726001206993" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250848.png" alt="image-20210726001206993" />
 
 ​	图二的架构显然更加合适，图一不适合的原因如下：
 
@@ -1611,7 +1555,7 @@ rabbitmq-plugins enable rabbitmq_management
 
 **通知总结**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250849.png" alt="image-20210726002856397" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250849.png" alt="image-20210726002856397" />
 
 
 
@@ -1653,7 +1597,7 @@ Spring Cloud Stream中文手册：https://m.wang1314.com/doc/webapp/topic/209719
 
 **标准MQ**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250850.png" alt="image-20210726214415079" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250850.png" alt="image-20210726214415079" />
 
 - 生产者/消费者之间靠消息媒介传递信息内容：Message
 - 消息必须走特定的通道：MessageChannel
@@ -1663,7 +1607,7 @@ Spring Cloud Stream中文手册：https://m.wang1314.com/doc/webapp/topic/209719
 
 - 比方说我们用到了RabbitMQ和Kafka，由于这两个消息中间件的架构上的不同，像RabbitMQ有exchange，kafka有Topic和Partitions分区。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250851.png" alt="image-20210726214831293" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250851.png" alt="image-20210726214831293" />
 
 - 这些中间件的差异性导致我们实际项目开发给我们造成了一定的困扰，我们如果用了两个消息队列的其中一种，后面的业务需求，我想往另外一种消息队列进行迁移，这时候无疑就是一个灾难性的，**一大堆东西都要重新推倒重新做**，因为它跟我们的系统耦合了，这时候`Spring Cloud Stream`给我们提供了—种解耦合的方式。
 
@@ -1674,7 +1618,7 @@ Spring Cloud Stream中文手册：https://m.wang1314.com/doc/webapp/topic/209719
 
 **Binder**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250853.png" alt="image-20210726215349142" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250853.png" alt="image-20210726215349142" />
 
 - INPUT适用于消费者
 - OUTPUT适用于生产者
@@ -1689,9 +1633,9 @@ Spring Cloud Stream中文手册：https://m.wang1314.com/doc/webapp/topic/209719
 
 > **Spring Cloud Stream标准流程套路**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250854.png" alt="image-20210726215839889" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250854.png" alt="image-20210726215839889" />
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250855.png" alt="image-20210726215848676" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250855.png" alt="image-20210726215848676" />
 
 - Binder：很方便的连接中间件，屏蔽差异
 - Channel：通道，是队列Queue的一种抽象，在消息通讯系统中就是实现存储和转发的媒介，通过channel对队列进行配置
@@ -1702,7 +1646,7 @@ Spring Cloud Stream中文手册：https://m.wang1314.com/doc/webapp/topic/209719
 
 > **编码API和常用注解**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250854.png" alt="image-20210726215839889" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250854.png" alt="image-20210726215839889" />
 
 | 组成            | 说明                                                         |
 | --------------- | :----------------------------------------------------------- |
@@ -1909,7 +1853,7 @@ public class SendMessageController {
 
 - 访问 - http://localhost:8801/sendMessage
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250856.png" alt="image-20210726223957098" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250856.png" alt="image-20210726223957098" />
 
 
 
@@ -2094,11 +2038,11 @@ public class ReceiveMessageListenerController {
 
   - 8802修改YML：
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250858.png" alt="image-20210726233205679" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250858.png" alt="image-20210726233205679" />
 
   - 8803修改YML：
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250859.png" alt="image-20210726233309286" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250859.png" alt="image-20210726233309286" />
 
   - 结论：还是有重复消费的问题
 
@@ -2129,9 +2073,9 @@ public class ReceiveMessageListenerController {
 
 在微服务框架中，一个由客户端发起的请求在后端系统中会经过多个不同的的服务节点调用来协同产生最后的请求结果，每一个前段请求都会形成一条复杂的分布式服务调用链路，链路中的任何一环出现高延时或错误都会引起整个请求最后的失败。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250860.png" alt="image-20210726234052175" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250860.png" alt="image-20210726234052175" />
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250861.png" alt="image-20210726234059024" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250861.png" alt="image-20210726234059024" />
 
 
 
@@ -2143,7 +2087,7 @@ public class ReceiveMessageListenerController {
 
 - 解决
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250862.png" alt="image-20210726234341985" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250862.png" alt="image-20210726234341985" />
 
 ***
 
@@ -2167,17 +2111,17 @@ java -jar zipkin-server-2.12.9-exec.jar
 
 - http://localhost:9411/zipkin
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250863.png" alt="image-20210726234849562" style="zoom:50%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250863.png" alt="image-20210726234849562" />
 
 - 术语
 
   - 完整的调用链路
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250864.png" alt="image-20210726234941872" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250864.png" alt="image-20210726234941872" />
 
   - —条链路通过Trace ld唯一标识，Span标识发起的请求信息，各span通过parent id关联起来
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250865.png" alt="image-20210726235036736" style="zoom:67%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151250865.png" alt="image-20210726235036736" />
 
   - 名词解释
 
