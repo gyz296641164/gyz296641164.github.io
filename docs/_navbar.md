@@ -8,7 +8,7 @@
   - [MySQL](README?id=c05)
   - [Redis](README?id=c06)
   - [并发编程](README?id=c07)
-- [<span class="iconfont icon-wodeguanzhu"></span> 关于本站](md/关于)
+- [<span class="iconfont icon-wodeguanzhu"></span> 关于本站](/docs/md/关于/README.md)
 
 
 
