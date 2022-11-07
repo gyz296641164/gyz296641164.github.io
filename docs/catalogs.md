@@ -116,6 +116,9 @@
 - [06-IoC 之获取 Document 对象.md](/md/Spring/Spring源码剖析/06-IoC之获取Document对象.md)
 - [07-IoC 之注册 BeanDefinitions.md](/md/Spring/Spring源码剖析/07-IoC之注册BeanDefinitions.md)
 - [08-IoC 之解析Bean：解析import标签.md](/md/Spring/Spring源码剖析/08-IoC之解析Bean：解析import标签.md)
+- [09-IoC之解析bean标签：开启解析进程.md](/md/Spring/Spring源码剖析/09-IoC之解析bean标签：开启解析进程.md)
+- [10-IoC之解析标签：BeanDefinition.md](/md/Spring/Spring源码剖析/10-IoC之解析标签：BeanDefinition.md)
+- [11-IoC之解析bean标签：meta、lookup-method、replace-method.md](/md/Spring/Spring源码剖析/11-IoC之解析bean标签：meta、lookup-method、replace-method.md)
 
 <!-- tabs:end -->
 ---
