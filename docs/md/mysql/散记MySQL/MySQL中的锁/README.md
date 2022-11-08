@@ -381,7 +381,7 @@ Mysql 的数据库的默认隔离级别为 Repeatable read ， 查看方式：
 show variables like 'tx_isolation';
 ```
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151314700.png" alt="image-20210610145117643" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151314700.png" alt="image-20210610145117643" />
 
 
 
@@ -443,9 +443,9 @@ create index idx_test_innodb_lock_name on test_innodb_lock(name);
 
 查看当前表的索引 ： `show index from test_innodb_lock ;`
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151314702.png" alt="image-20210610145846954" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151314702.png" alt="image-20210610145846954" />
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151314703.png" alt="image-20210610145904541" style="zoom: 50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151314703.png" alt="image-20210610145904541"/>
 
 由于执行更新时 ，name字段本来为varchar类型，我们是作为数组类型使用，存在类型转换，索引失效，最终行锁变为表锁 ；
 

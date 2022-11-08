@@ -6,13 +6,13 @@
 
 手写：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320375.png" alt="image-20210609153958323" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320375.png" alt="image-20210609153958323" />
 
 
 
 机读：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320377.png" alt="image-20210609154015097" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320377.png" alt="image-20210609154015097" />
 
 **执行顺序总结：**
 
@@ -67,7 +67,7 @@
 SELECT <select_list> From A a LEFT join B b ON a.key=b.key;
 ```
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320378.png" alt="image-20210609155013353" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320378.png" alt="image-20210609155013353" />
 
 **右连接：**
 
@@ -75,7 +75,7 @@ SELECT <select_list> From A a LEFT join B b ON a.key=b.key;
 SELECT <select_list> From A a RIGHT join B b ON a.key=b.key;
 ```
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320379.png" alt="image-20210609155108408" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320379.png" alt="image-20210609155108408" />
 
 **交集：**
 
@@ -83,7 +83,7 @@ SELECT <select_list> From A a RIGHT join B b ON a.key=b.key;
 SELECT <select_list> From A a INNER join B b ON a.key=b.key;
 ```
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320380.png" alt="image-20210609155131914" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320380.png" alt="image-20210609155131914"/>
 
 **只取A独有部分：**
 
@@ -91,7 +91,7 @@ SELECT <select_list> From A a INNER join B b ON a.key=b.key;
 SELECT <select_list> From A a LEFT join B b ON a.key=b.key where b.key is null ;
 ```
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320381.png" alt="image-20210609155219344" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320381.png" alt="image-20210609155219344" />
 
 **只取B独有部分：**
 
@@ -99,7 +99,7 @@ SELECT <select_list> From A a LEFT join B b ON a.key=b.key where b.key is null ;
 SELECT <select_list> From A a LEFT join B b ON a.key=b.key where a.key is null ;
 ```
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320382.png" alt="image-20210609155256858" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320382.png" alt="image-20210609155256858" />
 
 **A、B并集：**
 
@@ -107,7 +107,7 @@ SELECT <select_list> From A a LEFT join B b ON a.key=b.key where a.key is null ;
 SELECT <select_list> From A a FULL OUTER B b ON a.key=b.key ;
 ```
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320383.png" alt="image-20210609155319058" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320383.png" alt="image-20210609155319058" />
 
 **刨除交集：**
 
@@ -115,7 +115,7 @@ SELECT <select_list> From A a FULL OUTER B b ON a.key=b.key ;
 SELECT <select_list> From A a FULL OUTER B b ON a.key=b.key where a.key is null or b.key is null;
 ```
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320384.png" alt="image-20210609155336894" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320384.png" alt="image-20210609155336894" />
 
 
 
@@ -330,13 +330,13 @@ INNODB存储引擎数据存储在数据页上（数据页大小16kb），读取�
 
 - **插入数据**时按主键大小进行顺序存储，即使第一页数据插满了，后续的数据还是会按顺序插入的，如下图所示。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320386.png" alt="image-20210609163215519" style="zoom:50%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320386.png" alt="image-20210609163215519" />
 
 - **单页读取数据**时按页目录进行直接读取，避免按主键顺序逐条读取！
 
 - **多页读取数据**时会利用目录页结构快速定位页的位置。这种结构和B+Tree树非常相似。如下图所示！
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320387.png" alt="image-20210609163450235" style="zoom: 67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320387.png" alt="image-20210609163450235" />
 
   
 
@@ -392,31 +392,31 @@ BTree又叫**多路平衡搜索树**，一颗m叉的BTree特性如下：
 
 2. 插入H，n>4，中间元素G字母向上分裂到新的节点
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320389.png" alt="image-20210609165437681" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320389.png" alt="image-20210609165437681" />
 
 3. 插入E，K，Q不需要分裂
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320390.png" alt="image-20210609165519741" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320390.png" alt="image-20210609165519741" />
 
 4. 插入M，中间元素M字母向上分裂到父节点G
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320391.png" alt="image-20210609165548249" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320391.png" alt="image-20210609165548249" />
 
 5. 插入F，W，L，T不需要分裂
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320392.png" alt="image-20210609165622611" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320392.png" alt="image-20210609165622611"/>
 
 6. 插入Z，中间元素T向上分裂到父节点中
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320393.png" alt="image-20210609165650733" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320393.png" alt="image-20210609165650733"/>
 
 7. 插入D，中间元素D向上分裂到父节点中。然后插入P，R，X，Y不需要分裂
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320394.png" alt="image-20210609165713953" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320394.png" alt="image-20210609165713953" />
 
 8. 最后插入S，NPQR节点n>5，中间节点Q向上分裂，但分裂后父节点DGMT的n>5，中间节点M向上分裂
 
-   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320395.png" alt="image-20210609165729096" style="zoom:67%;" />
+   <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320395.png" alt="image-20210609165729096" />
 
 到此，该BTREE树就已经构建完成了， BTREE树和二叉树相比，查询数据的效率更高，因为对于相同的数据量来说，BTREE的层级结构比二叉树小，因此搜索速度快！
 
@@ -430,7 +430,7 @@ B+Tree为BTree的变种，B+Tree与BTree的区别为：
 2. B+Tree除了非叶子节点都可以看做是key的索引部分
 3. B+Tree的叶子节点保存所有key的信息，按key的大小顺序排列
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320396.png" alt="image-20210609170006956" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320396.png" alt="image-20210609170006956" />
 
 由于**B+Tree只有叶子节点保存key信息**，查询任何key都要从root走到叶子。所以B+Tree的查询效率更加稳定！
 
@@ -440,7 +440,7 @@ B+Tree为BTree的变种，B+Tree与BTree的区别为：
 
 MySql索引数据结构对经典的B+Tree进行了优化。在原B+Tree的基础上，**增加一个指向相邻叶子节点的链表指针**，就形成了带有顺序指针的B+Tree，提高区间访问的性能。如下图所示。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320397.png" alt="image-20210609170151858" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320397.png" alt="image-20210609170151858" />
 
 
 
@@ -506,7 +506,7 @@ MySql索引数据结构对经典的B+Tree进行了优化。在原B+Tree的基础
 
 **（一）id相同，执行顺序由上至下**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320399.png" alt="image-20210609172631617" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320399.png" alt="image-20210609172631617" />
 
 以上SQL执行顺序为 t1、t2、t3。
 
@@ -514,7 +514,7 @@ MySql索引数据结构对经典的B+Tree进行了优化。在原B+Tree的基础
 
 **（二）如果是子查询，id的序号会递增，id值越大优先级越高，越先被执行**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320400.png" alt="image-20210609172744238" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320400.png" alt="image-20210609172744238" />
 
 以上SQL执行顺序为： t3、t1、t2。
 
@@ -522,7 +522,7 @@ MySql索引数据结构对经典的B+Tree进行了优化。在原B+Tree的基础
 
 **（三）id如果相同，可以认为是一组，从上往下顺序执行；在所有组中，id值越大，优先级越高，越先执行**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320401.png" alt="image-20210609172831901" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320401.png" alt="image-20210609172831901" />
 
 以上SQL执行顺序为： t3、<derive2>、t2
 
@@ -640,7 +640,7 @@ system > const>eq_ref > ref > range> index > ALL
 
 例：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320402.png" alt="image-20210609180330248" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320402.png" alt="image-20210609180330248" />
 
 
 
@@ -722,7 +722,7 @@ INSERT INTO `article`(`author_id`, `category_id`, `views`, `comments`, `title`, 
 EXPLAIN SELECT id,author_id FROM article WHERE category_id = 1 AND comments > 1 ORDER BY views DESC LIMIT 1;
 ```
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320403.png" alt="image-20210609224006323" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320403.png" alt="image-20210609224006323" />
 
 结论：很显然，type 是 ALL，即最坏的情况。Extra 里还出现了 Using filesort，也是最坏的情况。优化是必须的。
 
@@ -746,7 +746,7 @@ EXPLAIN SELECT id,author_id FROM article WHERE category_id = 1 AND comments > 1 
   EXPLAIN SELECT id,author_id FROM `article` WHERE category_id = 1 AND comments >1 ORDER BY views DESC LIMIT 1;
   ```
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320404.png" alt="image-20210609224155818" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320404.png" alt="image-20210609224155818" />
 
   结论：
 
@@ -778,7 +778,7 @@ EXPLAIN SELECT id,author_id FROM article WHERE category_id = 1 AND comments > 1 
     EXPLAIN SELECT id,author_id FROM article WHERE category_id = 1 AND comments > 1 ORDER BY views DESC LIMIT 1;
     ```
 
-    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320405.png" alt="image-20210609224616405" style="zoom: 80%;" />
+    <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320405.png" alt="image-20210609224616405" />
 
     
 
@@ -1628,8 +1628,3 @@ SQL提示，是优化数据库的一个重要手段，简单来说，就是**在
   ```
 
   ![image-20210610112443357](https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151320444.png)
-
-
-
-
-

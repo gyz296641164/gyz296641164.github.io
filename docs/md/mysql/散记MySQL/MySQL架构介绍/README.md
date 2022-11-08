@@ -97,7 +97,7 @@
 
 <a name="MySQL架构图">MySQL架构图</a>
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151311134.png" alt="image-20210609151605375" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/SpringCloud/202207151311134.png" alt="image-20210609151605375" />
 
 
 

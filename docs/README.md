@@ -1,8 +1,9 @@
 # 简介
 
-✊不积跬步，无以至千里；不积小流，无以成江海！
+> [!NOTE]
+> 声明：本仓库仅供学习使用，毫无其他意图！
 
-声明：本仓库仅供学习使用，毫无其他意图！
+✊不积跬步，无以至千里；不积小流，无以成江海！
 
 ---
 
@@ -100,7 +101,13 @@
 <!-- tabs:start -->
 ### **介绍**
 
-- 《Spring源码解析》文章来源主要参考：[芋道源码](https://www.iocoder.cn/)，持续更新中！
+说明：
+
+-  《Spring源码解析》文章来源主要参考：[芋道源码](https://www.iocoder.cn/)，持续更新中！
+-  《手把手带你吃透Spring框架核心源码》：[儒猿课堂](https://apppukyptrl1086.pc.xiaoe-tech.com/page/401572?navIndex=0)
+
+源码书籍：
+
 - 《Spring源码深度解析（第 2 版）》
     - 链接: https://pan.baidu.com/s/1rxB3p5iR3JZFlwf92py9-w
     - 提取码: 81b1
@@ -115,6 +122,10 @@
 - [06-IoC 之获取 Document 对象.md](/md/Spring/Spring源码剖析/06-IoC之获取Document对象.md)
 - [07-IoC 之注册 BeanDefinitions.md](/md/Spring/Spring源码剖析/07-IoC之注册BeanDefinitions.md)
 - [08-IoC 之解析Bean：解析import标签.md](/md/Spring/Spring源码剖析/08-IoC之解析Bean：解析import标签.md)
+- [09-IoC之解析bean标签：开启解析进程.md](/md/Spring/Spring源码剖析/09-IoC之解析bean标签：开启解析进程.md)
+- [10-IoC之解析标签：BeanDefinition.md](/md/Spring/Spring源码剖析/10-IoC之解析标签：BeanDefinition.md)
+- [11-IoC之解析bean标签：meta、lookup-method、replace-method.md](/md/Spring/Spring源码剖析/11-IoC之解析bean标签：meta、lookup-method、replace-method.md)
+- [12-IoC 之解析bean标签：constructor-arg、property、qualifier.md](/md/Spring/Spring源码剖析/12-IoC之解析bean标签：constructor-arg、property、qualifier.md)
 
 <!-- tabs:end -->
 ---
@@ -177,6 +188,7 @@
 - [复制](/md/Redis/复制/README.md)
 - [哨兵](/md/Redis/哨兵/README.md)
 - [缓存设计](/md/Redis/缓存设计/README.md)
+- [Redis分布式锁](/md/Redis/Redis分布式锁/README.md)
 - [JAVA操作Redis](/md/Redis/JAVA操作Redis/README.md)
 - [Redis常见面试题](/md/Redis/Redis常见面试题/README.md)
 
@@ -208,6 +220,19 @@
 
 <!-- tabs:end -->
 ---
+
+## 面试专区 :id=c09
+
+<!-- tabs:start -->
+### **Redis面试连环炮（上）**
+
+- [Redis面试连环炮（上）](/md/面试专区/中华石衫面试突击第一季/Redis面试连环炮（上）/README.md)
+
+### **Redis面试连环炮（下）**
+
+- [Redis面试连环炮（下）](/md/面试专区/中华石衫面试突击第一季/Redis面试连环炮（下）/README.md)
+
+<!-- tabs:end -->
 
 <!-- 最近更新时间 -->
 <last-update-time>{docsify-updated}</last-update-time>

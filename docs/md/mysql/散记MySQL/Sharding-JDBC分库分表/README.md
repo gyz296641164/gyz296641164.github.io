@@ -20,7 +20,7 @@
   - 解决方案 1：通过提升服务器**硬件**能力来提高数据处理能力，比如增加存储容量 、CPU等，这种方案成本很高，并且如果瓶颈在 MySQL本身那么提高硬件也是有限的。
   - 解决方案 2：分库分表！
 
-  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151315015.png" alt="image-20210707223114735" style="zoom:67%;" />
+  <img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151315015.png" alt="image-20210707223114735" />
 
 
 
@@ -41,13 +41,13 @@
 
 操作数据库中某张表，把这张表中一部分字段数据存到一张新表里面，再把这张表另一 部分字段数据存到另外一张表里面。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151315214.png" alt="image-20210707223400062" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151315214.png" alt="image-20210707223400062" />
 
 > **垂直分库** 
 
 把单一数据库按照业务进行划分，专库专表。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151315791.png" alt="image-20210707223504558" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151315791.png" alt="image-20210707223504558" />
 
 
 
@@ -55,7 +55,7 @@
 
 经过垂直分库后，数据库性能问题得到一定程度的解决，但是随着业务量的增长，单库存储数据已经超出预估。并且访问非常频繁，此时该如何优化？从业务角度分析，目前情况已经无法再次垂直分库。尝试水平分库。
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151315439.png" alt="image-20210707223604973" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151315439.png" alt="image-20210707223604973" />
 
 
 
@@ -63,7 +63,7 @@
 
 其目的也是为解决单表数据量大 的问题，如下图：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151315526.png" alt="image-20210707223933776" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151315526.png" alt="image-20210707223933776" />
 
 
 
@@ -91,7 +91,7 @@
 
 - 主要目的是：简化对分库分表之后数据相关操作
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151316085.jpg" alt="img" style="zoom:47%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151316085.jpg" alt="img" />
 
 
 
@@ -214,7 +214,7 @@ public interface CourseMapper extends BaseMapper<Course> {
 
 ### （三）配置 Sharding-JDBC 分片策略
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151316374.png" alt="image-20210710172822493" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151316374.png" alt="image-20210710172822493" />
 
 **application.properties 内容：**
 
@@ -284,7 +284,7 @@ class ShardingjdbcdemoApplicationTests {
 
 发现报错，提示信息：
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151316270.png" alt="image-20210710172928306" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151316270.png" alt="image-20210710172928306" />
 
 主要是因为一个实体类对应两个表不知插数据到那。配置红圈信息到`application.properties`。
 
@@ -420,7 +420,7 @@ spring.main.allow-bean-definition-overriding=true
 
 **运行结果：**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151316654.png" alt="image-20210710183005280" style="zoom:57%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151316654.png" alt="image-20210710183005280" />
 
 
 
@@ -719,7 +719,7 @@ spring.main.allow-bean-definition-overriding=true
 
 **原理**
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151316901.png" alt="image-20210711112019649" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151316901.png" alt="image-20210711112019649" />
 
 - 主库将变更写入 binlog 日志，然后从库连接到主库之后，从库有一个 IO 线程，将**主库**的 **binlog 日志**拷贝到自己本地，写入一个 relay 中继日志(relay log)中。接着从库中有一个 SQL 线程会从中继日志读取 binlog，然后执行 **binlog** 日志中的内容，也就是在自己本地再次执行一遍 SQL 语句，从而使从服务器和主服务器的数据保持一致。
 - **从库会生成两个线程,一个 I/O 线程,一个 SQL 线程; I/O 线程会去请求主库的 binlog,并将得到的 binlog 写到本地的 relay-log(中继日志)文件中;** **主库会生成一个 log dump 线程, 用来给从库 I/O 线程传 binlog;** **SQL 线程,会读取 relay log 文件中的日志,并解析成 sql 语句逐一执行**。
@@ -741,10 +741,12 @@ spring.main.allow-bean-definition-overriding=true
 MySQL 可以通过命令 `show slave status` 获知当前是否主从同步正常工作。其中一个重要指标就是 **Seconds_Behind_Master**，根据输出的 Seconds_Behind_Master 参数的值来判断：
 
 - NULL，表示 io_thread 或是 sql_thread 有任何一个发生故障。
+
 - 0，表示主从复制良好。
+
 - 正值，表示主从已经出现延时，数字越大表示从库延迟越严重。
 
-
+  
 
 ### （四）导致主从同步延迟情况
 
@@ -1000,9 +1002,9 @@ public void findUser() {
 
 [https://archive.apache.org/di...](https://archive.apache.org/dist/shardingsphere/)
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151318548.png" alt="image-20210711122208160" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151318548.png" alt="image-20210711122208160" />
 
-<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151318996.png" alt="image-20210711122252410" style="zoom:67%;" />
+<img src="https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151318996.png" alt="image-20210711122252410" />
 
 
 
@@ -1247,7 +1249,3 @@ insert into t_order(`order_id`,`user_id`,`status`)values(11,1,'Jack');
 ![image-20220715131941494](https://studyimages.oss-cn-beijing.aliyuncs.com/img/mysql/other/202207151319557.png)
 
 此时主库和从库都已经存在数据了。
-
-
-
-
