@@ -1,4 +1,4 @@
-<h1 align="center">04-Spring初级容器初始化：忽略指定接口自动装配功能</h1>
+<h1 align="center">04_Spring初级容器初始化：忽略指定接口自动装配功能</h1>
 
 
 

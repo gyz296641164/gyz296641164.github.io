@@ -16,13 +16,14 @@
 
 - 内容来源参考：[Java工程师成神之路](https://hollischuang.gitee.io/tobetopjavaer/#/)
 
-- 本人整理的思维导图正在完善中，即将完成。
-  - <img src="/images/javase/img1.png" alt="img"/>
+- 思维导图获取。
+  - 链接: https://pan.baidu.com/s/1Cb7KhLEzM8fe4e6dePs44g?pwd=irdf 
+  - 提取码: irdf 
   - <img src="/images/javase/img2.png" alt="img"/>
 
 - Mindjet MindManager2016破解版下载  
-  - https://pan.baidu.com/s/12zKOwzemBtfZOiiNWDWagQ?pwd=euoy
-  - euoy
+  - 链接: https://pan.baidu.com/s/12zKOwzemBtfZOiiNWDWagQ?pwd=euoy
+  - 提取码: euoy
   
 
 ### **JAVA8**
@@ -103,8 +104,8 @@
 
 说明：
 
--  《Spring源码解析》文章来源主要参考：[芋道源码](https://www.iocoder.cn/)，持续更新中！
--  《手把手带你吃透Spring框架核心源码》：[儒猿课堂](https://apppukyptrl1086.pc.xiaoe-tech.com/page/401572?navIndex=0)
+-  《Spring源码解析》文章来源参考：[芋道源码](https://www.iocoder.cn/)！
+-  《手把手带你吃透Spring框架核心源码》：[儒猿技术窝](https://apppukyptrl1086.pc.xiaoe-tech.com/page/401572?navIndex=0)
 
 源码书籍：
 
@@ -115,6 +116,10 @@
 ### **Spring源码解析**
 
 - [点我传送](/md/Spring/Spring源码剖析transfer.md)
+
+### **手把手带你吃透Spring框架核心源码**
+
+- [点我传送](/md/Spring/手把手带你吃透Spring框架核心源码transfer.md.md)
 
 <!-- tabs:end -->
 ---
